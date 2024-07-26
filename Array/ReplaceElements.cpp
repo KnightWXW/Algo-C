@@ -27,47 +27,17 @@ using namespace std;
 //          1 <= arr.length <= 104
 //          1 <= arr[i] <= 105
 
-int generateRandomNum(int low, int high);
-vector<int> generateRandomVec(int low, int high, int len);
-void printVec(vector<int> &vec);
-
-int *ReplaceElements(int *arr, int arrSize, int *returnSize);
+extern int *ReplaceElements(int *arr, int arrSize, int *returnSize);
 
 int main()
 {
-    int n = generateRandomNum(1, 100);
-    vector<int> vec = generateRandomVec(1, 100, n);
-    printVec(vec);
-    vector<int> ans = ReplaceElements(vec);
+    int n = GenerateRandomNum(1, 100);
+    int* vec = GenerateRandomVec(1, 100, n);
+    int returnSize = n;
+    PrintVecElement(vec, n);
+    int* ans = ReplaceElements(vec, n, &returnSize);
     printf("每个元素用它右边最大的元素替换后，数组为:\n");
-    printVec(ans);
-}
-
-int generateRandomNum(int low, int high)
-{
-    srand((int)time(0));
-    return (rand() % (high - low + 1)) + low;
-}
-
-vector<int> generateRandomVec(int low, int high, int len)
-{
-    vector<int> vec;
-    srand(time(0));
-    for (int i = 0; i < len; i++)
-    {
-        int v = (rand() % (high - low + 1)) + low;
-        vec.push_back(v);
-    }
-    return vec;
-}
-
-void printVec(vector<int> &vec)
-{
-    for (int i = 0; i < vec.size(); i++)
-    {
-        printf("%d ", vec[i]);
-    }
-    printf("\n");
+    PrintVecElement(vec, returnSize);
 }
 
 int *ReplaceElements(int *arr, int arrSize, int *returnSize)

@@ -8,19 +8,25 @@ int GenerateRandomNum(int low, int high)
     return (rand() % (high - low + 1)) + low;
 }
 
-[]int generateRandomVec(int low, int high, int len)
+int *GenerateRandomVec(int low, int high, int len)
 {
-    vector<int> vec;
+    int *vec = malloc(sizeof(int) * len);
     srand(time(0));
     for (int i = 0; i < len; i++)
     {
         int v = (rand() % (high - low + 1)) + low;
-        vec.push_back(v);
+        vec[i] = v;
     }
     return vec;
 }
 
-void PrintVecElement(int* vec, int size)
+void FreeRandomVec(int *vec)
+{
+    free(vec);
+    return;
+}
+
+void PrintVecElement(int *vec, int size)
 {
     for (int i = 0; i < size; i++)
     {
