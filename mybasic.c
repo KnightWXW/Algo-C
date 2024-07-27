@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 int GenerateRandomNum(int low, int high)
 {
@@ -10,7 +11,7 @@ int GenerateRandomNum(int low, int high)
 
 int *GenerateRandomVec(int low, int high, int len)
 {
-    int *vec = malloc(sizeof(int) * len);
+    int *vec = (int *)malloc(sizeof(int) * len);
     srand(time(0));
     for (int i = 0; i < len; i++)
     {
@@ -20,7 +21,7 @@ int *GenerateRandomVec(int low, int high, int len)
     return vec;
 }
 
-void FreeRandomVec(int *vec)
+void FreeVec(int *vec)
 {
     free(vec);
     return;
@@ -30,7 +31,7 @@ void PrintVecElement(int *vec, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        printf("%d ", vec[i]);
+        printf("%d \t", vec[i]);
     }
     printf("\n");
 }

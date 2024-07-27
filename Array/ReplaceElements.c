@@ -1,6 +1,5 @@
-#include "basic.h"
-
-using namespace std;
+#include <string.h>
+#include "../mybasic.h"
 
 //      LeetCode 1299. 将每个元素替换为右侧最大元素
 
@@ -31,16 +30,31 @@ extern int *ReplaceElements(int *arr, int arrSize, int *returnSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 100);
-    int* vec = GenerateRandomVec(1, 100, n);
+    int n = GenerateRandomNum(1, 20);
+    int *vec = GenerateRandomVec(1, 100, n);
     int returnSize = n;
     PrintVecElement(vec, n);
-    int* ans = ReplaceElements(vec, n, &returnSize);
+    int *ans = ReplaceElements(vec, n, &returnSize);
     printf("每个元素用它右边最大的元素替换后，数组为:\n");
-    PrintVecElement(vec, returnSize);
+    PrintVecElement(ans, returnSize);
+    FreeVec(vec);
+    FreeVec(ans);
 }
 
 int *ReplaceElements(int *arr, int arrSize, int *returnSize)
 {
-    
+    *returnSize = arrSize;
+    int *ans = (int *)malloc(*returnSize * sizeof(int));
+    memset(ans, 0, sizeof(*ans));
+    ans[*returnSize - 1] = -1;
+    int maxVal = arr[arrSize - 1];
+    for (int i = *returnSize - 2; i >= 0; i--)
+    {
+        if (maxVal < arr[i + 1])
+        {
+            maxVal = arr[i + 1];
+        }
+        ans[i] = maxVal;
+    }
+    return ans;
 }
