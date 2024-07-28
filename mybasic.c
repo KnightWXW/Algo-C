@@ -35,3 +35,39 @@ void PrintVecElement(int *vec, int size)
     }
     printf("\n");
 }
+
+char *GenerateRandomString(int n, char *arr)
+{
+    char *str = (char *)malloc((n + 1) * sizeof(char));
+    memset(str, '\0', n + 1);
+    for (int i = 0; i < n; i++)
+    {
+        int index = rand() % (sizeof(arr) - 1);
+        str[i] = arr[index];
+    }
+    return str;
+}
+
+// char** GenerateRandomStringVec(int n, int low, int high, char* arr)
+// {
+//     char** ans = malloc(n * sizeof(char));
+//     srand((int)time(0));
+//     for (int i = 0; i < n; i++)
+//     {
+//         int l = (rand() % (high - low + 1)) + low;
+//         char* tem = malloc(l * sizeof(char));
+//         GenerateRandomString(l, arr);
+//         vec.push_back(tem);
+//     }
+//     return vec;
+// }
+
+void FreeString(char *str)
+{
+    free(str);
+}
+
+void PrintString(char *str)
+{
+    printf("%s \n", str);
+}

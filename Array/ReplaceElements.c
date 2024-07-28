@@ -1,4 +1,3 @@
-#include <string.h>
 #include "../mybasic.h"
 
 //      LeetCode 1299. 将每个元素替换为右侧最大元素

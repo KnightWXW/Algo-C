@@ -16,11 +16,11 @@
 //      请你实现 ATM 类：
 //          ATM(): 初始化 ATM 对象。
 //          void deposit(int[] banknotesCount) :
-//          分别存入 $20 ，$50，$100，$200 和 $500 钞票的数目。
+//              分别存入 $20 ，$50，$100，$200 和 $500 钞票的数目。
 //          int[] withdraw(int amount) :
-//          返回一个长度为 5 的数组，分别表示 $20 ，$50，$100 ，$200 和 $500 钞票的数目，
-//          并且更新 ATM 机里取款后钞票的剩余数量。如果无法取出指定数额的钱，
-//          请返回 [-1] （这种情况下 不 取出任何钞票）。
+//              返回一个长度为 5 的数组，分别表示 $20 ，$50，$100 ，$200 和 $500 钞票的数目，
+//              并且更新 ATM 机里取款后钞票的剩余数量。如果无法取出指定数额的钱，
+//              请返回 [-1] （这种情况下 不 取出任何钞票）。
 //      示例 1：
 //          输入：
 //          ["ATM", "deposit", "withdraw", "deposit", "withdraw", "withdraw"]
@@ -50,25 +50,71 @@
 
 #define ATM_PRICES_LEN 5
 
+int money[ATM_PRICES_LEN] = {20, 50, 100, 200, 500};
+
 typedef struct
 {
-
+    unsigned long long *storage;
 } ATM;
 
-ATM *ATMCreate()
+ATM *aTMCreate()
 {
+    ATM *obj = (ATM *)malloc(sizeof(ATM));
+    obj->storage = malloc(ATM_PRICES_LEN * sizeof(unsigned long long));
+    memset(obj->storage, 0, ATM_PRICES_LEN);
+    return obj;
 }
 
-void ATMDeposit(ATM *obj, int *banknotesCount, int banknotesCountSize)
+void aTMDeposit(ATM *obj, int *banknotesCount, int banknotesCountSize)
 {
+    for (int i = 0; i < ATM_PRICES_LEN; i++)
+    {
+        obj->storage[i] += banknotesCount[i];
+    }
+    return;
 }
 
-int *ATMWithdraw(ATM *obj, int amount, int *retSize)
+int *aTMWithdraw(ATM *obj, int amount, int *retSize)
 {
+    int *ans = (int *)malloc(ATM_PRICES_LEN * sizeof(int));
+    int *err = (int *)malloc(sizeof(int));
+    memset(ans, 0, sizeof(int));
+    for (int i = ATM_PRICES_LEN - 1; i >= 0; i--)
+    {
+        if (obj->storage[i] <= amount / money[i])
+        {
+            ans[i] = obj->storage[i];
+        }
+        else
+        {
+            ans[i] = amount / money[i];
+        }
+        amount -= ans[i] * money[i];
+        printf("@@@@@@@  %d\n", amount);
+    }
+    if (amount != 0)
+    {
+        printf("------  %d\n", amount);
+        err[0] = -1;
+        *retSize = 1;
+        return err;
+    }
+    else
+    {
+        printf("159369  %d\n", amount);
+        for (int i = 0; i < ATM_PRICES_LEN; i++)
+        {
+            obj->storage[i] -= ans[i];
+        }
+        *retSize = ATM_PRICES_LEN;
+        return ans;
+    }
 }
 
-void ATMFree(ATM *obj)
+void aTMFree(ATM *obj)
 {
+    free(obj);
+    return;
 }
 
 int main()
@@ -80,9 +126,10 @@ int main()
     aTMDeposit(obj, banknotesCount1, banknotesCountSize1);
 
     int amount1 = 600;
-    int *retSize1 = 0;
-    int *a1 = aTMWithdraw(obj, amount1, retSize1);
-    PrintVec(a1);
+    int retSize1 = 0;
+    int *a1 = aTMWithdraw(obj, amount1, &retSize1);
+    printf("更新 ATM 机里取款后钞票的剩余数量为:\n");
+    PrintVecElement(a1, retSize1);
     FreeVec(a1);
 
     int banknotesCountSize2 = 5;
@@ -90,16 +137,18 @@ int main()
     aTMDeposit(obj, banknotesCount2, banknotesCountSize2);
 
     int amount2 = 600;
-    int *retSize2 = 0;
-    int *a2 = aTMWithdraw(obj, amount2, retSize2);
-    PrintVec(a2);
+    int retSize2 = 0;
+    int *a2 = aTMWithdraw(obj, amount2, &retSize2);
+    printf("更新 ATM 机里取款后钞票的剩余数量为:\n");
+    PrintVecElement(a2, retSize2);
     FreeVec(a2);
 
     int amount3 = 550;
-    int *retSize3 = 0;
-    int *a3 = aTMWithdraw(obj, amount3, retSize3);
-    PrintVec(a3);
+    int retSize3 = 0;
+    int *a3 = aTMWithdraw(obj, amount3, &retSize3);
+    printf("更新 ATM 机里取款后钞票的剩余数量为:\n");
+    PrintVecElement(a3, retSize3);
     FreeVec(a3);
-    
+
     aTMFree(obj);
 }
