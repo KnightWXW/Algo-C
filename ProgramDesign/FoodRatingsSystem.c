@@ -64,11 +64,6 @@ using namespace std;
 //          在对 highestRated 的所有调用中，cuisine 是系统中 至少一种 食物的烹饪方式。
 //          最多调用 changeRating 和 highestRated 总计 2 * 104 次
 
-void printString(string s)
-{
-    printf("%s\n", s.c_str());
-}
-
 class FoodRatings_A
 {
 public:

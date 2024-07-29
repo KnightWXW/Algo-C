@@ -61,13 +61,13 @@ ATM *aTMCreate()
 {
     ATM *obj = (ATM *)malloc(sizeof(ATM));
     obj->storage = malloc(ATM_PRICES_LEN * sizeof(unsigned long long));
-    memset(obj->storage, 0, ATM_PRICES_LEN);
+    memset(obj->storage, 0, ATM_PRICES_LEN * sizeof(unsigned long long));
     return obj;
 }
 
 void aTMDeposit(ATM *obj, int *banknotesCount, int banknotesCountSize)
 {
-    for (int i = 0; i < ATM_PRICES_LEN; i++)
+    for (int i = 0; i < banknotesCountSize; i++)
     {
         obj->storage[i] += banknotesCount[i];
     }
@@ -78,7 +78,7 @@ int *aTMWithdraw(ATM *obj, int amount, int *retSize)
 {
     int *ans = (int *)malloc(ATM_PRICES_LEN * sizeof(int));
     int *err = (int *)malloc(sizeof(int));
-    memset(ans, 0, sizeof(int));
+    memset(ans, 0, ATM_PRICES_LEN * sizeof(int));
     for (int i = ATM_PRICES_LEN - 1; i >= 0; i--)
     {
         if (obj->storage[i] <= amount / money[i])
@@ -90,18 +90,15 @@ int *aTMWithdraw(ATM *obj, int amount, int *retSize)
             ans[i] = amount / money[i];
         }
         amount -= ans[i] * money[i];
-        printf("@@@@@@@  %d\n", amount);
     }
     if (amount != 0)
     {
-        printf("------  %d\n", amount);
         err[0] = -1;
         *retSize = 1;
         return err;
     }
     else
     {
-        printf("159369  %d\n", amount);
         for (int i = 0; i < ATM_PRICES_LEN; i++)
         {
             obj->storage[i] -= ans[i];
@@ -113,6 +110,7 @@ int *aTMWithdraw(ATM *obj, int amount, int *retSize)
 
 void aTMFree(ATM *obj)
 {
+    free(obj->storage);
     free(obj);
     return;
 }

@@ -3,12 +3,14 @@
 #include <time.h>
 #include <string.h>
 
+// 随机数:
 int GenerateRandomNum(int low, int high)
 {
     srand((unsigned)time(NULL));
     return (rand() % (high - low + 1)) + low;
 }
 
+// 随机数组：
 int *GenerateRandomVec(int low, int high, int len)
 {
     int *vec = (int *)malloc(sizeof(int) * len);
@@ -36,6 +38,45 @@ void PrintVecElement(int *vec, int size)
     printf("\n");
 }
 
+// 随机二维数组:
+int **GenerateRandomVec2D(int low, int high, int row, int col)
+{
+    int **vec = (int **)malloc(sizeof(int *) * row);
+    srand(time(0));
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            int v = (rand() % (high - low + 1)) + low;
+            vec[i][j] = v;
+        }
+    }
+    return vec;
+}
+
+void FreeVec2D(int **vec, int row)
+{
+    for (int i = 0; i < row; i++)
+    {
+        free(vec[i]);
+    }
+    return;
+}
+
+void PrintVecElement2D(int **vec, int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            printf("%d\t", vec[i][j]);
+        }
+        printf("\n");
+    }
+    return;
+}
+
+// 随机字符串:
 char *GenerateRandomString(int n, char *arr)
 {
     char *str = (char *)malloc((n + 1) * sizeof(char));
@@ -48,20 +89,6 @@ char *GenerateRandomString(int n, char *arr)
     return str;
 }
 
-// char** GenerateRandomStringVec(int n, int low, int high, char* arr)
-// {
-//     char** ans = malloc(n * sizeof(char));
-//     srand((int)time(0));
-//     for (int i = 0; i < n; i++)
-//     {
-//         int l = (rand() % (high - low + 1)) + low;
-//         char* tem = malloc(l * sizeof(char));
-//         GenerateRandomString(l, arr);
-//         vec.push_back(tem);
-//     }
-//     return vec;
-// }
-
 void FreeString(char *str)
 {
     free(str);
@@ -70,4 +97,35 @@ void FreeString(char *str)
 void PrintString(char *str)
 {
     printf("%s \n", str);
+}
+
+// 随机字符串数组:
+char **GenerateRandomStringVec(int l, int low, int high, char *arr)
+{
+    char **ans = (char **)malloc(l * sizeof(char *));
+    srand((int)time(0));
+    for (int i = 0; i < l; i++)
+    {
+        int n = (rand() % (high - low + 1)) + low;
+        ans[i] = GenerateRandomString(n, arr);
+    }
+    return ans;
+}
+
+void FreeStringVec(char **arr, int l)
+{
+    for (int i = 0; i < l; i++)
+    {
+        free(arr[i]);
+    }
+    return;
+}
+
+void PrintStringVec(char **arr, int l)
+{
+    for (int i = 0; i < l; i++)
+    {
+        printf("%s\n", arr[i]);
+    }
+    return;
 }
