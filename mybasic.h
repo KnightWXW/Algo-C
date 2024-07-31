@@ -21,11 +21,12 @@ void FreeVec2D(int **vec, int row);
 void PrintVecElement2D(int **vec, int row, int col);
 
 // 随机字符串:
-char *GenerateRandomString(int n, char *arr);
+char *GenerateRandomString(int n, char *arr, int arrLen);
 void FreeString(char *str);
 void PrintString(char *str);
 
 // 随机字符串数组:
-char **GenerateRandomStringVec(int l, int low, int high, char *arr);
+char **GenerateRandomStringVecFixed(int row, int col, char *arr, int arrLen);
+char **GenerateRandomStringVecUnfixed(int l, int low, int high, char *arr, int arrLen);
 void FreeStringVec(char **arr, int l);
 void PrintStringVec(char **arr, int l);

@@ -77,13 +77,13 @@ void PrintVecElement2D(int **vec, int row, int col)
 }
 
 // 随机字符串:
-char *GenerateRandomString(int n, char *arr)
+char *GenerateRandomString(int n, char *arr, int arrLen)
 {
     char *str = (char *)malloc((n + 1) * sizeof(char));
     memset(str, '\0', n + 1);
     for (int i = 0; i < n; i++)
     {
-        int index = rand() % (sizeof(arr) - 1);
+        int index = rand() % (arrLen);
         str[i] = arr[index];
     }
     return str;
@@ -100,14 +100,34 @@ void PrintString(char *str)
 }
 
 // 随机字符串数组:
-char **GenerateRandomStringVec(int l, int low, int high, char *arr)
+//     随机定长字符串数组：
+char **GenerateRandomStringVecFixed(int row, int col, char *arr, int arrLen)
+{
+    char **ans = (char **)malloc(row * sizeof(char *));
+    srand((int)time(0));
+    for (int i = 0; i < row; i++)
+    {
+        char *tem = (char *)malloc((col + 1) * sizeof(char));
+        memset(tem, '\0', col + 1);
+        for (int j = 0; j < col; j++)
+        {
+            int index = rand() % (arrLen);
+            tem[j] = arr[index];
+        }
+        ans[i] = tem;
+    }
+    return ans;
+}
+
+//     随机不定长字符串数组：
+char **GenerateRandomStringVecUnfixed(int l, int low, int high, char *arr, int arrLen)
 {
     char **ans = (char **)malloc(l * sizeof(char *));
     srand((int)time(0));
     for (int i = 0; i < l; i++)
     {
         int n = (rand() % (high - low + 1)) + low;
-        ans[i] = GenerateRandomString(n, arr);
+        ans[i] = GenerateRandomString(n, arr, arrLen);
     }
     return ans;
 }

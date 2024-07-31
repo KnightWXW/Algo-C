@@ -1,55 +1,60 @@
 #include "../mybasic.h"
 
-//      Huawei: é›†äº”ç¦
+//      Huawei ¼¯Îå¸£
 
-//      ä½œä¸ºè¿‘å¹´æ¥å¤§å®¶å–œé—»ä¹è§è¿Žæ–°æ˜¥æ´»åŠ¨ï¼Œ
-//      é›†åˆçˆ±å›½ç¦ã€å¯Œå¼ºç¦ã€å’Œè°ç¦ã€å‹å–„ç¦ã€æ•¬ä¸šç¦å³å¯åˆ†äº«è¶…å¤§çº¢åŒ…ã€‚
-//      ä»¥ 0 å’Œ 1 ç»„æˆçš„é•¿åº¦ä¸º 5 çš„å­—ç¬¦ä¸²ä»£è¡¨æ¯ä¸ªäººæ‰€å¾—åˆ°çš„ç¦å¡ï¼Œ
-//      æ¯ä¸€ä½ä»£è¡¨ä¸€ç§ç¦å¡ï¼Œ1 è¡¨ç¤ºå·²ç»èŽ·å¾—è¯¥ç¦å¡ï¼Œå•ç±»åž‹ç¦å¡ä¸è¶…è¿‡ 1 å¼ ï¼Œ
-//      éšæœºæŠ½å–ä¸€ä¸ªå°äºŽ 10 äººå›¢é˜Ÿï¼Œæ±‚è¯¥å›¢é˜Ÿæœ€å¤šå¯ä»¥é›†é½å¤šå°‘å¥—äº”ç¦ï¼Ÿ
-//      è¾“å…¥æè¿°
-//          è¾“å…¥è‹¥å¹²ä¸ªç”±0ã€1ç»„æˆçš„é•¿åº¦ç­‰äºŽ5çš„å­—ç¬¦ä¸²ï¼Œä»£è¡¨å›¢é˜Ÿä¸­æ¯ä¸ªäººç¦å¡èŽ·å¾—æƒ…å†µã€‚
-//          æ³¨æ„1ï¼š1äººä¹Ÿå¯ä»¥æ˜¯ä¸€ä¸ªå›¢é˜Ÿ
-//          æ³¨æ„2ï¼š1äººå¯ä»¥æœ‰ 0 åˆ° 5 å¼ ç¦å¡ï¼Œä½†ç¦å¡ä¸èƒ½é‡å¤
-//      è¾“å‡ºæè¿°
-//          è¾“å‡ºè¯¥å›¢é˜Ÿæœ€å¤šèƒ½å‡‘é½å¤šå°‘å¥—äº”ç¦
-//      ç¤ºä¾‹ä¸€
-//          è¾“å…¥
+//      ×÷Îª½üÄêÀ´´ó¼ÒÏ²ÎÅÀÖ¼ûÓ­ÐÂ´º»î¶¯£¬
+//      ¼¯ºÏ°®¹ú¸£¡¢¸»Ç¿¸£¡¢ºÍÐ³¸£¡¢ÓÑÉÆ¸£¡¢¾´Òµ¸£¼´¿É·ÖÏí³¬´óºì°ü¡£
+//      ÒÔ 0 ºÍ 1 ×é³ÉµÄ³¤¶ÈÎª 5 µÄ×Ö·û´®´ú±íÃ¿¸öÈËËùµÃµ½µÄ¸£¿¨£¬
+//      Ã¿Ò»Î»´ú±íÒ»ÖÖ¸£¿¨£¬1 ±íÊ¾ÒÑ¾­»ñµÃ¸Ã¸£¿¨£¬µ¥ÀàÐÍ¸£¿¨²»³¬¹ý 1 ÕÅ£¬
+//      Ëæ»ú³éÈ¡Ò»¸öÐ¡ÓÚ 10 ÈËÍÅ¶Ó£¬Çó¸ÃÍÅ¶Ó×î¶à¿ÉÒÔ¼¯Æë¶àÉÙÌ×Îå¸££¿
+//      ÊäÈëÃèÊö
+//          ÊäÈëÈô¸É¸öÓÉ0¡¢1×é³ÉµÄ³¤¶ÈµÈÓÚ5µÄ×Ö·û´®£¬´ú±íÍÅ¶ÓÖÐÃ¿¸öÈË¸£¿¨»ñµÃÇé¿ö¡£
+//          ×¢Òâ1£º1ÈËÒ²¿ÉÒÔÊÇÒ»¸öÍÅ¶Ó
+//          ×¢Òâ2£º1ÈË¿ÉÒÔÓÐ0µ½5ÕÅ¸£¿¨£¬µ«¸£¿¨²»ÄÜÖØ¸´
+//      Êä³öÃèÊö
+//          Êä³ö¸ÃÍÅ¶Ó×î¶àÄÜ´ÕÆë¶àÉÙÌ×Îå¸£
+//      Ê¾ÀýÒ»
+//          ÊäÈë
 //              11001,11101
-//          è¾“å‡º
+//          Êä³ö
 //              0
-//      ç¤ºä¾‹äºŒ
-//          è¾“å…¥
+//      Ê¾Àý¶þ
+//          ÊäÈë
 //              11101,10111
-//          è¾“å‡º
+//          Êä³ö
 //              1
+
+#define NUM_FIVE 5
 
 int GatheringFiveBlessings(char **vec, int n);
 
 int main()
 {
     int n = GenerateRandomNum(1, 10);
-    char arr[] = {'0', '1'};
-    char **strs = GenerateRandomStringVec(n, 5, 5, arr);
+    char arr1[] = {'0', '1'};
+    char **strs = GenerateRandomStringVecFixed(n, 5, arr1, 2);
     PrintStringVec(strs, n);
     int ans_A = GatheringFiveBlessings(strs, n);
     FreeStringVec(strs, n);
-    printf("è¯¥å›¢é˜Ÿæœ€å¤šèƒ½å‡‘é½ %d å¥—äº”ç¦ã€‚\n", ans_A);
+    printf("¸ÃÍÅ¶Ó×î¶à¿ÉÒÔ¼¯Æë %d Ì×Îå¸£ ", ans_A);
 }
 
 int GatheringFiveBlessings(char **vec, int n)
 {
     int ans = n + 1;
-    int *cnt = (int *)malloc(5 * sizeof(int));
-    memset(cnt, 0, 5 * sizeof(int));
-    for (int j = 0; j < 5; j++)
+    int *cnt = (int *)malloc(NUM_FIVE * sizeof(int));
+    memset(cnt, 0, NUM_FIVE * sizeof(int));
+    for (int i = 0; i < n; i++)
     {
-        int sum = 0;
-        for (int i = 0; i < n; i++)
+        for (int j = 0; j < NUM_FIVE; j++)
         {
-            sum += vec[i][j] == '0' ? 0 : 1;
+            cnt[j] += (vec[i][j] == '0' ? 0 : 1);
         }
-        ans = min(ans, sum);
+    }
+    PrintVecElement(cnt, 5);
+    for (int i = 0; i < NUM_FIVE; i++)
+    {
+        ans = min(ans, cnt[i]);
     }
     return ans;
 }
