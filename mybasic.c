@@ -3,6 +3,8 @@
 #include <time.h>
 #include <string.h>
 
+
+
 // 随机数:
 int GenerateRandomNum(int low, int high)
 {
