@@ -34,7 +34,7 @@
 //              "-2" - 记录加 -2 ，记录现在是 [5, -2]
 //              "4" - 记录加 4 ，记录现在是 [5, -2, 4]
 //              "C" - 使前一次得分的记录无效并将其移除，记录现在是 [5, -2]
-//              "D" - 记录加 2 * -2 = -4 ，记录现在是 [5, -2, -4]
+//              "D" - 记录加 2 * -2 = -4, 记录现在是 [5, -2, -4]
 //              "9" - 记录加 9 ，记录现在是 [5, -2, -4, 9]
 //              "+" - 记录加 -4 + 9 = 5 ，记录现在是 [5, -2, -4, 9, 5]
 //              "+" - 记录加 9 + 5 = 14 ，记录现在是 [5, -2, -4, 9, 5, 14]
@@ -44,9 +44,24 @@
 //          输出：1
 //      提示：
 //          1 <= ops.length <= 1000
-//          ops[i] 为 "C"、"D"、"+"，或者一个表示整数的字符串。整数范围是 [-3 * 104, 3 * 104]
+//          ops[i] 为 "C"、"D"、"+"，或者一个表示整数的字符串。
+//          整数范围是 [-3 * 104, 3 * 104]
 //          对于 "+" 操作，题目数据保证记录此操作时前面总是存在两个有效的分数
 //          对于 "C" 和 "D" 操作，题目数据保证记录此操作时前面总是存在一个有效的分数
 
-int CalPoints(char** operations, int operationsSize);
+int CalPoints(char **operations, int operationsSize);
 
+int main()
+{
+    int n = GenerateRandomNum(1, 10);
+    char **operations = GenerateRandomVec(1, 20, n);
+    int ans = CalPoints(operations, n);
+    printf("operations 数组 元素为: ");
+    PrintVecElement(operations);
+    printf("初始资本为 %d 的 %d 个项目, 最终可获得的最多资本为 %d。\n", w, k, ans);
+}
+
+int CalPoints(char **operations, int operationsSize)
+{
+    
+}

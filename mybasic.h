@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 #include <string.h>
 
 // 最大值与最小值
@@ -9,6 +10,9 @@
 
 // 随机数:
 int GenerateRandomNum(int low, int high);
+
+// 布尔值：
+void PrintBool(bool b);
 
 // 随机数组：
 int *GenerateRandomVec(int low, int high, int len);

@@ -1,15 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 #include <string.h>
-
-
 
 // 随机数:
 int GenerateRandomNum(int low, int high)
 {
     srand((unsigned)time(NULL));
     return (rand() % (high - low + 1)) + low;
+}
+
+// 布尔值：
+void PrintBool(bool b)
+{
+    if (b == true)
+    {
+        printf("True\n");
+    }
+    else
+    {
+        printf("False\n");
+    }
 }
 
 // 随机数组：

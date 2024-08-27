@@ -9,6 +9,7 @@
         "tuple": "c",
         "utility": "c",
         "sstream": "c",
-        "string": "c"
+        "string": "c",
+        "stdbool.h": "c"
     }
 }
