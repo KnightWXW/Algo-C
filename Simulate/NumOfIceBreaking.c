@@ -31,6 +31,8 @@ int main()
 }
 
 // 模拟：
+// Time: O(N)
+// Space: O(1)
 int NumOfIceBreaking(char *route, int n, int limit)
 {
     

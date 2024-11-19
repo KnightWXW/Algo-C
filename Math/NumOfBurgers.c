@@ -37,19 +37,45 @@
 //          0 <= tomatoSlices <= 10^7
 //          0 <= cheeseSlices <= 10^7
 
-int* NumOfBurgers(int tomatoSlices, int cheeseSlices, int* returnSize);
+int *NumOfBurgers(int tomatoSlices, int cheeseSlices, int *returnSize);
 
 int main()
 {
-    int tomatoSlices = GenerateRandomNum(1, 1000);
-    int cheeseSlices = GenerateRandomNum(1, 999);
-    int* retnum = 0;
-    int* vec = NumOfBurgers(tomatoSlices, cheeseSlices, retnum);
+    int tomatoSlices = GenerateRandomNum(1, 100);
+    int cheeseSlices = GenerateRandomNum(1, 99);
+    int retnum = 0;
+    int *vec = NumOfBurgers(tomatoSlices, cheeseSlices, &retnum);
     printf("当番茄片为 %d, 奶酪片为 %d, 合适的制作计划为：\n", tomatoSlices, cheeseSlices);
-    PrintVecElement(vec, retnum);
+    if (retnum == 0)
+    {
+        printf("NULL\n");
+    }
+    else
+    {
+        PrintVecElement(vec, retnum);
+    }
 }
 
-int* NumOfBurgers(int tomatoSlices, int cheeseSlices, int* returnSize)
+// 数学：
+// Time：O(1)
+// Space：O(1)
+int *NumOfBurgers(int tomatoSlices, int cheeseSlices, int *returnSize)
 {
-    
+    int *ans = (int *)malloc(sizeof(int) * 2);
+    int a = tomatoSlices / 2 - cheeseSlices;
+    int b = 2 * cheeseSlices - tomatoSlices / 2;
+    int digT = 4 * a + 2 * b;
+    int digC = a + b;
+    if (digT >= 0 && digC >= 0 && digT == tomatoSlices && digC == cheeseSlices)
+    {
+        ans[0] = a;
+        ans[1] = b;
+        *returnSize = 2;
+        return ans;
+    }
+    else
+    {
+        *returnSize = 0;
+        return NULL;
+    }
 }
