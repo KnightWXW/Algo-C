@@ -57,7 +57,7 @@ int main()
     char **operations = GenerateRandomVec(1, 20, n);
     int ans = CalPoints(operations, n);
     printf("operations 数组 元素为: ");
-    PrintVecElement(operations);
+    PrintVecElement(operations, n);
     printf("初始资本为 %d 的 %d 个项目, 最终可获得的最多资本为 %d。\n", w, k, ans);
 }
 

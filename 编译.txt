@@ -1,0 +1,2 @@
+在gcc编译时指定源文件的字符编码，例如使用-finput-charset=UTF-8选项。
+在gcc编译时指定输出字符集，例如使用-fexec-charset=GBK选项。

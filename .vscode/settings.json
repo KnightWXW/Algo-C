@@ -10,6 +10,7 @@
         "utility": "c",
         "sstream": "c",
         "string": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "string.h": "c"
     }
 }

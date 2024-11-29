@@ -54,6 +54,7 @@ int main()
     {
         PrintVecElement(vec, retnum);
     }
+    FreeVec(vec);
 }
 
 // 数学：

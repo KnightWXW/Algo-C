@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <queue>
-#include <algorithm>
 
-using namespace std;
 
 //      LeetCode 502，IPO问题
 
