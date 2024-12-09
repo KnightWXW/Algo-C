@@ -31,6 +31,9 @@ int main()
     FreeString(str);
 }
 
+// 字符串遍历:
+// Space: O(N)
+// Time: O(1)
 int ConsecutiveCharacters(char *s)
 {
     int ans = 1;

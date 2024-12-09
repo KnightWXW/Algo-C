@@ -40,6 +40,9 @@ int main()
     PrintBool(ans_A);
 }
 
+// 字符串遍历:
+// Space: O(N)
+// Time: O(1)
 bool CheckRecord(char *s)
 {
     int absent = 0;

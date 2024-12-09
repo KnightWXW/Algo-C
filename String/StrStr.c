@@ -39,6 +39,9 @@ int main()
     printf("第一个匹配项的下标 为: %d\n", ans2);
 }
 
+// 字符串遍历:
+// Space: O(N)
+// Time: O(1)
 int StrStr(char *haystack, char *needle)
 {
     int ans = 0;

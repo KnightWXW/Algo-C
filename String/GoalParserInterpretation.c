@@ -20,12 +20,59 @@
 //      示例 2：
 //          输入：command = "G()()()()(al)"
 //          输出："Gooooal"
-//          示例 3：
+//      示例 3：
 //          输入：command = "(al)G(al)()()G"
 //          输出："alGalooG"
 //      提示：
 //          1 <= command.length <= 100
 //          command 由 "G"、"()" 和/或 "(al)" 按某种顺序组成
 
-char* GoalParserInterpretation(char* command);
+char *GoalParserInterpretation(char *command);
 
+int main()
+{
+    char s1[] = "G()(al)";
+    PrintString(s1);
+    bool ans1 = GoalParserInterpretation(s1);
+    printf("Goal 解析器 的解释结果为: \n");
+    FreeString(ans1);
+    char s2[] = "G()()()()(al)";
+    PrintString(s2);
+    bool ans2 = GoalParserInterpretation(s2);
+    printf("Goal 解析器 的解释结果为: \n");
+    FreeString(ans2);
+    char s3[] = "(al)G(al)()()G";
+    PrintString(s3);
+    bool ans3 = GoalParserInterpretation(s3);
+    printf("Goal 解析器 的解释结果为: \n");
+    FreeString(ans3);
+}
+
+// 字符串遍历:
+// Space: O(N)
+// Time: O(N)
+char *GoalParserInterpretation(char *command)
+{
+    int l = strlen(command);
+    char *ans = (char *)malloc(sizeof(char) * (l + 1));
+    int index = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (command[i] == 'G')
+        {
+            index += sprintf(ans + index, "%s", "G");
+        }
+        else if (command[i] == '(')
+        {
+            if (command[i + 1] == ')')
+            {
+                index += sprintf(ans + index, "%s", "o");
+            }
+            else
+            {
+                index += sprintf(ans + index, "%s", "al");
+            }
+        }
+    }
+    return ans;
+}
