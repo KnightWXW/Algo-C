@@ -1,23 +1,5 @@
 #include "../mybasic.h"
 
-//      Huawei：浏览器历史系统
-
-//      打开一个浏览器，此浏览器窗口一般具有浏览历史的特性，请实现如下功能：
-//      BrowserHistorySys(char * homepage, int maxCount):
-//          初始化：homepage 作为当前页，并缓存到浏览历史中；
-//              浏览历史中最多可以缓存maxCount个网页
-//      int Visit(char * url): 跳转访问页面 url, 返回访问后浏览历史中的缓存页面数量
-//          如果入参 url 仍然是 当前页，则继续浏览此页面，即：
-//          当前页不变，且浏览历史也不变
-//          如果入参 url 不是 当前页，则跳转到此 url, 并把此 url 页面作为当前页；
-//          同时清除 浏览历史中 原当前页的前进记录，再将此 url 缓存 到浏览器历史中。
-//          如果新增缓存后，浏览历史缓存页面数量超过maxCount，则清除浏览器历史中最早的记录。
-//      char * Back(): 在浏览器历史中从当前页中当前页面后退一步，
-//          返回停留页面的 url, 并作为当前页。
-//          注：如果已退无可退，则不再后退，继续停留在当前当前页。
-//      char * Forward(): 在浏览历史中当前页前进一步，返回停留页面的url, 并作为当前页。
-//          注：如果已进无可进，则不再前进，继续停留在当前当前页。
-
 //      LeetCode 1472. 设计浏览器历史记录
 
 //      链接：https://leetcode.cn/problems/design-browser-history/
@@ -62,60 +44,176 @@
 //          homepage 和 url 都只包含 '.' 或者小写英文字母。
 //          最多调用 5000 次 visit， back 和 forward 函数。
 
-typedef struct {
-    
-} BrowserHistory;
+#define MAX_URL_LENGTH 21
+#define MAX_STEPS_LENGTH 101
 
-BrowserHistory* BrowserHistoryCreate(char* homepage) {
-    
+// 栈:
+typedef struct
+{
+    char *url[MAX_STEPS_LENGTH];
+    int curCnt;
+    int sumCnt;
+} BrowserHistory1;
+
+BrowserHistory1 *BrowserHistoryCreate1(char *homepage)
+{
+    BrowserHistory1 *obj = (BrowserHistory1 *)malloc(sizeof(BrowserHistory1));
+    obj->url[0] = (char *)malloc(sizeof(char) * MAX_URL_LENGTH);
+    strcpy(obj->url[0], homepage);
+    obj->curCnt = 1;
+    obj->sumCnt = 1;
+    return obj;
 }
 
-void BrowserHistoryVisit(BrowserHistory* obj, char* url) {
-    
+void BrowserHistoryVisit1(BrowserHistory1 *obj, char *url)
+{
+    obj->url[obj->curCnt] = (char *)malloc(sizeof(char) * MAX_URL_LENGTH);
+    strcpy(obj->url[obj->curCnt], url);
+    obj->curCnt++;
+    obj->sumCnt = obj->curCnt;
+    return;
 }
 
-char* BrowserHistoryBack(BrowserHistory* obj, int steps) {
-    
+char *BrowserHistoryBack1(BrowserHistory1 *obj, int steps)
+{
+    int k = obj->curCnt - steps > 0 ? obj->curCnt - steps - 1 : 0;
+    obj->curCnt = k + 1;
+    return obj->url[k];
 }
 
-char* BrowserHistoryForward(BrowserHistory* obj, int steps) {
-    
+char *BrowserHistoryForward1(BrowserHistory1 *obj, int steps)
+{
+    int k = obj->curCnt + steps < obj->sumCnt ? obj->curCnt + steps - 1 : obj->sumCnt - 1;
+    obj->curCnt = k + 1;
+    return obj->url[k];
 }
 
-void BrowserHistoryFree(BrowserHistory* obj) {
-    
+void BrowserHistoryFree1(BrowserHistory1 *obj)
+{
+    free(obj);
+    return;
+}
+
+// 双向链表:
+typedef struct BrowserHistory2
+{
+    char url[MAX_URL_LENGTH];
+    struct BrowserHistory2 *pre;
+    struct BrowserHistory2 *next;
+} BrowserHistory2;
+
+BrowserHistory2 *cur;
+
+BrowserHistory2 *BrowserHistoryCreate2(char *homepage)
+{
+    BrowserHistory2 *obj = (BrowserHistory2 *)malloc(sizeof(BrowserHistory2));
+    strcpy(obj->url, homepage);
+    obj->pre = NULL;
+    obj->next = NULL;
+    cur = obj;
+    return obj;
+}
+
+void BrowserHistoryVisit2(BrowserHistory2 *obj, char *url)
+{
+    obj = cur;
+    obj->next = BrowserHistoryCreate2(url);
+    obj->next->pre = obj;
+    return;
+}
+
+char *BrowserHistoryBack2(BrowserHistory2 *obj, int steps)
+{
+    while (steps != 0)
+    {
+        steps--;
+        if (cur->pre == NULL)
+        {
+            break;
+        }
+        cur = cur->pre;
+    }
+    return cur->url;
+}
+
+char *BrowserHistoryForward2(BrowserHistory2 *obj, int steps)
+{
+    while (steps != 0)
+    {
+        steps--;
+        if (cur->next == NULL)
+        {
+            break;
+        }
+        cur = cur->next;
+    }
+    return cur->url;
+}
+
+void BrowserHistoryFree2(BrowserHistory2 *obj)
+{
+    free(obj);
 }
 
 int main()
 {
     char s1[] = "leetcode.com";
-    BrowserHistory *obj = BrowserHistoryCreate((char *)s1);
+    BrowserHistory1 *obj1 = BrowserHistoryCreate1((char *)s1);
     char s2[] = "google.com";
-    BrowserHistoryVisit(obj, s2);
+    BrowserHistoryVisit1(obj1, s2);
     char s3[] = "facebook.com";
-    BrowserHistoryVisit(obj, s3);
+    BrowserHistoryVisit1(obj1, s3);
     char s4[] = "youtube.com";
-    BrowserHistoryVisit(obj, s4);
-    char* a1 = BrowserHistoryBack(obj, 1);
+    BrowserHistoryVisit1(obj1, s4);
+    char *a1 = BrowserHistoryBack1(obj1, 1);
     printf("后退一步 页面 为：\n");
     PrintString(a1); // facebook.com
-    char* a2 = BrowserHistoryBack(obj, 1);
+    char *a2 = BrowserHistoryBack1(obj1, 1);
     printf("后退一步 页面 为：\n");
     PrintString(a2); // google.com
-    char* a3 = BrowserHistoryForward(obj, 1);
+    char *a3 = BrowserHistoryForward1(obj1, 1);
     printf("前进一步 页面 为：\n");
     PrintString(a3); // facebook.com
     char s5[] = "linkedin.com";
-    BrowserHistoryVisit(obj, s5);
-    char* a4 = BrowserHistoryForward(obj, 2);
+    BrowserHistoryVisit1(obj1, s5);
+    char *a4 = BrowserHistoryForward1(obj1, 2);
     printf("前进一步 页面 为：\n");
     PrintString(a4); // linkedin.com
-    char* a5 = BrowserHistoryBack(obj, 2);
+    char *a5 = BrowserHistoryBack1(obj1, 2);
     printf("后退一步 页面 为：\n");
     PrintString(a5); // google.com
-    char* a6 = BrowserHistoryBack(obj, 7);
+    char *a6 = BrowserHistoryBack1(obj1, 7);
     printf("后退一步 页面 为：\n");
     PrintString(a6); // leetcode.com
-    
-}
+    BrowserHistoryFree1(obj1);
 
+    char t1[] = "leetcode.com";
+    BrowserHistory2 *obj2 = BrowserHistoryCreate2((char *)t1);
+    char t2[] = "google.com";
+    BrowserHistoryVisit2(obj2, t2);
+    char t3[] = "facebook.com";
+    BrowserHistoryVisit2(obj2, t3);
+    char t4[] = "youtube.com";
+    BrowserHistoryVisit2(obj2, t4);
+    char *b1 = BrowserHistoryBack2(obj2, 1);
+    printf("后退一步 页面 为：\n");
+    PrintString(b1); // facebook.com
+    char *b2 = BrowserHistoryBack2(obj2, 1);
+    printf("后退一步 页面 为：\n");
+    PrintString(b2); // google.com
+    char *b3 = BrowserHistoryForward2(obj2, 1);
+    printf("前进一步 页面 为：\n");
+    PrintString(b3); // facebook.com
+    char t5[] = "linkedin.com";
+    BrowserHistoryVisit2(obj2, t5);
+    char *b4 = BrowserHistoryForward2(obj2, 2);
+    printf("前进一步 页面 为：\n");
+    PrintString(b4); // linkedin.com
+    char *b5 = BrowserHistoryBack2(obj2, 2);
+    printf("后退一步 页面 为：\n");
+    PrintString(b5); // google.com
+    char *b6 = BrowserHistoryBack2(obj2, 7);
+    printf("后退一步 页面 为：\n");
+    PrintString(b6); // leetcode.com
+    BrowserHistoryFree2(obj2);
+}
