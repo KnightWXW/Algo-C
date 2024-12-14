@@ -47,33 +47,6 @@ int main()
     printf("初始资本为 %d 的 %d 个项目, 最终可获得的最多资本为 %d。\n", w, k, ans);
 }
 
-int generateRandomNum(int low, int high)
-{
-    srand((unsigned)time(NULL));
-    return (rand() % (high - low + 1)) + low;
-}
-
-void printVecElement(vector<int> vec)
-{
-    for (int i = 0; i < vec.size(); i++)
-    {
-        printf("%d ", vec[i]);
-    }
-    printf("\n");
-}
-
-vector<int> generateRandomVec(int low, int high, int len)
-{
-    srand((int)time(0));
-    vector<int> vec;
-    for (int i = 0; i < len; i++)
-    {
-        int v = (rand() % (high - low + 1)) + low;
-        vec.push_back(v);
-    }
-    return vec;
-}
-
 // Project 结构体：
 struct Project
 {

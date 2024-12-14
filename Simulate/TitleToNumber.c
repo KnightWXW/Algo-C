@@ -29,67 +29,33 @@
 //          columnTitle 仅由大写英文组成
 //          columnTitle 在范围 ["A", "FXSHRXW"] 内
 
-int TitleToNumber_A(char* columnTitle);
-int TitleToNumber_B(char* columnTitle);
+int TitleToNumber_A(char *columnTitle);
+int TitleToNumber_B(char *columnTitle);
 
 int main()
 {
     int num = GenerateRandomNum(1, 10);
-    char* s = GenerateRandomString(num);
+    char arr[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char *s = GenerateRandomString(num, arr, 26);
     int ans_A = TitleToNumber_A(s);
     int ans_B = TitleToNumber_B(s);
     printf("字符串 columnTitle 为: \n");
-    printString(s);
+    PrintString(s);
     printf("该列名称对应的列序号 为 %d。\n", ans_A);
     printf("该列名称对应的列序号 为 %d。\n", ans_B);
 }
 
-int generateRandomNum(int low, int high)
+// 模拟：
+// Time：O(N)
+// Space: O(1)
+int TitleToNumber_A(char *columnTitle)
 {
-    srand((int)time(0));
-    return (rand() % (high - low + 1)) + low;
-}
-
-string generateRandomString(int n)
-{
-    string str = "";
-    srand((int)time(0));
-    char arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    for (int i = 0; i < n; i++)
-    {
-        int index = rand() % (sizeof(arr) - 1);
-        str += arr[index];
-    }
-    return str;
-}
-
-void printString(string s)
-{
-    printf("%s\n", s.c_str());
-}
-
-int TitleToNumber_A(string columnTitle)
-{
-     int l = columnTitle.size();
+    int l = strlen(columnTitle);
     int ans = 0;
-    for (int i = 0; i < l ;i++)
+    for (int i = 0; i < l; i++)
     {
-        int tem = columnTitle[i] - 'A' + 1;
-        ans = ans * 26 + tem;
-    }
-    return ans;
-}
-
-int TitleToNumber_B(string columnTitle)
-{
-    int l = columnTitle.size();
-    int ans = 0;
-    long base = 1;
-    for (int i = l - 1; i >= 0; i--)
-    {
-        int tem = columnTitle[i] - 'A' + 1;
-        ans += tem * base;
-        base *= 26;
+        int tem = (columnTitle[i] - 'A' + 1);
+        ans += tem * pow(26, l - i - 1);
     }
     return ans;
 }

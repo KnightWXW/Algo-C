@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 // 最大值与最小值
 #define abs(x) (((x) < 0) ? (-x) : (x))

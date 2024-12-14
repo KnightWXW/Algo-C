@@ -4,8 +4,8 @@
 
 //      链接：https://leetcode.cn/problems/number-of-ways-to-buy-pens-and-pencils/
 
-//      给你一个整数 total ，表示你拥有的总钱数。
-//      同时给你两个整数 cost1 和 cost2 ，分别表示一支钢笔和一支铅笔的价格。
+//      给你一个整数 total，表示你拥有的总钱数。
+//      同时给你两个整数 cost1 和 cost2，分别表示一支钢笔和一支铅笔的价格。
 //      你可以花费你部分或者全部的钱，去买任意数目的两种笔。
 //      请你返回购买钢笔和铅笔的 不同方案数目 。
 //      示例 1：
@@ -28,17 +28,11 @@ long long WaysToBuyPensPencils(int total, int cost1, int cost2);
 
 int main()
 {
-    int total = generateRandomNum(1, 1000);
-    int cost1 = generateRandomNum(1, 1000);
-    int cost2 = generateRandomNum(1, 1000);
+    int total = GenerateRandomNum(1, 1000);
+    int cost1 = GenerateRandomNum(1, 500);
+    int cost2 = GenerateRandomNum(1, 300);
     long long ans = WaysToBuyPensPencils(total, cost1, cost2);
     printf("总钱数为 %d, 一支钢笔和一支铅笔的价格 分别为 %d 和 %d, \n购买钢笔和铅笔的不同方案数目有 %d", total, cost1, cost2, ans);
-}
-
-int generateRandomNum(int low, int high)
-{
-    srand((unsigned)time(NULL));
-    return (rand() % (high - low + 1)) + low;
 }
 
 // 模拟：

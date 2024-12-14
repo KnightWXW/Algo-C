@@ -1,4 +1,3 @@
-#include <string.h>
 #include "../mybasic.h"
 
 //      LeetCode 2241. 设计一个 ATM 机器

@@ -45,9 +45,8 @@
 //          upperi 中的所有值 互不相同
 //          最后一个税级的上限大于等于 income
 
-void print2DVecElement(vector<vector<int>> vec);
-
 double calculateTax(int **brackets, int bracketsSize, int *bracketsColSize, int income);
+
 int main()
 {
     int brackets_A[3][2] = {{3, 50}, {7, 10}, {12, 25}};

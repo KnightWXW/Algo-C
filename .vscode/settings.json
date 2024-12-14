@@ -11,6 +11,8 @@
         "sstream": "c",
         "string": "c",
         "stdbool.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "mybasic.h": "c",
+        "uthash.h": "c"
     }
 }
