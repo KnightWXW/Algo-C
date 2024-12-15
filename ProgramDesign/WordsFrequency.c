@@ -28,56 +28,40 @@ typedef struct
     char word[WORD_LENGTH];
     int cnt;
     UT_hash_handle hh;
-} WordsMap;
-
-typedef struct
-{
-    WordsMap* hMap; 
 } WordsFrequency;
 
-void WordsMapInit(WordsMap* hMap, char** book, int bookSize)
+void WordsFrequencyAddNode(WordsFrequency **hMap, char *word)
 {
-    WordsMap *obj = NULL;
-    WordsMap *cur = NULL;
-    printf("该111\n");
-    for (int i = 0; i < bookSize; i++)
+    WordsFrequency *cur = NULL;
+    HASH_FIND_STR(*hMap, word, cur);
+    if (cur == NULL)
     {
-        printf("该222\n");
-        cur = NULL;
-        printf("该333\n");
-        HASH_FIND_STR(obj, book[i], cur);
-        printf("该444\n");
-        if (cur == NULL)
-        {
-            printf("该555\n");
-            cur = (WordsMap *)malloc(sizeof(WordsMap));
-            strcpy(cur->word, book[i]);
-            cur->cnt = 1;
-            HASH_ADD_STR(obj, word, cur);
-            printf("该666\n");
-        }
-        else
-        {
-            printf("该777\n");
-            cur->cnt++;
-        }
+        cur = (WordsFrequency *)malloc(sizeof(WordsFrequency));
+        strcpy(cur->word, word);
+        cur->cnt = 1;
+        HASH_ADD_STR(*hMap, word, cur);
     }
-    printf("该1010\n");
+    else
+    {
+        cur->cnt++;
+    }
     return;
 }
 
 WordsFrequency *WordsFrequencyCreate(char **book, int bookSize)
 {
-    WordsFrequency* obj = (WordsFrequency *)malloc(sizeof(WordsFrequency));
-    obj->hMap = (WordsMap*)malloc(sizeof(WordsMap));
-    WordsMapInit(obj->hMap, book, bookSize);
-    return obj;
+    WordsFrequency *hMap = NULL;
+    for (int i = 0; i < bookSize; i++)
+    {
+        WordsFrequencyAddNode(&hMap, book[i]);
+    }
+    return hMap;
 }
 
 int WordsFrequencyGet(WordsFrequency *obj, char *word)
 {
-    WordsMap *cur = NULL;
-    HASH_FIND_STR(obj->hMap, word, cur);
+    WordsFrequency *cur = NULL;
+    HASH_FIND_STR(obj, word, cur);
     if (cur == NULL)
     {
         return 0;
@@ -90,7 +74,7 @@ int WordsFrequencyGet(WordsFrequency *obj, char *word)
 
 void WordsFrequencyFree(WordsFrequency *obj)
 {
-    HASH_CLEAR(hh, obj->hMap);
+    HASH_CLEAR(hh, obj);
     free(obj);
     return;
 }
@@ -98,10 +82,8 @@ void WordsFrequencyFree(WordsFrequency *obj)
 int main()
 {
     int bookSize = 8;
-    char book[8][WORD_LENGTH] = {"i", "have", "an", "apple", "he", "have", "a", "pen"};
-    printf("该1\n");
+    char *book[] = {"i", "have", "an", "apple", "he", "have", "a", "pen"};
     WordsFrequency *obj = WordsFrequencyCreate((char **)book, bookSize);
-    printf("该2\n");
     char word1[] = "you";
     int g1 = WordsFrequencyGet(obj, word1);
     printf("该单词频率为 %d\n", g1); // 返回 0，"you"没有出现过

@@ -22,18 +22,178 @@
 //          1 <= deliciousness.length <= 105
 //          0 <= deliciousness[i] <= 220
 
-int CountPairs(int* deliciousness, int deliciousnessSize);
+const int MOD = 1000000007;
+
+int CountPairs_A(int *deliciousness, int deliciousnessSize);
+int CountPairs_B(int *deliciousness, int deliciousnessSize);
+int CountPairs_C(int *deliciousness, int deliciousnessSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
-    int *vec = GenerateRandomVec(-100, 100, n);
-    PrintVecElement(vec, n);
-    int ans_A = CountPairs(vec, n);
-    printf("可以用数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
+    // int n = GenerateRandomNum(1, 10);
+    // int *vec = GenerateRandomVec(0, 100, n);
+    // PrintVecElement(vec, n);
+    // int ans_A = CountPairs(vec, n);
+    // printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
+    int v[] = {1, 3, 5, 7, 9};
+    int ans_A = CountPairs_A(v, 5);
+    int ans_B = CountPairs_B(v, 5);
+    int ans_C = CountPairs_C(v, 5);
+    printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
+    printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_B);
+    printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_C);
 }
 
-int CountPairs(int* deliciousness, int deliciousnessSize)
+typedef struct
 {
-    
+    int key;
+    int val;
+    UT_hash_handle hh;
+} HashMap;
+
+void HashMapAddNode(HashMap **hmap, int num)
+{
+    HashMap *cur = NULL;
+    HASH_FIND_INT(*hmap, &num, cur);
+    if (cur == NULL)
+    {
+        cur = (HashMap *)malloc(sizeof(HashMap));
+        cur->key = num;
+        cur->val = 1;
+        HASH_ADD_INT(*hmap, key, cur);
+    }
+    else
+    {
+        cur->val++;
+    }
+    return;
+}
+
+void HashMapRemoveNode(HashMap **hmap, int num)
+{
+    HashMap *cur = NULL;
+    HASH_FIND_INT(*hmap, &num, cur);
+    if (cur != NULL)
+    {
+        HASH_DEL(*hmap, cur);
+        free(cur);
+    }
+    return;
+}
+
+int HashMapFindNode(HashMap *hmap, int num)
+{
+    HashMap *cur = NULL;
+    HASH_FIND_INT(hmap, &num, cur);
+    if (cur == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return cur->val;
+    }
+}
+
+// 暴力双循环: 超时
+//      求和之后再判断是否为2次幂
+// Time: O(N^2)
+// Space: O(N)
+int CountPairs_A(int *deliciousness, int deliciousnessSize)
+{
+    int ans = 0;
+    int maxVal = 0;
+    HashMap *hmap = NULL;
+    for (int i = 0; i < deliciousnessSize; i++)
+    {
+        for (int j = i + 1; j < deliciousnessSize; j++)
+        {
+            int curVal = deliciousness[i] + deliciousness[j];
+            maxVal = max(maxVal, curVal);
+            HashMapAddNode(&hmap, curVal);
+        }
+    }
+    int k = 1;
+    while (k <= maxVal)
+    {
+        ans += HashMapFindNode(hmap, k);
+        ans %= MOD;
+        k <<= 1;
+    }
+    HASH_CLEAR(hh, hmap);
+    return ans;
+}
+
+// 单循环:
+//      哈希表[K:数值; V: 次数]
+//      作差求个数：
+// Time: O(N * M)
+// Space: O(N)
+int CountPairs_B(int *deliciousness, int deliciousnessSize)
+{
+    int ans = 0;
+    int maxVal = 0;
+    HashMap *hmap = NULL;
+    for (int i = 0; i < deliciousnessSize; i++)
+    {
+        maxVal = max(maxVal, deliciousness[i]);
+        HashMapAddNode(&hmap, deliciousness[i]);
+    }
+    maxVal <<= 1;
+    for (int i = 0; i < deliciousnessSize; i++)
+    {
+        int k = 1;
+        while (k <= maxVal)
+        {
+            int dif = k - deliciousness[i];
+            int cntA = HashMapFindNode(hmap, deliciousness[i]);
+            int cntB = HashMapFindNode(hmap, dif);
+            if (dif == deliciousness[i])
+            {
+                ans += (cntA * (cntA - 1)) / 2;
+            }
+            else
+            {
+                ans += cntA * cntB;
+            }
+            ans %= MOD;
+            k <<= 1;
+        }
+        HashMapRemoveNode(&hmap, deliciousness[i]);
+    }
+    HASH_CLEAR(hh, hmap);
+    return ans;
+}
+
+// 单循环:
+//      哈希表[K:数值; V: 次数]
+//      作差求个数，添加节点与求差同时进行：
+// Time: O(N)
+// Space: O(N)
+int CountPairs_C(int *deliciousness, int deliciousnessSize)
+{
+    int ans = 0;
+    int maxVal = 0;
+    HashMap *hmap = NULL;
+    HashMap *a = NULL;
+    for (int i = 0; i < deliciousnessSize; i++)
+    {
+        maxVal = max(maxVal, deliciousness[i]);
+    }
+    maxVal <<= 1;
+    for (int i = 0; i < deliciousnessSize; i++)
+    {
+        int k = 1;
+        while (k <= maxVal)
+        {
+            int dif = k - deliciousness[i];
+            HASH_FIND_INT(hmap, &dif, a);
+            int cnt = (a == NULL) ? 0 : a->val;
+            ans = (ans + cnt) % MOD;
+            k <<= 1;
+        }
+        HashMapAddNode(&hmap, deliciousness[i]);
+    }
+    HASH_CLEAR(hh, hmap);
+    return ans;
 }

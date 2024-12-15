@@ -55,76 +55,76 @@
 //          在对 highestRated 的所有调用中，cuisine 是系统中 至少一种 食物的烹饪方式。
 //          最多调用 changeRating 和 highestRated 总计 2 * 104 次
 
-typedef struct {
-    
+typedef struct
+{
+
 } FoodRatings;
 
-
-FoodRatings* foodRatingsCreate(char** foods, int foodsSize, char** cuisines, int cuisinesSize, int* ratings, int ratingsSize) {
-    
+FoodRatings *FoodRatingsCreate(char **foods, int foodsSize, char **cuisines, int cuisinesSize, int *ratings, int ratingsSize)
+{
 }
 
-void foodRatingsChangeRating(FoodRatings* obj, char* food, int newRating) {
-    
+void FoodRatingsChangeRating(FoodRatings *obj, char *food, int newRating)
+{
 }
 
-char* foodRatingsHighestRated(FoodRatings* obj, char* cuisine) {
-    
+char *FoodRatingsHighestRated(FoodRatings *obj, char *cuisine)
+{
 }
 
-void foodRatingsFree(FoodRatings* obj) {
-    
+void FoodRatingsFree(FoodRatings *obj)
+{
 }
 
 int main()
 {
-    char foods[6][] = {"kimchi", "miso", "sushi", "moussaka", "ramen", "bulgogi"};
-    vector<string> cuisines = {"korean", "japanese", "japanese", "greek", "japanese", "korean"};
-    vector<int> ratings = {9, 12, 8, 15, 14, 7};
-
-    FoodRatings_B *foodRatings_A = new FoodRatings_B(foods, cuisines, ratings);
-    string hA1 = foodRatings_A->highestRated("korean");
-    printString(hA1);
-    // 返回 "kimchi"
-    // "kimchi" 是分数最高的韩式料理，评分为 9 。
-    string hA2 = foodRatings_A->highestRated("japanese");
-    printString(hA2);
-    // 返回 "ramen"
-    // "ramen" 是分数最高的日式料理，评分为 14 。
-    foodRatings_A->changeRating("sushi", 16);
+    char *foods[] = {"kimchi", "miso", "sushi", "moussaka", "ramen", "bulgogi"};
+    int foodsSize = 6;
+    char *cuisines[] = {"korean", "japanese", "japanese", "greek", "japanese", "korean"};
+    int cuisinesSize = 6;
+    int ratings[] = {9, 12, 8, 15, 14, 7};
+    int ratingsSize = 6;
+    FoodRatings *foodRatings = FoodRatingsCreate(foods, cuisines, ratings);
+    char *hA1 = FoodRatingsHighestRated(foodRatings, "korean");
+    PrintString(hA1);
+    // 返回 "kimchi","kimchi" 是分数最高的韩式料理，评分为 9 。
+    char *hA2 = FoodRatingsHighestRated(foodRatings, "japanese");
+    PrintString(hA2);
+    // 返回 "ramen","ramen" 是分数最高的日式料理，评分为 14 。
+    FoodRatingsChangeRating(foodRatings, "sushi", 16);
     // "sushi" 现在评分变更为 16 。
-    string hA3 = foodRatings_A->highestRated("japanese");
-    printString(hA3);
-    // 返回 "sushi"
-    // "sushi" 是分数最高的日式料理，评分为 16 。
-    foodRatings_A->changeRating("ramen", 16);
+    char *hA3 = FoodRatingsHighestRated(foodRatings, "japanese");
+    PrintString(hA3);
+    // 返回 "sushi","sushi" 是分数最高的日式料理，评分为 16 。
+    FoodRatingsChangeRating(foodRatings, "ramen", 16);
     // "ramen" 现在评分变更为 16 。
-    string hA4 = foodRatings_A->highestRated("japanese");
-    printString(hA4);
-    // 返回 "ramen"
-    // "sushi" 和 "ramen" 的评分都是 16 。
+    char *hA4 = FoodRatingsHighestRated(foodRatings, "japanese");
+    PrintString(hA4);
+    // 返回 "ramen","sushi" 和 "ramen" 的评分都是 16。
     // 但是，"ramen" 的字典序比 "sushi" 更小。
+    FoodRatingsFree(foodRatings);
 
-    FoodRatings_B *foodRatings_B = new FoodRatings_B(foods, cuisines, ratings);
-    string hB1 = foodRatings_B->highestRated("korean");
-    printString(hB1);
-    // 返回 "kimchi"
-    // "kimchi" 是分数最高的韩式料理，评分为 9 。
-    string hB2 = foodRatings_B->highestRated("japanese");
-    printString(hB2);
-    // 返回 "ramen"
-    // "ramen" 是分数最高的日式料理，评分为 14 。
-    foodRatings_B->changeRating("sushi", 16);
-    // "sushi" 现在评分变更为 16 。
-    string hB3 = foodRatings_B->highestRated("japanese");
-    printString(hB3);
-    // 返回 "sushi"
-    // "sushi" 是分数最高的日式料理，评分为 16 。
-    foodRatings_B->changeRating("ramen", 16);
-    // "ramen" 现在评分变更为 16 。
-    string hB4 = foodRatings_B->highestRated("japanese");
-    printString(hB4);
-    // 返回 "ramen"
-    // "sushi" 和 "ramen" 的评分都是 16 。
-    // 但是，"ramen" 的字典序比 "sushi" 更小。
+
+    // FoodRatings_B *foodRatings_B = new FoodRatings_B(foods, cuisines, ratings);
+    // string hB1 = foodRatings_B->highestRated("korean");
+    // printString(hB1);
+    // // 返回 "kimchi"
+    // // "kimchi" 是分数最高的韩式料理，评分为 9 。
+    // string hB2 = foodRatings_B->highestRated("japanese");
+    // printString(hB2);
+    // // 返回 "ramen"
+    // // "ramen" 是分数最高的日式料理，评分为 14 。
+    // foodRatings_B->changeRating("sushi", 16);
+    // // "sushi" 现在评分变更为 16 。
+    // string hB3 = foodRatings_B->highestRated("japanese");
+    // printString(hB3);
+    // // 返回 "sushi"
+    // // "sushi" 是分数最高的日式料理，评分为 16 。
+    // foodRatings_B->changeRating("ramen", 16);
+    // // "ramen" 现在评分变更为 16 。
+    // string hB4 = foodRatings_B->highestRated("japanese");
+    // printString(hB4);
+    // // 返回 "ramen"
+    // // "sushi" 和 "ramen" 的评分都是 16 。
+    // // 但是，"ramen" 的字典序比 "sushi" 更小。
 }
