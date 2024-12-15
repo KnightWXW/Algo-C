@@ -1,5 +1,4 @@
-#include "../mybasic.h"
-#include "uthash.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 面试题 16.02. 单词频率
 
@@ -7,8 +6,8 @@
 
 //      设计一个方法，找出任意指定单词在一本书中的出现频率。
 //      你的实现应该支持如下操作：
-//          WordsFrequency(book)构造函数，参数为字符串数组构成的一本书
-//          get(word)查询指定单词在书中出现的频率
+//          WordsFrequency(book): 构造函数，参数为字符串数组构成的一本书
+//          get(word): 查询指定单词在书中出现的频率
 //      示例：
 //          WordsFrequency wordsFrequency = new WordsFrequency({"i", "have", "an", "apple", "he", "have", "a", "pen"});
 //          wordsFrequency.get("you"); //返回0，"you"没有出现过
@@ -22,41 +21,101 @@
 //          1 <= book[i].length <= 10
 //          get函数的调用次数不会超过100000
 
+#define WORD_LENGTH 12
+
 typedef struct
 {
+    char word[WORD_LENGTH];
+    int cnt;
+    UT_hash_handle hh;
+} WordsMap;
 
+typedef struct
+{
+    WordsMap* hMap; 
 } WordsFrequency;
 
-WordsFrequency *wordsFrequencyCreate(char **book, int bookSize)
+void WordsMapInit(WordsMap* hMap, char** book, int bookSize)
 {
+    WordsMap *obj = NULL;
+    WordsMap *cur = NULL;
+    printf("该111\n");
+    for (int i = 0; i < bookSize; i++)
+    {
+        printf("该222\n");
+        cur = NULL;
+        printf("该333\n");
+        HASH_FIND_STR(obj, book[i], cur);
+        printf("该444\n");
+        if (cur == NULL)
+        {
+            printf("该555\n");
+            cur = (WordsMap *)malloc(sizeof(WordsMap));
+            strcpy(cur->word, book[i]);
+            cur->cnt = 1;
+            HASH_ADD_STR(obj, word, cur);
+            printf("该666\n");
+        }
+        else
+        {
+            printf("该777\n");
+            cur->cnt++;
+        }
+    }
+    printf("该1010\n");
+    return;
 }
 
-int wordsFrequencyGet(WordsFrequency *obj, char *word)
+WordsFrequency *WordsFrequencyCreate(char **book, int bookSize)
 {
+    WordsFrequency* obj = (WordsFrequency *)malloc(sizeof(WordsFrequency));
+    obj->hMap = (WordsMap*)malloc(sizeof(WordsMap));
+    WordsMapInit(obj->hMap, book, bookSize);
+    return obj;
 }
 
-void wordsFrequencyFree(WordsFrequency *obj)
+int WordsFrequencyGet(WordsFrequency *obj, char *word)
 {
+    WordsMap *cur = NULL;
+    HASH_FIND_STR(obj->hMap, word, cur);
+    if (cur == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return cur->cnt;
+    }
+}
+
+void WordsFrequencyFree(WordsFrequency *obj)
+{
+    HASH_CLEAR(hh, obj->hMap);
+    free(obj);
+    return;
 }
 
 int main()
 {
-    char **book = {"i", "have", "an", "apple", "he", "have", "a", "pen"};
     int bookSize = 8;
-    WordsFrequency *obj = wordsFrequencyCreate(book, bookSize);
-    char *word1 = "you";
-    int g1 = wordsFrequencyGet(obj, word1);
+    char book[8][WORD_LENGTH] = {"i", "have", "an", "apple", "he", "have", "a", "pen"};
+    printf("该1\n");
+    WordsFrequency *obj = WordsFrequencyCreate((char **)book, bookSize);
+    printf("该2\n");
+    char word1[] = "you";
+    int g1 = WordsFrequencyGet(obj, word1);
     printf("该单词频率为 %d\n", g1); // 返回 0，"you"没有出现过
-    char *word2 = "have";
-    int g2 = wordsFrequencyGet(obj, word2);
+    char word2[] = "have";
+    int g2 = WordsFrequencyGet(obj, word2);
     printf("该单词频率为 %d\n", g2); // 返回 2，"have"出现2次
-    char *word3 = "an";
-    int g3 = wordsFrequencyGet(obj, word3);
+    char word3[] = "an";
+    int g3 = WordsFrequencyGet(obj, word3);
     printf("该单词频率为 %d\n", g3); // 返回 1
-    char *word4 = "apple";
-    int g4 = wordsFrequencyGet(obj, word4);
+    char word4[] = "apple";
+    int g4 = WordsFrequencyGet(obj, word4);
     printf("该单词频率为 %d\n", g4); // 返回 1
-    char *word5 = "pen";
-    int g5 = wordsFrequencyGet(obj, word5);
+    char word5[] = "pen";
+    int g5 = WordsFrequencyGet(obj, word5);
     printf("该单词频率为 %d\n", g5); // 返回 1
+    WordsFrequencyFree(obj);
 }

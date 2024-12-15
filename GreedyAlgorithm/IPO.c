@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 502，IPO问题
 

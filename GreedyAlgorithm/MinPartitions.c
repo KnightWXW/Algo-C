@@ -1,4 +1,4 @@
-#include "../mybasic.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 1689. 十-二进制数的最少数目
 

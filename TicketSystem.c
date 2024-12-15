@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-#include <unordered_map>
-
-using namespace std;
+#include "../Mybasic/mybasic.h"
 
 //      Huawei: 船票预约系统设计
 

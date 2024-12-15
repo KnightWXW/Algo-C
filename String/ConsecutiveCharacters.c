@@ -1,4 +1,4 @@
-#include "../mybasic.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 1446. 连续字符
 

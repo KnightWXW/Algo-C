@@ -1,4 +1,4 @@
-#include "../mybasic.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 171. Excel 表列序号
 

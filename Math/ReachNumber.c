@@ -1,4 +1,4 @@
-#include "../mybasic.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 754. 到达终点数字
 

@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <vector>
-#include <ctime>
-#include <string>
-#include <cstdlib>
-#include <algorithm>
-#include <unordered_map>
-#include <set>
-
-using namespace std;
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 2353. 设计食物评分系统
 
@@ -64,82 +55,30 @@ using namespace std;
 //          在对 highestRated 的所有调用中，cuisine 是系统中 至少一种 食物的烹饪方式。
 //          最多调用 changeRating 和 highestRated 总计 2 * 104 次
 
-class FoodRatings_A
-{
-public:
-    int size;
-    unordered_map<string, pair<string, int>> foodMap; // K: foodName V: pair<cuisine, rate>
+typedef struct {
+    
+} FoodRatings;
 
-    FoodRatings_A(vector<string> &foods, vector<string> &cuisines, vector<int> &ratings)
-    {
-        size = foods.size();
-        for (int i = 0; i < size; i++)
-        {
-            foodMap[foods[i]] = make_pair(cuisines[i], ratings[i]);
-        }
-    }
 
-    void changeRating(string food, int newRating)
-    {
-        foodMap[food].second = newRating;
-    }
+FoodRatings* foodRatingsCreate(char** foods, int foodsSize, char** cuisines, int cuisinesSize, int* ratings, int ratingsSize) {
+    
+}
 
-    string highestRated(string cuisine)
-    {
-        vector<pair<int, string>> arr;
-        for (auto it = foodMap.begin(); it != foodMap.end(); it++)
-        {
-            if (it->second.first == cuisine)
-            {
-                pair<int, string> tem = make_pair(it->second.second, it->first);
-                arr.push_back(tem);
-            }
-        }
-        sort(arr.begin(), arr.end(), [](pair<int, string> a, pair<int, string> b)
-             {
-            if(a.first == b.first){
-                return a.second < b.second;
-            }
-            return a.first > b.first; });
-        return arr[0].second;
-    }
-};
+void foodRatingsChangeRating(FoodRatings* obj, char* food, int newRating) {
+    
+}
 
-class FoodRatings_B
-{
-public:
-    int size;
-    unordered_map<string, pair<string, int>> foodMap; // K: foodName V: pair<cuisine, rate>
-    unordered_map<string, set<pair<int, string>>> rateMap;  // K: cuisine V: set<pair<rate, foodName>>
+char* foodRatingsHighestRated(FoodRatings* obj, char* cuisine) {
+    
+}
 
-    FoodRatings_B(vector<string> &foods, vector<string> &cuisines, vector<int> &ratings)
-    {
-        size = foods.size();
-        for (int i = 0; i < size; i++)
-        {
-            foodMap[foods[i]] = make_pair(cuisines[i], ratings[i]);
-            rateMap[cuisines[i]].insert(make_pair(-ratings[i], foods[i]));
-        }
-    }
-
-    void changeRating(string food, int newRating)
-    {
-        string preCuisine = foodMap[food].first;
-        int preRate = foodMap[food].second;
-        foodMap[food].second = newRating;
-        rateMap[preCuisine].erase(make_pair(-preRate, food));
-        rateMap[preCuisine].insert(make_pair(-newRating, food));
-    }
-
-    string highestRated(string cuisine)
-    {
-        return rateMap[cuisine].begin()->second;
-    }
-};
+void foodRatingsFree(FoodRatings* obj) {
+    
+}
 
 int main()
 {
-    vector<string> foods = {"kimchi", "miso", "sushi", "moussaka", "ramen", "bulgogi"};
+    char foods[6][] = {"kimchi", "miso", "sushi", "moussaka", "ramen", "bulgogi"};
     vector<string> cuisines = {"korean", "japanese", "japanese", "greek", "japanese", "korean"};
     vector<int> ratings = {9, 12, 8, 15, 14, 7};
 

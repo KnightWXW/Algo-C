@@ -1,4 +1,4 @@
-#include "../mybasic.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 2240. 买钢笔和铅笔的方案数
 

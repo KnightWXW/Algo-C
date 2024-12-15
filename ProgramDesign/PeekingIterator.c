@@ -1,5 +1,4 @@
-#include "../mybasic.h"
-#include "uthash.h"
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 284. 窥视迭代器
 
@@ -56,12 +55,4 @@ bool hasNext(struct PeekingIterator* obj) {
     
 }
 
-/**
- * Your PeekingIterator struct will be instantiated and called as such:
- * PeekingIterator* obj = peekingIteratorCreate(arr, arrSize);
- * int param_1 = peek(obj);
- * int param_2 = next(obj);
- * bool param_3 = hasNext(obj);
- * peekingIteratorFree(obj);
-*/
  

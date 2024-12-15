@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <unordered_set>
-#include <unordered_map>
-
-using namespace std;
+#include "../Mybasic/mybasic.h"
 
 //      Huawei: 至多交换一次的测试时间
 

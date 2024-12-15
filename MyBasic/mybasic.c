@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include "../uthash/uthash.h"
 
 // 随机数:
 int GenerateRandomNum(int low, int high)
