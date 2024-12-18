@@ -62,7 +62,7 @@ void StackPush(Stack *obj, int val)
     if (StackIsFull(obj))
     {
         int newCapacity = obj->capacity * 2;
-        int *newArr = realloc(obj->arr, newCapacity);
+        int *newArr = (int *)realloc(obj->arr, newCapacity * sizeof(int));
         assert(newArr);
         obj->arr = newArr;
         obj->capacity = newCapacity;
@@ -162,18 +162,20 @@ int main()
     cQueueAppendTail(obj1, 2);
     cQueueAppendTail(obj1, 3);
     cQueueAppendTail(obj1, 4);
-    //printf("从图111\n");
     cQueueAppendTail(obj1, 5);
-    printf("从图222\n");
-    cQueueAppendTail(obj1, 6);
-    cQueueAppendTail(obj1, 7);
-    cQueueAppendTail(obj1, 8);
-    cQueueAppendTail(obj1, 9);
     int a1 = cQueueDeleteHead(obj1);
     printf("从图书馆中借出书籍为 %d。\n", a1); // 1
     int a2 = cQueueDeleteHead(obj1);
     printf("从图书馆中借出书籍为 %d。\n", a2); // 2
+    cQueueAppendTail(obj1, 6);
+    cQueueAppendTail(obj1, 7);
+    cQueueAppendTail(obj1, 8);
+    cQueueAppendTail(obj1, 9);
     int a3 = cQueueDeleteHead(obj1);
     printf("从图书馆中借出书籍为 %d。\n", a3); // 3
+    int a4 = cQueueDeleteHead(obj1);
+    printf("从图书馆中借出书籍为 %d。\n", a4); // 4
+    int a5 = cQueueDeleteHead(obj1);
+    printf("从图书馆中借出书籍为 %d。\n", a5); // 5
     cQueueFree(obj1);
 }

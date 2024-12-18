@@ -39,6 +39,8 @@ int main()
     int ans_B = NumRescueBoats_B(vec_B, n, limit);
     printf("承载所有人所需的最小船数 为 %d.\n", ans_A);
     printf("承载所有人所需的最小船数 为 %d.\n", ans_B);
+    FreeVec(vec_A);
+    FreeVec(vec_B);
 }
 
 int Compare(const void *a, const void *b)

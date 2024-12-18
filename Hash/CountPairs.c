@@ -30,15 +30,12 @@ int CountPairs_C(int *deliciousness, int deliciousnessSize);
 
 int main()
 {
-    // int n = GenerateRandomNum(1, 10);
-    // int *vec = GenerateRandomVec(0, 100, n);
-    // PrintVecElement(vec, n);
-    // int ans_A = CountPairs(vec, n);
-    // printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
-    int v[] = {1, 3, 5, 7, 9};
-    int ans_A = CountPairs_A(v, 5);
-    int ans_B = CountPairs_B(v, 5);
-    int ans_C = CountPairs_C(v, 5);
+    int n = GenerateRandomNum(1, 10);
+    int *vec = GenerateRandomVec(0, 100, n);
+    PrintVecElement(vec, n);
+    int ans_A = CountPairs(vec, n);
+    int ans_B = CountPairs(vec, n);
+    int ans_C = CountPairs(vec, n);
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_B);
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_C);

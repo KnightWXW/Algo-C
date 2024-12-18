@@ -32,6 +32,7 @@ int main()
     PrintVecElement(vec);
     int ans_A = MaxAbsoluteSum(vec, n);
     printf("和的绝对值 最大的任意子数组, 该值为: %d\n", ans_A);
+    FreeVec(vec);
 }
 
 int MaxAbsoluteSum(int* nums, int numsSize)

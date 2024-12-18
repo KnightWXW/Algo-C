@@ -31,6 +31,7 @@ int main()
     PrintVecElement(vec, n);
     int ans_A = MinSetSize(vec, n);
     printf("至少 能删除数组中的一半整数的整数集合的最小大小 为 %d.\n", ans_A);
+    FreeVec(vec);
 }
 
 // 贪心：

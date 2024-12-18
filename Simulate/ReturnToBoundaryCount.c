@@ -35,7 +35,7 @@
 //          -10 <= nums[i] <= 10
 //          nums[i] != 0
 
-int ReturnToBoundaryCount(int* nums, int numsSize);
+int ReturnToBoundaryCount(int *nums, int numsSize);
 
 int main()
 {
@@ -43,18 +43,18 @@ int main()
     int *vec = GenerateRandomVec(-100, 100, n);
     PrintVecElement(vec, n);
     int ans_A = ReturnToBoundaryCount(vec, n);
-    FreeVec(vec);
     printf("蚂蚁 返回 到边界上的次数为: %d \n", ans_A);
+    FreeVec(vec);
 }
 
 // 模拟：
 // Time: O(N)
 // Space: O(1)
-int ReturnToBoundaryCount(int* nums, int numsSize)
+int ReturnToBoundaryCount(int *nums, int numsSize)
 {
     int ans = 0;
     int cur = 0;
-    for(int i = 0; i < numsSize; i++)
+    for (int i = 0; i < numsSize; i++)
     {
         cur += nums[i];
         ans += cur == 0 ? 1 : 0;

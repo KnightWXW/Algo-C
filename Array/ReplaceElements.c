@@ -25,7 +25,7 @@
 //          1 <= arr.length <= 104
 //          1 <= arr[i] <= 105
 
-extern int *ReplaceElements(int *arr, int arrSize, int *returnSize);
+int *ReplaceElements(int *arr, int arrSize, int *returnSize);
 
 int main()
 {

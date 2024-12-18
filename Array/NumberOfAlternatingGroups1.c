@@ -4,7 +4,8 @@
 
 //      链接：https://leetcode.cn/problems/alternating-groups-i/
 
-//      给你一个整数数组 colors，它表示一个由红色和蓝色瓷砖组成的环，第 i 块瓷砖的颜色为 colors[i] ：
+//      给你一个整数数组 colors，它表示一个由红色和蓝色瓷砖组成的环，
+//      第 i 块瓷砖的颜色为 colors[i] ：
 //          colors[i] == 0 表示第 i 块瓷砖的颜色是 红色 。
 //          colors[i] == 1 表示第 i 块瓷砖的颜色是 蓝色 。
 //      环中连续 3 块瓷砖的颜色如果是 交替 颜色
@@ -24,7 +25,7 @@
 //          3 <= colors.length <= 100
 //          0 <= colors[i] <= 1
 
-int NumberOfAlternatingGroups1(int* colors, int colorsSize);
+int NumberOfAlternatingGroups1(int *colors, int colorsSize);
 
 int main()
 {
@@ -33,9 +34,23 @@ int main()
     PrintVecElement(vec, n);
     int ans_A = NumberOfAlternatingGroups1(vec, n);
     printf("交替 组的数目 为: %d \n", ans_A);
+    FreeVec(vec);
 }
 
-int NumberOfAlternatingGroups1(int* colors, int colorsSize)
+bool JudgeAlternating(int a, int b, int c)
 {
+    return (a == c) & (a != b);
+}
 
+// 模拟:
+// Time: O(N)
+// Space: O(1)
+int NumberOfAlternatingGroups1(int *colors, int colorsSize)
+{
+    int ans = 0;
+    for (int i = 0; i < colorsSize; i++)
+    {
+        ans += JudgeAlternating(colors[i], colors[(i + 1) % colorsSize], colors[(i + 2) % colorsSize]) ? 1 : 0;
+    }
+    return ans;
 }

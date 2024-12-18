@@ -30,8 +30,8 @@ int main()
     int *nums = GenerateRandomVec(0, 10, n);
     PrintVecElement(nums, n);
     int ans_A = MaxArea(nums, n);
-    FreeVec(nums);
     printf("容器可以储存的最大水量 为 %d \n", ans_A);
+    FreeVec(nums);
 }
 
 // 贪心 + 双指针：

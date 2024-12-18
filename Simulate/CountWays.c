@@ -39,8 +39,8 @@ int main()
     int* nums = GenerateRandomVec(0, 1000, n);
     PrintString(nums);
     int ans_A = CountWays(nums, strlen(nums));
-    FreeVec(nums);
     printf("能够满足让所有学生保持开心的分组方法的数目 为 %d \n", ans_A);
+    FreeVec(nums);
 }
 
 int CountWays(int* nums, int numsSize)

@@ -32,6 +32,7 @@ int main()
     PrintVecElement(vec, n);
     int ans_A = DistributeCandy(vec, n);
     printf("需要准备的 最少糖果数目: %d \n", ans_A);
+    FreeVec(vec);
 }
 
 // 前缀和：
