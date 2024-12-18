@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <assert.h>
 #include "../uthash/uthash.h"
 
 // 最大值与最小值

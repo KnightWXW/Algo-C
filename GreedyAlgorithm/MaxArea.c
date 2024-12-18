@@ -34,7 +34,7 @@ int main()
     printf("容器可以储存的最大水量 为 %d \n", ans_A);
 }
 
-// 双指针：
+// 贪心 + 双指针：
 // Time: O(N)
 // Space: O(1)
 int MaxArea(int *height, int heightSize)
@@ -42,11 +42,11 @@ int MaxArea(int *height, int heightSize)
     int left = 0;
     int right = heightSize - 1;
     int ans = 0;
-    while (left < right)
+    while (left <= right)
     {
-        int area = min(height[left], height[right]) * (right - left + 1);
+        int area = min(height[left], height[right]) * (right - left);
         ans = max(ans, area);
-        if (height[left] < height[right])
+        if (height[left] > height[right])
         {
             right--;
         }

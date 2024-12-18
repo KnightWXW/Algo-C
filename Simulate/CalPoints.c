@@ -53,15 +53,48 @@ int CalPoints(char **operations, int operationsSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 10);
-    char **operations = GenerateRandomVec(1, 20, n);
-    int ans = CalPoints(operations, n);
+    char *operations1[] = {"5", "-2", "4", "C", "D", "9", "+", "+"};
+    int n1 = 8;
+    int ans1 = CalPoints(operations1, n1);
     printf("operations 数组 元素为: ");
-    PrintVecElement(operations, n);
-    printf("初始资本为 %d 的 %d 个项目, 最终可获得的最多资本为 %d。\n", w, k, ans);
+    PrintVecElement(operations1, n1);
+    printf("记录中所有得分的总和为 %d。\n", ans1);
 }
 
+// 模拟：
+// Time: O(N)
+// Space: O(N)
 int CalPoints(char **operations, int operationsSize)
 {
-    
+    int ans = 0;
+    int index = 0;
+    int *vec = (int *)malloc(sizeof(int) * operationsSize);
+    for (int i = 0; i < operationsSize; i++)
+    {
+        if (strcmp(operations[i], "+") == 0)
+        {
+            vec[index] = vec[index - 1] + vec[index - 2];
+            ans += vec[index];
+            index++;
+        }
+        else if (strcmp(operations[i], "C") == 0)
+        {
+            index--;
+            ans -= vec[index];
+        }
+        else if (strcmp(operations[i], "D") == 0)
+        {
+            vec[index] = vec[index - 1] * 2;
+            ans += vec[index];
+            index++;
+        }
+        else
+        {
+            vec[index] = atoi(operations[i][0]);
+            ans += vec[index];
+            index++;
+        }
+    }
+    free(vec);
+    return ans;
 }
