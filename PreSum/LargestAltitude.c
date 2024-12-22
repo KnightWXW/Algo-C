@@ -31,7 +31,7 @@ int main()
     PrintVecElement(vec, n);
     int ans_A = LargestAltitude(vec, n);
     printf("最高点的海拔 为: %d \n", ans_A);
-     FreeVec(vec);
+    FreeVec(vec);
 }
 
 // 前缀和：

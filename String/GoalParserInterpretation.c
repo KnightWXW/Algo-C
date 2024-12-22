@@ -33,17 +33,17 @@ int main()
 {
     char s1[] = "G()(al)";
     PrintString(s1);
-    bool ans1 = GoalParserInterpretation(s1);
+    char *ans1 = GoalParserInterpretation(s1);
     printf("Goal 解析器 的解释结果为: \n");
     FreeString(ans1);
     char s2[] = "G()()()()(al)";
     PrintString(s2);
-    bool ans2 = GoalParserInterpretation(s2);
+    char *ans2 = GoalParserInterpretation(s2);
     printf("Goal 解析器 的解释结果为: \n");
     FreeString(ans2);
     char s3[] = "(al)G(al)()()G";
     PrintString(s3);
-    bool ans3 = GoalParserInterpretation(s3);
+    char *ans3 = GoalParserInterpretation(s3);
     printf("Goal 解析器 的解释结果为: \n");
     FreeString(ans3);
 }

@@ -39,6 +39,7 @@ int main()
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_A);
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_B);
     printf("数组中的餐品做出的不同 大餐 的数量 为: %d \n", ans_C);
+    FreeVec(vec);
 }
 
 typedef struct

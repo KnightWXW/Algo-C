@@ -39,6 +39,8 @@ int main()
     bool ans = SquareIsWhite(str);
     printf("所给格子的颜色是白色吗？\n");
     PrintBool(ans);
+    FreeString(c1);
+    FreeString(c2);
 }
 
 // 数学

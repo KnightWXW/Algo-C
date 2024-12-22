@@ -25,9 +25,10 @@ int main()
     char arr[] = {'U', 'D', 'L', 'R'};
     char *str = GenerateRandomString(n, arr, 4);
     printf("给定航线为：\n");
-    printString(str);
+    PrintString(str);
     int ans = NumOfIceBreaking(str, limit);
     printf("在行驶路线中，破冰船共破了 %d 次。\n", ans);
+    FreeString(str);
 }
 
 // 模拟：

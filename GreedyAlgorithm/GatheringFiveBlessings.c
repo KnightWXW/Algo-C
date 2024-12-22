@@ -35,8 +35,8 @@ int main()
     char **strs = GenerateRandomStringVecFixed(n, 5, arr1, 2);
     PrintStringVec(strs, n);
     int ans_A = GatheringFiveBlessings(strs, n);
-    FreeStringVec(strs, n);
     printf("该团队最多可以集齐 %d 套五福 ", ans_A);
+    FreeStringVec(strs, n);
 }
 
 int GatheringFiveBlessings(char **vec, int n)

@@ -35,6 +35,7 @@ int main()
     int ans_B = ThirdMax_B(vec, n);
     printf("此数组中 第三大的数 为 %d.\n", ans_A);
     printf("此数组中 第三大的数 为 %d.\n", ans_B);
+    FreeVec(vec);
 }
 
 int CompareThirdMax(const void *a, const void *b)

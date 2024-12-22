@@ -43,6 +43,7 @@ int main()
     PrintString(s);
     printf("该列名称对应的列序号 为 %d。\n", ans_A);
     printf("该列名称对应的列序号 为 %d。\n", ans_B);
+    FreeVec(s);
 }
 
 // 模拟：
