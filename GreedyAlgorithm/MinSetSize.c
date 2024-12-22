@@ -22,11 +22,11 @@
 //          arr.length 为偶数
 //          1 <= arr[i] <= 105
 
-int MinSetSize(int* arr, int arrSize);
+int MinSetSize(int *arr, int arrSize);
 
 int main()
 {
-    int n =  2*GenerateRandomNum(1, 20);
+    int n = 2 * GenerateRandomNum(1, 20);
     int *vec = GenerateRandomVec(0, 100, n);
     PrintVecElement(vec, n);
     int ans_A = MinSetSize(vec, n);
@@ -37,7 +37,6 @@ int main()
 // 贪心：
 // Time: O(NlogN)
 // Space: O(logN)
-int MinSetSize(int* arr, int arrSize)
+int MinSetSize(int *arr, int arrSize)
 {
-
 }
