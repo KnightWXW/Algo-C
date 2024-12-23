@@ -41,20 +41,64 @@ typedef struct
 {
     int userId;
     int projectId;
-    int price;
-} TenderItem;
+} TenderInfo;
 
+TenderInfo *TenderInfoCreate(int userId, int projectId)
+{
+    TenderInfo *obj = (TenderInfo *)malloc(sizeof(TenderInfo));
+    obj->userId = userId;
+    obj->projectId = projectId;
+    return obj;
+}
 typedef struct
 {
-    
+    TenderInfo *tenderInfo;
+    int price;
+    UT_hash_table hh;
 } TenderSystem;
+
+// void HashMapAddNode(TenderSystem **obj, int userId, int projectId)
+// {
+//     TenderSystem *ts = (TenderSystem *)malloc(sizeof(TenderSystem));
+//     TenderInfo *ti = TenderInfoCreate(userId, projectId);
+//     ts->tenderInfo = ti;
+//     TenderSystem *cur = NULL;
+//     HASH_FIND(hh, *obj, ti, sizeof(TenderInfo), cur);
+//     if (cur == NULL)
+//     {
+//         cur = (TenderInfo *)malloc(sizeof(TenderInfo));
+//         cur->tenderInfo =ti;
+//         cur->price = price;
+//         HASH_ADD(hh, *obj, ti, sizeof(TenderInfo), cur);
+//     }
+//     return;
+// }
+
+TenderSystem *tsObj = NULL;
 
 TenderSystem *TenderSystemCreate()
 {
+    tsObj = (TenderSystem *)malloc(sizeof(TenderSystem));
+    return tsObj;
 }
 
 void TenderSystemAddTender(TenderSystem *obj, int userId, int projectId, int price)
 {
+    assert(obj);
+    TenderInfo *ti = TenderInfoCreate(userId, projectId);
+    TenderSystem *cur = NULL;
+    HASH_FIND(hh, tsObj, ti, sizeof(TenderInfo), cur);
+    if (cur == NULL)
+    {
+        cur = (TenderInfo *)malloc(sizeof(TenderInfo));
+          cur->tenderInfo =ti;
+        cur->price = price;
+        HASH_ADD(hh, *obj, ti, sizeof(TenderInfo), cur);
+    }
+    else
+    {
+    }
+    return 
 }
 
 int TenderSystemUpdateTender(TenderSystem *obj, int userId, int projectId, int price)

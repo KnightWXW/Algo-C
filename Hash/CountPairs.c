@@ -44,7 +44,7 @@ int main()
 
 typedef struct
 {
-    int key;
+    int key; 
     int val;
     UT_hash_handle hh;
 } HashMap;

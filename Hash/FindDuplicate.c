@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 287. 寻找重复数
 
@@ -46,6 +46,9 @@ void SwapElement(int *arr, int i, int j)
     return;
 }
 
+// 原地交换(数组哈希):
+// Time: O(N)
+// Space: O(1)
 int FindDuplicate(int* nums, int numsSize)
 {
     
