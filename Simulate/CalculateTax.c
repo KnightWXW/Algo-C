@@ -8,7 +8,7 @@
 //      其中 brackets[i] = [upperi, percenti] ，
 //      表示 第 i 个税级的上限是 upperi ，征收的税率为 percenti。
 //      税级按上限 从低到高排序
-//      （在满足 0 < i < brackets.length 的前提下，upperi-1 < upperi）。
+//      (在满足 0 < i < brackets.length 的前提下，upperi-1 < upperi)。
 //      税款计算方式如下：
 //          不超过 upper0 的收入按税率 percent0 缴纳
 //          接着 upper1 - upper0 的部分按税率 percent1 缴纳
@@ -45,19 +45,23 @@
 //          upperi 中的所有值 互不相同
 //          最后一个税级的上限大于等于 income
 
-double calculateTax(int **brackets, int bracketsSize, int *bracketsColSize, int income);
+double CalculateTax(int **brackets, int bracketsSize, int *bracketsColSize, int income);
 
 int main()
 {
     int brackets_A[3][2] = {{3, 50}, {7, 10}, {12, 25}};
     int income_A = 10;
-    PrintVecElement2D(brackets_A, 3, 2);
-    double ans_A = CalculateTax(brackets_A, 3, 2, income_A);
+    int bracketsSize_A = 3;
+    int *bracketsColSize_A = 2;
+    PrintVecElement2D((int **)brackets_A, 3, 2);
+    double ans_A = CalculateTax((int **)brackets_A, bracketsSize_A, bracketsColSize_A, income_A);
     printf("需要缴纳的税款总额为：%lf。\n", ans_A);
     int brackets_B[3][2] = {{1, 0}, {4, 25}, {5, 50}};
     int income_B = 2;
-    PrintVecElement2D(brackets_B, 3, 2);
-    double ans_B = CalculateTax(brackets_B, 3, 2, income_B);
+    int bracketsSize_B = 3;
+    int *bracketsColSize_B = 2;
+    PrintVecElement2D((int **)brackets_B, 3, 2);
+    double ans_B = CalculateTax((int **)brackets_B, bracketsSize_B, bracketsColSize_B, income_B);
     printf("需要缴纳的税款总额为：%lf。\n", ans_B);
 }
 
@@ -66,5 +70,19 @@ int main()
 // Space: O(1)
 double CalculateTax(int **brackets, int bracketsSize, int *bracketsColSize, int income)
 {
-    
+    double ans = 0.0;
+    int preUpper = 0;
+    for (int i = 0; i < bracketsSize; i++)
+    {
+        int upper = brackets[i][0];
+        int percent = brackets[i][1];
+        int tem = (min(income, upper) - preUpper) * percent;
+        ans += tem;
+        if (income <= upper)
+        {
+            break;
+        }
+        preUpper = upper;
+    }
+    return (double)(ans / 100.00);
 }

@@ -8,7 +8,7 @@
 //      如果给出一个单词，请判定能否只将这个单词中一个字母换成另一个字母，
 //      使得所形成的新单词存在于你构建的字典中。
 //      实现 MagicDictionary 类：
-//      MagicDictionary() 初始化对象
+//      MagicDictionary(): 初始化对象
 //      void buildDict(String[] dictionary)：
 //           使用字符串数组 dictionary 设定该数据结构，dictionary 中的字符串互不相同
 //      bool search(String searchWord)：
