@@ -26,7 +26,7 @@ void PrintVecElement(int *vec, int size);
 // 随机二维数组:
 int **GenerateRandomVec2D(int low, int high, int row, int col);
 void FreeVec2D(int **vec, int row);
-void PrintVecElement2D(int **vec, int row, int col);
+void PrintVecElement2D(int *vec, int row, int col);
 
 // 随机字符串:
 char *GenerateRandomString(int n, char *arr, int arrLen);
