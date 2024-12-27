@@ -34,7 +34,7 @@ bool CheckString_C(char *s);
 int main()
 {
     int n = GenerateRandomNum(0, 10);
-    char arr[2] = "AB";
+    char arr[2] = "ab";
     char *str = GenerateRandomString(n, arr, 2);
     PrintString(str);
     bool ans_A = CheckString_A(str);
