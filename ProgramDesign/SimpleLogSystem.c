@@ -31,31 +31,95 @@
 
 typedef struct
 {
+    int id;
+    int timeStamp;
+    UT_hash_handle hh;
+} LogInfo;
 
+typedef struct
+{
+    LogInfo *logInfo;
 } SimpleLogSystem;
 
 SimpleLogSystem *SimpleLogSystemCreate()
 {
+    SimpleLogSystem *obj = (SimpleLogSystem *)malloc(sizeof(SimpleLogSystem));
+    if (obj == NULL)
+    {
+        return NULL;
+    }
+    obj->logInfo == NULL;
+    return obj;
 }
 
 void SimpleLogSystemAdd(SimpleLogSystem *obj, int id, int timeStamp)
 {
+
+    LogInfo *cur = NULL;
+    printf("1  \n"); // 3
+    HASH_FIND_INT(obj->logInfo, id, cur);
+    printf("2  \n"); // 3
+    if (cur == NULL)
+    {
+        printf("3  \n"); // 3
+        cur = (LogInfo *)malloc(sizeof(LogInfo *));
+        cur->id = id;
+        cur->timeStamp = timeStamp;
+        HASH_ADD_INT(obj->logInfo, id, cur);
+    }
+    printf("4  \n"); // 3
+    return;
 }
 
 int SimpleLogSystemDelete(SimpleLogSystem *obj, int id)
 {
+    LogInfo *cur = NULL;
+    HASH_FIND_INT(obj->logInfo, id, cur);
+    if (cur == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        HASH_DEL(obj->logInfo, cur);
+        free(cur);
+        return 0;
+    }
 }
 
 int SimpleLogSystemQuery(SimpleLogSystem *obj, int startTime, int endTime)
 {
+    LogInfo *cur;
+    LogInfo *tem;
+    int cnt = 0;
+    HASH_ITER(hh, obj->logInfo, cur, tem)
+    {
+        if (cur->timeStamp >= startTime && cur->timeStamp <= endTime)
+        {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
+void SimpleLogSystemFree(SimpleLogSystem *obj)
+{
+    HASH_CLEAR(hh, obj->logInfo);
+    free(obj);
+    return;
 }
 
 int main()
 {
+    printf("111到\n"); // 3
     SimpleLogSystem *obj = SimpleLogSystemCreate();
+    printf("222到\n"); // 3
     SimpleLogSystemAdd(obj, 1, 5);
+     printf("333到\n"); // 3
     SimpleLogSystemAdd(obj, 2, 5);
+     printf("444\n"); // 3
     SimpleLogSystemAdd(obj, 3, 6);
+     printf("555到\n"); // 3
     int q1 = SimpleLogSystemQuery(obj, 5, 6);
     printf("查询到的日志记录数量为 %d\n", q1); // 3
     int d1 = SimpleLogSystemDelete(obj, 2);
