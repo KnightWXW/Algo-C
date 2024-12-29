@@ -168,7 +168,7 @@ do {                                                                            
 #define HASH_FIND(hh,head,keyptr,keylen,out)                                     \
 do {                                                                             \
   (out) = NULL;                                                                  \
-  if (head) {                                                                    \
+  if (head) {                                                        \
     unsigned _hf_hashv;                                                          \
     HASH_VALUE(keyptr, keylen, _hf_hashv);                                       \
     HASH_FIND_BYHASHVALUE(hh, head, keyptr, keylen, _hf_hashv, out);             \

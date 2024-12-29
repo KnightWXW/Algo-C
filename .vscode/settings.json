@@ -13,6 +13,7 @@
         "stdbool.h": "c",
         "string.h": "c",
         "mybasic.h": "c",
-        "uthash.h": "c"
+        "uthash.h": "c",
+        "set": "c"
     }
 }

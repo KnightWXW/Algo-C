@@ -34,65 +34,51 @@ typedef struct
     int id;
     int timeStamp;
     UT_hash_handle hh;
-} LogInfo;
+} SimpleLogSystem_A;
 
-typedef struct
-{
-    LogInfo *logInfo;
-} SimpleLogSystem;
+SimpleLogSystem_A *obj_A = NULL;
 
-SimpleLogSystem *SimpleLogSystemCreate()
+SimpleLogSystem_A *SimpleLogSystemCreate_A()
 {
-    SimpleLogSystem *obj = (SimpleLogSystem *)malloc(sizeof(SimpleLogSystem));
-    if (obj == NULL)
-    {
-        return NULL;
-    }
-    obj->logInfo == NULL;
-    return obj;
+    return obj_A;
 }
 
-void SimpleLogSystemAdd(SimpleLogSystem *obj, int id, int timeStamp)
+void SimpleLogSystemAdd_A(int id, int timeStamp)
 {
-
-    LogInfo *cur = NULL;
-    printf("1  \n"); // 3
-    HASH_FIND_INT(obj->logInfo, id, cur);
-    printf("2  \n"); // 3
+    SimpleLogSystem_A *cur = NULL;
+    HASH_FIND_INT(obj_A, &id, cur);
     if (cur == NULL)
     {
-        printf("3  \n"); // 3
-        cur = (LogInfo *)malloc(sizeof(LogInfo *));
+        cur = (SimpleLogSystem_A *)malloc(sizeof(SimpleLogSystem_A));
         cur->id = id;
         cur->timeStamp = timeStamp;
-        HASH_ADD_INT(obj->logInfo, id, cur);
+        HASH_ADD_INT(obj_A, id, cur);
     }
-    printf("4  \n"); // 3
     return;
 }
 
-int SimpleLogSystemDelete(SimpleLogSystem *obj, int id)
+int SimpleLogSystemDelete_A(int id)
 {
-    LogInfo *cur = NULL;
-    HASH_FIND_INT(obj->logInfo, id, cur);
+    SimpleLogSystem_A *cur = NULL;
+    HASH_FIND_INT(obj_A, &id, cur);
     if (cur == NULL)
     {
         return -1;
     }
     else
     {
-        HASH_DEL(obj->logInfo, cur);
+        HASH_DEL(obj_A, cur);
         free(cur);
         return 0;
     }
 }
 
-int SimpleLogSystemQuery(SimpleLogSystem *obj, int startTime, int endTime)
+int SimpleLogSystemQuery_A(int startTime, int endTime)
 {
-    LogInfo *cur;
-    LogInfo *tem;
+    SimpleLogSystem_A *cur;
+    SimpleLogSystem_A *tem;
     int cnt = 0;
-    HASH_ITER(hh, obj->logInfo, cur, tem)
+    HASH_ITER(hh, obj_A, cur, tem)
     {
         if (cur->timeStamp >= startTime && cur->timeStamp <= endTime)
         {
@@ -102,30 +88,106 @@ int SimpleLogSystemQuery(SimpleLogSystem *obj, int startTime, int endTime)
     return cnt;
 }
 
-void SimpleLogSystemFree(SimpleLogSystem *obj)
+void SimpleLogSystemFree_A()
 {
-    HASH_CLEAR(hh, obj->logInfo);
-    free(obj);
+    HASH_CLEAR(hh, obj_A);
+    free(obj_A);
+    return;
+}
+
+typedef struct
+{
+    int id;
+    int timeStamp;
+    UT_hash_handle hh;
+} SimpleLogSystem_B;
+
+SimpleLogSystem_B *SimpleLogSystemCreate_B()
+{
+    SimpleLogSystem_B *obj = NULL;
+    return obj;
+}
+
+void SimpleLogSystemAdd_B(SimpleLogSystem_B **obj, int id, int timeStamp)
+{
+
+    SimpleLogSystem_B *cur = NULL;
+    HASH_FIND_INT((*obj), &id, cur);
+    if (cur == NULL)
+    {
+        cur = (SimpleLogSystem_B *)malloc(sizeof(SimpleLogSystem_B));
+        cur->id = id;
+        cur->timeStamp = timeStamp;
+        HASH_ADD_INT((*obj), id, cur);
+    }
+    return;
+}
+
+int SimpleLogSystemDelete_B(SimpleLogSystem_B **obj, int id)
+{
+    SimpleLogSystem_B *cur = NULL;
+    HASH_FIND_INT((*obj), &id, cur);
+    if (cur == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        HASH_DEL((*obj), cur);
+        free(cur);
+        return 0;
+    }
+}
+
+int SimpleLogSystemQuery_B(SimpleLogSystem_B *obj, int startTime, int endTime)
+{
+    SimpleLogSystem_B *cur;
+    SimpleLogSystem_B *tem;
+    int cnt = 0;
+    HASH_ITER(hh, obj, cur, tem)
+    {
+        if (cur->timeStamp >= startTime && cur->timeStamp <= endTime)
+        {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
+void SimpleLogSystemFree_B(SimpleLogSystem_B **obj)
+{
+    HASH_CLEAR(hh, (*obj));
+    free(*obj);
     return;
 }
 
 int main()
 {
-    printf("111到\n"); // 3
-    SimpleLogSystem *obj = SimpleLogSystemCreate();
-    printf("222到\n"); // 3
-    SimpleLogSystemAdd(obj, 1, 5);
-     printf("333到\n"); // 3
-    SimpleLogSystemAdd(obj, 2, 5);
-     printf("444\n"); // 3
-    SimpleLogSystemAdd(obj, 3, 6);
-     printf("555到\n"); // 3
-    int q1 = SimpleLogSystemQuery(obj, 5, 6);
-    printf("查询到的日志记录数量为 %d\n", q1); // 3
-    int d1 = SimpleLogSystemDelete(obj, 2);
-    printf("删除日志结果为 %d\n", d1); // 0
-    int d2 = SimpleLogSystemDelete(obj, 4);
-    printf("删除日志结果为 %d\n", d2); //-1
-    int q2 = SimpleLogSystemQuery(obj, 5, 6);
-    printf("查询到的日志记录数量为 %d\n", q2); // 2
+    SimpleLogSystem_A *objA = SimpleLogSystemCreate_A();
+    SimpleLogSystemAdd_A(1, 5);
+    SimpleLogSystemAdd_A(2, 5);
+    SimpleLogSystemAdd_A(3, 6);
+    int q1A = SimpleLogSystemQuery_A(5, 6);
+    printf("查询到的日志记录数量为 %d\n", q1A); // 3
+    int d1A = SimpleLogSystemDelete_A(2);
+    printf("删除日志结果为 %d\n", d1A); // 0
+    int d2A = SimpleLogSystemDelete_A(4);
+    printf("删除日志结果为 %d\n", d2A); //-1
+    int q2A = SimpleLogSystemQuery_A(5, 6);
+    printf("查询到的日志记录数量为 %d\n", q2A); // 2
+    SimpleLogSystemFree_A();
+
+    SimpleLogSystem_B *objB = SimpleLogSystemCreate_B();
+    SimpleLogSystemAdd_B(&objB, 1, 5);
+    SimpleLogSystemAdd_B(&objB, 2, 5);
+    SimpleLogSystemAdd_B(&objB, 3, 6);
+    int q1B = SimpleLogSystemQuery_B(objB, 5, 6);
+    printf("查询到的日志记录数量为 %d\n", q1B); // 3
+    int d1B = SimpleLogSystemDelete_B(&objB, 2);
+    printf("删除日志结果为 %d\n", d1B); // 0
+    int d2B = SimpleLogSystemDelete_B(&objB, 4);
+    printf("删除日志结果为 %d\n", d2B); //-1
+    int q2B = SimpleLogSystemQuery_B(objB, 5, 6);
+    printf("查询到的日志记录数量为 %d\n", q2B); // 2
+    SimpleLogSystemFree_B(&objB);
 }

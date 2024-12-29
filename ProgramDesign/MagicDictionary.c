@@ -41,7 +41,6 @@
 #define MAGIC_DICTIONARY_WORD_SIZE 101
 
 // 全局变量:
-
 typedef struct
 {
     char word[MAGIC_DICTIONARY_WORD_SIZE];
@@ -79,28 +78,26 @@ void MagicDictionaryBuildDict_A(MagicDictionary_A *obj, char **dictionary, int d
 
 bool MagicDictionarySearch_A(MagicDictionary_A *obj, char *searchWord)
 {
-    int l = strlen(searchWord);
-    for (int i = 0; i < l; i++)
+    MagicDictionary_A *cur;
+    MagicDictionary_A *tem;
+    HASH_ITER(hh, md, cur, tem)
     {
-        char tem = searchWord[i];
-        for (int j = 0; j < 26; j++)
+        char *str = cur->word;
+        if (strlen(str) == strlen(searchWord))
         {
-            MagicDictionary_A *cur;
-            if ((char)('a' + j) != tem)
+            int cnt = 0;
+            for (int i = 0; i < strlen(str); i++)
             {
-                searchWord[i] = (char)('a' + j);
+                if (str[i] != searchWord[i])
+                {
+                    cnt++;
+                }
             }
-            else
-            {
-                continue;
-            }
-            HASH_FIND_STR(md, searchWord, cur);
-            if (cur != NULL)
+            if (cnt == 1)
             {
                 return true;
             }
         }
-        searchWord[i] = tem;
     }
     return false;
 }
@@ -116,70 +113,58 @@ typedef struct
 {
     char word[MAGIC_DICTIONARY_WORD_SIZE];
     UT_hash_handle hh;
-} MagicWordSet;
-
-typedef struct
-{
-    MagicWordSet *hSet;
 } MagicDictionary_B;
 
 MagicDictionary_B *MagicDictionaryCreate_B()
 {
-    MagicDictionary_B *obj = (MagicDictionary_B *)malloc(sizeof(MagicDictionary_B));
-    if (obj == NULL)
-    {
-        return NULL;
-    }
-    obj->hSet = NULL;
+    MagicDictionary_B *obj = NULL;
     return obj;
 }
 
-void MagicDictionaryBuildDict_B(MagicDictionary_B *obj, char **dictionary, int dictionarySize)
+void MagicDictionaryBuildDict_B(MagicDictionary_B **obj, char **dictionary, int dictionarySize)
 {
     for (int i = 0; i < dictionarySize; i++)
     {
-        MagicWordSet *set = (MagicWordSet *)malloc(sizeof(MagicWordSet));
-        if (set == NULL)
+        MagicDictionary_B *cur = (MagicDictionary_B *)malloc(sizeof(MagicDictionary_B));
+        if (cur == NULL)
         {
             return;
         }
-        strcpy(set->word, dictionary[i]);
-        HASH_ADD_STR(obj->hSet, word, set);
+        strcpy(cur->word, dictionary[i]);
+        HASH_ADD_STR((*obj), word, cur);
     }
     return;
 }
 
 bool MagicDictionarySearch_B(MagicDictionary_B *obj, char *searchWord)
 {
-    int l = strlen(searchWord);
-    for (int i = 0; i < l; i++)
+    MagicDictionary_B *cur;
+    MagicDictionary_B *tem;
+    HASH_ITER(hh, obj, cur, tem)
     {
-        char tem = searchWord[i];
-        for (int j = 0; j < 26; j++)
+        char *str = cur->word;
+        if (strlen(str) == strlen(searchWord))
         {
-            MagicWordSet *cur;
-            if ((char)('a' + j) != tem)
+            int cnt = 0;
+            for (int i = 0; i < strlen(str); i++)
             {
-                searchWord[i] = (char)('a' + j);
+                if (str[i] != searchWord[i])
+                {
+                    cnt++;
+                }
             }
-            else
-            {
-                continue;
-            }
-            HASH_FIND_STR(obj->hSet, searchWord, cur);
-            if (cur != NULL)
+            if (cnt == 1)
             {
                 return true;
             }
         }
-        searchWord[i] = tem;
     }
     return false;
 }
 
 void MagicDictionaryFree_B(MagicDictionary_B *obj)
 {
-    HASH_CLEAR(hh, obj->hSet);
+    HASH_CLEAR(hh, obj);
     free(obj);
     return;
 }
@@ -204,8 +189,8 @@ int main()
     MagicDictionaryFree_A(obj_A);
 
     MagicDictionary_B *obj_B = MagicDictionaryCreate_B();
-    char *arr[] = {"hello", "leetcode"};
-    MagicDictionaryBuildDict_B(&obj_B, arr, 2);
+    char *arr_B[] = {"hello", "leetcode"};
+    MagicDictionaryBuildDict_B(&obj_B, arr_B, 2);
     bool b_B1 = MagicDictionarySearch_B(obj_B, "hello"); // 返回 False
     printf("匹配结果为：\n");
     PrintBool(b_B1);
