@@ -30,7 +30,6 @@
 //          columnTitle 在范围 ["A", "FXSHRXW"] 内
 
 int TitleToNumber_A(char *columnTitle);
-int TitleToNumber_B(char *columnTitle);
 
 int main()
 {
@@ -42,7 +41,6 @@ int main()
     printf("字符串 columnTitle 为: \n");
     PrintString(s);
     printf("该列名称对应的列序号 为 %d。\n", ans_A);
-    printf("该列名称对应的列序号 为 %d。\n", ans_B);
     FreeVec(s);
 }
 

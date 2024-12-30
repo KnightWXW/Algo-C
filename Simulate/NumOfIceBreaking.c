@@ -26,15 +26,113 @@ int main()
     char *str = GenerateRandomString(n, arr, 4);
     printf("给定航线为：\n");
     PrintString(str);
-    int ans = NumOfIceBreaking(str, limit);
+    int ans = NumOfIceBreaking(str, n, limit);
     printf("在行驶路线中，破冰船共破了 %d 次。\n", ans);
     FreeString(str);
 }
 
+typedef struct
+{
+    int x;
+    int y;
+
+} Coordinate;
+
+Coordinate *CoordinateCreate(int x, int y)
+{
+    Coordinate *obj = (Coordinate *)malloc(sizeof(Coordinate));
+    obj->x = x;
+    obj->y = y;
+    return obj;
+}
+
+typedef struct
+{
+    Coordinate *coor;
+    int time;
+    UT_hash_handle hh;
+} CoordinateSet;
+
+CoordinateSet *CoordinateSetCreate(int x, int y, int time)
+{
+    CoordinateSet *obj = (CoordinateSet *)malloc(sizeof(CoordinateSet));
+    obj->coor = CoordinateCreate(x, y);
+    obj->time = time;
+    return obj;
+}
+
+void CoordinateSetAdd(CoordinateSet **obj, int x, int y, int time)
+{
+    CoordinateSet *cur;
+    Coordinate *data = CoordinateCreate(x, y);
+    HASH_FIND(hh, *obj, data, sizeof(Coordinate), cur);
+    if (cur == NULL)
+    {
+        cur = (CoordinateSet *)malloc(sizeof(CoordinateSet));
+        cur->coor = data;
+        cur->time = time;
+        HASH_ADD(hh, *obj, coor, sizeof(Coordinate), cur);
+    }
+    else
+    {
+        cur->time = time;
+    }
+    return;
+}
+
+void CoordinateSetIter(CoordinateSet **obj)
+{
+    CoordinateSet *cur;
+    CoordinateSet *tem;
+    HASH_ITER(hh, *obj, cur, tem)
+    {
+        cur->time--;
+        if (cur->time == 0)
+        {
+            HASH_DEL(*obj, cur);
+            free(cur);
+        }
+    }
+    return;
+}
+
 // 模拟：
 // Time: O(N)
-// Space: O(1)
+// Space: O(N)
 int NumOfIceBreaking(char *route, int n, int limit)
 {
-    
+    int x = 0;
+    int y = 0;
+    int ans = 0;
+    CoordinateSet *set = NULL;
+    for (int i = 0; i < n; i++)
+    {
+        CoordinateSetAdd(&set, x, y, time);
+        switch (route[i])
+        {
+        case 'L':
+            x--;
+            break;
+        case 'R':
+            x++;
+            break;
+        case 'U':
+            y++;
+            break;
+        case 'D':
+            y--;
+            break;
+        default:
+            break;
+        }
+        CoordinateSet *cur;
+        Coordinate *data = CoordinateCreate(x, y);
+        HASH_FIND(hh, set, data, sizeof(Coordinate), cur);
+        if (cur->time == 0)
+        {
+            ans++;
+        }
+        CoordinateSetIter(&set);
+    }
+    return ans;
 }

@@ -40,6 +40,27 @@
 //                  null
 //                  99
 
+typedef struct
+{
+
+}OrderSystem;
+
+OrderSystem *OrderSystemCreate()
+{
+}
+
+void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods)
+{
+}
+
+void OrderSystemDeliver(OrderSystem *obj, char **goods)
+{
+}
+
+int OrderSystemQuery(OrderSystem *obj)
+{
+}
+
 class OrderSystem
 {
 public:
@@ -100,13 +121,16 @@ public:
 
 int main()
 {
-    OrderSystem *orderSystem = new OrderSystem();
-    orderSystem->Order(99, {"gd1000"});
-    orderSystem->Order(88, {"gd666", "gd555"});
-    orderSystem->Order(99, {"gd666"});
-    int q1 = orderSystem->Query();
+    OrderSystem *orderSystem = OrderSystemCreate();
+    char *arr1[] = {"gd1000"};
+    OrderSystemOrder(orderSystem, 99, arr1);
+    char *arr2[] = {"gd666", "gd555"};
+    OrderSystemOrder(orderSystem, 88, arr2);
+    char *arr3[] = {"gd666"};
+    OrderSystemOrder(orderSystem, 99, arr3);
+    int q1 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q1);
-    orderSystem->Deliver({"gd666"});
-    int q2 = orderSystem->Query();
+    OrderSystemDeliver({"gd666"});
+    int q2 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q2);
 }
