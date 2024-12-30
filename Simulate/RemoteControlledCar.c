@@ -30,11 +30,6 @@ int main()
     printf("小车最终所处位置的坐标 为 (%d, %d)。\n", ans_A[0], ans_A[1]);
 }
 
-void printString(string s)
-{
-    printf("%s\n", s.c_str());
-}
-
 int *RemoteControlledCar(char *s, int l)
 {
 }
