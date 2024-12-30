@@ -8,7 +8,7 @@
 //      【可通行的水域】在船离开limit时长后，将立刻重新结冻为冰层。
 //      注意：当重复通过【可通行的水域】时，再次结冰时间会重置
 //      船的初始位置是【可通行的水域】，现在给定航线route,其中U,D,L,R 表示上下左右的行驶方向：
-//      每次行驶前进一格，问在行驶路线中，破冰船共破了多少次？
+//      每次行驶前进一格，问在行驶路线中，破冰船共破了多少次？(航行区域边界 最长为2000)
 //      示例 1：
 //          输入：route = "URDLR", limit = 3
 //          输出：4
@@ -16,7 +16,10 @@
 //          输入：route = "RDDUURDLLURU", limit = 4
 //          输出：9
 
-int NumOfIceBreaking(char *route, int n, int limit);
+#define ICE_AREA_LEN 2001
+
+int NumOfIceBreaking_A(char *route, int n, int limit);
+int NumOfIceBreaking_B(char *route, int n, int limit);
 
 int main()
 {
@@ -99,7 +102,7 @@ void CoordinateSetIter(CoordinateSet **obj)
 // 模拟：
 // Time: O(N)
 // Space: O(N)
-int NumOfIceBreaking(char *route, int n, int limit)
+int NumOfIceBreaking_A(char *route, int n, int limit)
 {
     int x = 0;
     int y = 0;
@@ -135,4 +138,12 @@ int NumOfIceBreaking(char *route, int n, int limit)
         CoordinateSetIter(&set);
     }
     return ans;
+}
+
+// 二维数组模拟：
+// Time: O(N^2)
+// Space: O(N^2)
+int NumOfIceBreaking_A(char *route, int n, int limit)
+{
+    
 }
