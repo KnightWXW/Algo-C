@@ -28,15 +28,15 @@ int main()
     char *vec1[] = {"myfile", "yourfile", "myfile", "myfile"};
     int l1 = 4;
     printf("文件名初始值：\r\n");
-    PrintStringVec(vec1);
+    PrintStringVec(vec1, l1);
     char **ans1 = GenerateFileName(vec1, l1);
     printf("文件名更新值：\r\n");
-    PrintStringVec(ans1, 4);
+    PrintStringVec(ans1, l1);
 
     char *vec2[] = {"filea", "filea", "fileb", "fileb"};
     int l2 = 4;
     printf("文件名初始值：\r\n");
-    PrintStringVec(vec2, 4);
+    PrintStringVec(vec2, l2);
     char **ans2 = GenerateFileName(vec2, l2);
     printf("文件名更新值：\r\n");
     PrintStringVec(ans2, l2);

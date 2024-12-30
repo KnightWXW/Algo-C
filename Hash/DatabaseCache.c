@@ -17,7 +17,7 @@ int main()
     int n = GenerateRandomNum(1, 20);
     int cache = GenerateRandomNum(1, 10);
     int* vec = GenerateRandomVec(1, 10, n);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int ans_A = DatabaseCache(vec, cache);
     printf("缓存大小为 %d 时, \n最少的数据库访问次数为: %d\n", cache, ans_A);
 }
