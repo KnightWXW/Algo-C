@@ -14,6 +14,8 @@
         "string.h": "c",
         "mybasic.h": "c",
         "uthash.h": "c",
-        "set": "c"
+        "set": "c",
+        "string_view": "c",
+        "initializer_list": "c"
     }
 }
