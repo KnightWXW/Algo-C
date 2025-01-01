@@ -16,7 +16,7 @@
 //          输入：route = "RDDUURDLLURU", limit = 4
 //          输出：9
 
-#define ICE_AREA_LEN 2001
+#define ICE_AREA_LEN 6
 
 int NumOfIceBreaking_A(char *route, int n, int limit);
 int NumOfIceBreaking_B(char *route, int n, int limit);
@@ -29,7 +29,7 @@ int main()
     char *str = GenerateRandomString(n, arr, 4);
     printf("给定航线为：\n");
     PrintString(str);
-    int ans = NumOfIceBreaking(str, n, limit);
+    int ans = NumOfIceBreaking_B(str, n, limit);
     printf("在行驶路线中，破冰船共破了 %d 次。\n", ans);
     FreeString(str);
 }
@@ -38,7 +38,6 @@ typedef struct
 {
     int x;
     int y;
-
 } Coordinate;
 
 Coordinate *CoordinateCreate(int x, int y)
@@ -64,42 +63,37 @@ CoordinateSet *CoordinateSetCreate(int x, int y, int time)
     return obj;
 }
 
-void CoordinateSetAdd(CoordinateSet **obj, int x, int y, int time)
+int CoordinateSetFindNode(CoordinateSet **obj, int x, int y, int t, int limit)
 {
-    CoordinateSet *cur;
-    Coordinate *data = CoordinateCreate(x, y);
-    HASH_FIND(hh, *obj, data, sizeof(Coordinate), cur);
-    if (cur == NULL)
-    {
-        cur = (CoordinateSet *)malloc(sizeof(CoordinateSet));
-        cur->coor = data;
-        cur->time = time;
-        HASH_ADD(hh, *obj, coor, sizeof(Coordinate), cur);
-    }
-    else
-    {
-        cur->time = time;
-    }
-    return;
-}
-
-void CoordinateSetIter(CoordinateSet **obj)
-{
-    CoordinateSet *cur;
-    CoordinateSet *tem;
+    CoordinateSet *cur = NULL;
+    CoordinateSet *tem = NULL;
+    int cnt = 0;
+    bool flag = false;
     HASH_ITER(hh, *obj, cur, tem)
     {
-        cur->time--;
-        if (cur->time == 0)
+        if (cur->coor->x == x && cur->coor->y == y)
         {
-            HASH_DEL(*obj, cur);
-            free(cur);
+            if ((t - cur->time) > limit)
+            {
+                cnt++;
+            }
+            flag = true;
+            cur->time = t;
+            if (flag = true)
+            {
+                break;
+            }
         }
     }
-    return;
+    if (flag == false)
+    {
+        cur = CoordinateSetCreate(x, y, t);
+        HASH_ADD(hh, *obj, coor, sizeof(Coordinate), cur);
+        cnt++;
+    }
+    return cnt;
 }
-
-// 模拟：
+// 哈希 + 模拟：
 // Time: O(N)
 // Space: O(N)
 int NumOfIceBreaking_A(char *route, int n, int limit)
@@ -108,9 +102,11 @@ int NumOfIceBreaking_A(char *route, int n, int limit)
     int y = 0;
     int ans = 0;
     CoordinateSet *set = NULL;
+    CoordinateSet *cur = CoordinateSetCreate(x, y, limit);
+    HASH_ADD(hh, set, coor, sizeof(Coordinate), cur);
+    int t = limit + 1;
     for (int i = 0; i < n; i++)
     {
-        CoordinateSetAdd(&set, x, y, time);
         switch (route[i])
         {
         case 'L':
@@ -128,22 +124,54 @@ int NumOfIceBreaking_A(char *route, int n, int limit)
         default:
             break;
         }
-        CoordinateSet *cur;
-        Coordinate *data = CoordinateCreate(x, y);
-        HASH_FIND(hh, set, data, sizeof(Coordinate), cur);
-        if (cur->time == 0)
-        {
-            ans++;
-        }
-        CoordinateSetIter(&set);
+        ans += CoordinateSetFindNode(&set, x, y, t, limit);
+        t++;
     }
     return ans;
 }
 
-// 二维数组模拟：
+// 二维数组 模拟：
 // Time: O(N^2)
 // Space: O(N^2)
-int NumOfIceBreaking_A(char *route, int n, int limit)
+int NumOfIceBreaking_B(char *route, int n, int limit)
 {
-    
+    int ans = 0;
+    int(*area)[ICE_AREA_LEN] = (int(*)[ICE_AREA_LEN])malloc(sizeof(int) * ICE_AREA_LEN * ICE_AREA_LEN);
+    for (int i = 0; i < ICE_AREA_LEN; i++)
+    {
+        for (int j = 0; j < ICE_AREA_LEN; j++)
+        {
+            area[i][j] = 0;
+        }
+    }
+    int x = ICE_AREA_LEN / 2;
+    int y = ICE_AREA_LEN / 2;
+    int t = limit;
+    for (int i = 0; i < n; i++)
+    {
+        area[x][y] = t;
+        t++;
+        if (route[i] == 'U')
+        {
+            y++;
+        }
+        else if (route[i] == 'D')
+        {
+            y--;
+        }
+        else if (route[i] == 'L')
+        {
+            x--;
+        }
+        else if (route[i] == 'R')
+        {
+            x++;
+        }
+        if ((t - area[x][y]) > limit)
+        {
+            ans++;
+        }
+    }
+    free(area);
+    return ans;
 }

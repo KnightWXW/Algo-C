@@ -25,11 +25,11 @@ int MaxMaskProduction(int *productions, int productionsSize, int *plans, int pla
 
 int main()
 {
-    int productions[] = {980, 910, 1000, 940, 973};
+    int productions[] = {803, 804, 805, 802, 803, 804, 805, 804};
     int plans[] = {1, 0, 1, 0, 1, 0, 1, 0};
     int window = 3;
-    int ans = MaxMaskProduction(productions, 5, plans, 8, window);
-    PrintVecElement(productions, 5);
+    int ans = MaxMaskProduction(productions, 8, plans, 8, window);
+    PrintVecElement(productions, 8);
     PrintVecElement(plans, 8);
     printf("在某 %d 天内连续生产，总产量最大是 %d\n", window, ans);
 }
@@ -39,5 +39,21 @@ int main()
 // Space: O(1)
 int MaxMaskProduction(int *productions, int productionsSize, int *plans, int plansSize, int window)
 {
-    
+    int sum = 0;
+    for (int i = 0; i < productionsSize; i++)
+    {
+        sum += plans[i] == 1 ? productions[i] : 0;
+    }
+    for (int i = 0; i < window; i++)
+    {
+        sum += plans[i] == 0 ? productions[i] : 0;
+    }
+    int ans = sum;
+    for (int i = window; i < productionsSize; i++)
+    {
+        sum -= plans[i - window] == 0 ? productions[i - window] : 0;
+        sum += plans[i] == 0 ? productions[i] : 0;
+        ans = max(ans, sum);
+    }
+    return ans;
 }
