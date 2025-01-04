@@ -62,9 +62,12 @@ int MaxProfit1(int *prices, int pricesSize)
     int preMin = prices[0];
     for (int i = 1; i < pricesSize; i++)
     {
-        if(prices[i] > preMin){
+        if (prices[i] > preMin)
+        {
             ans = max(ans, prices[i] - preMin);
-        }else{
+        }
+        else
+        {
             preMin = prices[i];
         }
     }

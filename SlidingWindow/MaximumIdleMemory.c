@@ -4,8 +4,8 @@
 
 //      某系统中有一空间连续的内存，被划分为多个大小相同的内存块
 //      内存的使用状态记录在字符串memeory中，每个内存块的状态用字符X或者.表示，其中：
-//          .   表示该内存块空闲
-//          X   表示该内存块被使用
+//          . ：表示该内存块空闲
+//          X ：表示该内存块被使用
 //      现在最多可释放cnt个内存块(字符串的X变为.)来获得空间连续的内存，
 //      求可以获得的最长空闲的连续内存块数量
 //      示例1：
@@ -23,13 +23,14 @@ int MaximumIdleMemory(char *s, int cnt);
 
 int main()
 {
-    int n = GenerateRandomNum(0, 100);
-    int cnt = GenerateRandomNum(0, n);
+    int n = GenerateRandomNum(0, 20);
+    int cnt = GenerateRandomNum(0, n) / 3;
     char arr[] = {'.', 'X'};
     char *s = GenerateRandomString(n, arr, 2);
     PrintString(s);
     int ans = MaximumIdleMemory(s, cnt);
     printf("最多可释放 %d 个内存块, \n可以获得的最长空闲的连续内存块块数量为 %d\n", cnt, ans);
+    FreeString(s);
 }
 
 // 滑动窗口：
@@ -37,5 +38,27 @@ int main()
 // Space: O(1)
 int MaximumIdleMemory(char *s, int cnt)
 {
-    
+    int left = 0;
+    int right = 0;
+    int l = strlen(s);
+    int k = 0;
+    int ans = 0;
+    while (right < l)
+    {
+        if (s[right] == 'X')
+        {
+            k++;
+        }
+        while (k > cnt)
+        {
+            if (s[left] != '.' && left <= right)
+            {
+                k--;
+            }
+            left++;
+        }
+        ans = max(ans, right - left + 1);
+        right++;
+    }
+    return ans;
 }

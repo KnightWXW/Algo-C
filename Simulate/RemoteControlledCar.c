@@ -28,8 +28,55 @@ int main()
     printf("遥控指令 为: \n");
     PrintString(s);
     printf("小车最终所处位置的坐标 为 (%d, %d)。\n", ans_A[0], ans_A[1]);
+    FreeVec(ans_A);
+    FreeString(s);
 }
 
 int *RemoteControlledCar(char *s, int l)
 {
+    int x = 0;
+    int y = 0;
+    int *arr = (int *)malloc(sizeof(int) * 2);
+    int direction = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (s[i] == 'L')
+        {
+            if (direction == 0)
+            {
+                direction = 3;
+            }
+            else
+            {
+                direction--;
+            }
+        }
+        else if (s[i] == 'R')
+        {
+            direction = (direction + 1) % 4;
+        }
+        else if (s[i] == 'G')
+        {
+            if (direction == 0)
+            {
+                y++;
+            }
+            else if (direction == 1)
+            {
+                x++;
+            }
+            else if (direction == 2)
+            {
+                y--;
+            }
+            else if (direction == 3)
+            {
+                x--;
+            }
+        }
+    }
+    int *arr = (int *)malloc(sizeof(int) * 2);
+    arr[0] = x;
+    arr[1] = y;
+    return arr;
 }

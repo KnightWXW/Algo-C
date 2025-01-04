@@ -10,19 +10,87 @@
 //      给定缓存大小的训练数据(一组数据编号)，依次模拟访问这组数据，
 //      请分析在访问规则下最少的数据库访问次数。
 
-int DatabaseCache(int* data, int cache);
+int DatabaseCache(int *data, int l, int cache);
 
 int main()
 {
     int n = GenerateRandomNum(1, 20);
     int cache = GenerateRandomNum(1, 10);
-    int* vec = GenerateRandomVec(1, 10, n);
+    int *vec = GenerateRandomVec(1, 10, n);
     PrintVecElement(vec, n);
-    int ans_A = DatabaseCache(vec, cache);
+    int ans_A = DatabaseCache(vec, n, cache);
     printf("缓存大小为 %d 时, \n最少的数据库访问次数为: %d\n", cache, ans_A);
 }
 
-int DatabaseCache(int* data, int cache)
+// 哈希：
+typedef struct
 {
-    
+    int num;
+    UT_hash_handle hh;
+} DataSet;
+
+void ModifyCache(DataSet **obj, int *data, int k, int l, int cache)
+{
+    int distance = 0;
+    int ele = 0;
+
+    DataSet *a = NULL;
+    DataSet *b = NULL;
+    HASH_ITER(hh, *obj, a, b)
+    {
+        bool f = false;
+        for (int i = k + 1; i < l; i++)
+        {
+            if (a->num == data[i])
+            {
+                if (i > distance)
+                {
+                    distance = i;
+                    ele = data[i];
+                    f = true;
+                    break;
+                }
+            }
+        }
+        if (f == false)
+        {
+            distance = l + 1;
+            ele = a->num;
+        }
+    }
+    a = NULL;
+    b = NULL;
+    HASH_ITER(hh, *obj, a, b)
+    {
+        if (a->num == ele)
+        {
+            HASH_DELETE(hh, *obj, a);
+            free(a);
+            break;
+        }
+    }
+    return;
+}
+
+int DatabaseCache(int *data, int l, int cache)
+{
+    int ans = 0;
+    DataSet *obj = NULL;
+    for (int i = 0; i < l; i++)
+    {
+        DataSet *cur = NULL;
+        HASH_FIND_INT(obj, &data[i], cur);
+        if (cur == NULL)
+        {
+            if (ans == cache)
+            {
+                ModifyCache(&obj, data, i, l, cache);
+            }
+            cur = (DataSet *)malloc(sizeof(DataSet));
+            cur->num = data[i];
+            HASH_ADD_INT(obj, num, cur);
+            ans++;
+        }
+    }
+    return ans;
 }

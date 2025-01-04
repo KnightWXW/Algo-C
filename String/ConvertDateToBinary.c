@@ -1,6 +1,5 @@
 #include "../Mybasic/mybasic.h"
 
-
 //      LeetCode 3280. 将日期转换为二进制表示
 
 //      链接：https://leetcode.cn/problems/convert-date-to-binary/
@@ -25,5 +24,66 @@
 //          输入保证 date 代表一个有效的公历日期，
 //          日期范围从 1900 年 1 月 1 日到 2100 年 12 月 31 日（包括这两天）。
 
-char* ConvertDateToBinary(char* date);
+char *ConvertDateToBinary(char *date);
 
+int main()
+{
+    char *s1 = "2080-02-29";
+    printf("公历日期为：\n");
+    PrintString(s1);
+    char *ans1 = ConvertDateToBinary(s1);
+    printf("二进制表示日期为：\n");
+    PrintString(ans1);
+    FreeString(ans1);
+
+    char *s2 = "1900-01-01";
+    printf("公历日期为：\n");
+    PrintString(s2);
+    char *ans2 = ConvertDateToBinary(s2);
+    printf("二进制表示日期为：\n");
+    PrintString(ans2);
+    FreeString(ans1);
+}
+
+int StringToInteger(char *str, int left, int right)
+{
+    int ans = 0;
+    for (int i = left; i <= right; i++)
+    {
+        ans = ans * 10 + (str[i] - '0');
+    }
+    return ans;
+}
+
+int DecimalismToBinay(char *str, int start, int num)
+{
+    int index = start;
+    while (num != 0)
+    {
+        str[index++] = '0' + (num & 1);
+        num >>= 1;
+    }
+    for (int i = start, j = index - 1; i < j; i++, j--)
+    {
+        char t = str[i];
+        str[i] = str[j];
+        str[j] = t;
+    }
+    return index;
+}
+
+char *ConvertDateToBinary(char *date)
+{
+    int l = strlen(date);
+    int year = StringToInteger(date, 0, 3);
+    int month = StringToInteger(date, 5, 6);
+    int day = StringToInteger(date, 8, 9);
+
+    char *ans = (char *)calloc(128, 1);
+    int i = DecimalismToBinay(ans, 0, year);
+    ans[i++] = '-';
+    i = DecimalismToBinay(ans, i, month);
+    ans[i++] = '-';
+    i = DecimalismToBinay(ans, i, day);
+    return ans;
+}
