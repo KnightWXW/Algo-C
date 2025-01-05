@@ -54,84 +54,126 @@ typedef struct
 {
     TenderInfo *tenderInfo;
     int price;
-    UT_hash_table hh;
+    int time;
+    UT_hash_handle hh;
 } TenderSystem;
 
-// void HashMapAddNode(TenderSystem **obj, int userId, int projectId)
-// {
-//     TenderSystem *ts = (TenderSystem *)malloc(sizeof(TenderSystem));
-//     TenderInfo *ti = TenderInfoCreate(userId, projectId);
-//     ts->tenderInfo = ti;
-//     TenderSystem *cur = NULL;
-//     HASH_FIND(hh, *obj, ti, sizeof(TenderInfo), cur);
-//     if (cur == NULL)
-//     {
-//         cur = (TenderInfo *)malloc(sizeof(TenderInfo));
-//         cur->tenderInfo =ti;
-//         cur->price = price;
-//         HASH_ADD(hh, *obj, ti, sizeof(TenderInfo), cur);
-//     }
-//     return;
-// }
-
 TenderSystem *tsObj = NULL;
+int tenderTime = 0;
 
 TenderSystem *TenderSystemCreate()
 {
-    tsObj = (TenderSystem *)malloc(sizeof(TenderSystem));
     return tsObj;
 }
 
 void TenderSystemAddTender(TenderSystem *obj, int userId, int projectId, int price)
 {
-    assert(obj);
-    TenderInfo *ti = TenderInfoCreate(userId, projectId);
-    TenderSystem *cur = NULL;
-    HASH_FIND(hh, tsObj, ti, sizeof(TenderInfo), cur);
-    if (cur == NULL)
+    TenderSystem *a = NULL;
+    TenderSystem *b = NULL;
+    HASH_ITER(hh, tsObj, a, b)
     {
-        cur = (TenderInfo *)malloc(sizeof(TenderInfo));
-          cur->tenderInfo =ti;
-        cur->price = price;
-        HASH_ADD(hh, *obj, ti, sizeof(TenderInfo), cur);
+        if (a->tenderInfo->userId == userId && a->tenderInfo->projectId == projectId)
+        {
+            return;
+        }
     }
-    else
-    {
-    }
-    return 
+    TenderSystem *cur = (TenderSystem *)malloc(sizeof(TenderSystem));
+    cur->tenderInfo = TenderInfoCreate(userId, projectId);
+    cur->price = price;
+    cur->time = tenderTime;
+    HASH_ADD(hh, tsObj, tenderInfo, sizeof(TenderSystem), cur);
+    return;
 }
 
 int TenderSystemUpdateTender(TenderSystem *obj, int userId, int projectId, int price)
 {
+    TenderSystem *a = NULL;
+    TenderSystem *b = NULL;
+    HASH_ITER(hh, tsObj, a, b)
+    {
+        if (a->tenderInfo->userId == userId && a->tenderInfo->projectId == projectId)
+        {
+            int prePrice = a->price;
+            a->price = price;
+            a->time = tenderTime;
+            return prePrice;
+        }
+    }
+    return -1;
 }
 
 int TenderSystemRemoveTender(TenderSystem *obj, int userId, int projectId)
 {
+    TenderSystem *a = NULL;
+    TenderSystem *b = NULL;
+    HASH_ITER(hh, tsObj, a, b)
+    {
+        if (a->tenderInfo->userId == userId && a->tenderInfo->projectId == projectId)
+        {
+            int prePrice = a->price;
+            HASH_DEL(tsObj, a);
+            free(a);
+            return prePrice;
+        }
+    }
+    return -1;
 }
 
-int QueryTender(TenderSystem *obj, int projectId, int price)
+int TenderSystemQueryTender(TenderSystem *obj, int projectId, int price)
 {
+    TenderSystem *a = NULL;
+    TenderSystem *b = NULL;
+    int ansUserId = -1;
+    int ansPrice = INT_MAX;
+    int ansTime = -1;
+    HASH_ITER(hh, tsObj, a, b)
+    {
+        if (a->tenderInfo->projectId == projectId && a->price > price)
+        {
+            if (a->price < ansPrice)
+            {
+                ansUserId = a->tenderInfo->userId;
+                ansPrice = a->price;
+                ansTime = a->time;
+            }
+            else if (a->price == ansPrice && a->time < ansTime)
+            {
+                ansUserId = a->tenderInfo->userId;
+                ansTime = a->time;
+            }
+        }
+    }
+    return ansUserId;
 }
 
 int main()
 {
     TenderSystem *tenderSystem = TenderSystemCreate();
+    tenderTime = 0;
     TenderSystemAddTender(tenderSystem, 1, 1, 10);
-    TenderSystemAddTender(tenderSystem, 2, 2, 10);
+    tenderTime++;
+    TenderSystemAddTender(tenderSystem, 2, 2, 20);
+    tenderTime++;
     TenderSystemAddTender(tenderSystem, 2, 2, 30);
+    tenderTime++;
     int u1 = TenderSystemUpdateTender(tenderSystem, 1, 1, 40);
-    printf("更新投标结果为 %d\n", u1);
+    tenderTime++;
+    printf("更新投标结果为 %d\n", u1); // 10
     int u2 = TenderSystemUpdateTender(tenderSystem, 1, 3, 40);
-    printf("更新投标结果为 %d\n", u2);
+    tenderTime++;
+    printf("更新投标结果为 %d\n", u2); // -1
     int r1 = TenderSystemRemoveTender(tenderSystem, 1, 1);
-    printf("删除投标结果为 %d\n", r1);
+    printf("删除投标结果为 %d\n", r1); // 40
     int r2 = TenderSystemRemoveTender(tenderSystem, 1, 3);
-    printf("删除投标结果为 %d\n", r2);
+    printf("删除投标结果为 %d\n", r2); // -1
     TenderSystemAddTender(tenderSystem, 1, 2, 20);
+    tenderTime++;
     TenderSystemAddTender(tenderSystem, 3, 2, 10);
+    tenderTime++;
     TenderSystemAddTender(tenderSystem, 4, 2, 40);
+    tenderTime++;
     int q1 = TenderSystemQueryTender(tenderSystem, 2, 15);
-    printf("查询投标结果为 %d\n", q1);
+    printf("查询投标结果为 %d\n", q1); // 2
     int q2 = TenderSystemQueryTender(tenderSystem, 5, 10);
-    printf("查询投标结果为 %d\n", q2);
+    printf("查询投标结果为 %d\n", q2); // -1
 }
