@@ -32,14 +32,30 @@ int MaxConsecutive(int bottom, int top, int *special, int specialSize);
 int main()
 {
     int bottom = GenerateRandomNum(1, 10);
-    int top = GenerateRandomNum(100, 500);
-    int specialSize = GenerateRandomNum(1, 20);
+    int top = GenerateRandomNum(90, 100);
+    int specialSize = GenerateRandomNum(1, 15);
     int *special = GenerateRandomVec(bottom, top, specialSize);
     PrintVecElement(special, specialSize);
-    int ans = WaysToBuyPensPencils(bottom, top, special, specialSize);
+    int ans = MaxConsecutive(bottom, top, special, specialSize);
     printf("从 %d 到 %d 的所有楼层, \n不含特殊楼层的 最大 连续楼层数为 %d", bottom, top, ans);
+    FreeVec(special);
+}
+
+int CompareInt(const void *a, const void *b)
+{
+    return *(int *)a - *(int *)b;
 }
 
 int MaxConsecutive(int bottom, int top, int *special, int specialSize)
 {
+    qsort(special, specialSize, sizeof(int), CompareInt);
+    int preLevel = bottom;
+    int ans = 0;
+    ans = max(ans, special[0] - bottom);
+    for (int i = 1; i < specialSize; i++)
+    {
+        ans = max(ans, special[i] - special[i - 1] - 1);
+    }
+    ans = max(ans, top - special[specialSize - 1]);
+    return ans;
 }
