@@ -21,7 +21,6 @@
 
 typedef struct
 {
-
 } RestaurantSystem;
 
 RestaurantSystem *RestaurantSystemCreate()

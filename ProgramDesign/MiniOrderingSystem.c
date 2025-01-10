@@ -40,13 +40,35 @@
 //                  null
 //                  99
 
+#define GOOD_NAME_LEN 11
+#define ORDER_CUSTOMER_LEN 1001
+
 typedef struct
 {
+    int id;
+    UT_hash_handle hh;
+} Customer;
 
-}OrderSystem;
+typedef struct
+{
+    Customer *customer;
+    char goodsname[GOOD_NAME_LEN];
+    UT_hash_handle hh;
+} Goods;
+
+typedef struct
+{
+    int costomersArr[ORDER_CUSTOMER_LEN];
+    Goods *goodslist;
+} OrderSystem;
 
 OrderSystem *OrderSystemCreate()
 {
+    OrderSystem *obj = (OrderSystem *)malloc(sizeof(OrderSystem));
+    obj->costomersArr = (int *)malloc(sizeof(int) * ORDER_CUSTOMER_LEN);
+    memset(obj->costomersArr, 0, sizeof(int) * ORDER_CUSTOMER_LEN);
+    obj->goodlist = NULL;
+    return obj;
 }
 
 void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods)
@@ -59,65 +81,24 @@ void OrderSystemDeliver(OrderSystem *obj, char **goods)
 
 int OrderSystemQuery(OrderSystem *obj)
 {
+    int ans = -1;
+    int cnt = 0;
+    for (int i = 0; i < ORDER_CUSTOMER_LEN; i++)
+    {
+        if (obj->costomersArr[i] > cnt)
+        {
+            cnt = obj->costomersArr[i];
+            ans = i;
+        }
+    }
+    return ans;
 }
 
-class OrderSystem
+int OrderSystemFree(OrderSystem *obj)
 {
-public:
-    vector<int> customers;
-    vector<string> goodSums;
-
-    OrderSystem()
-    {
-    }
-
-    void Order(int customerId, vector<string> goods)
-    {
-        for (int i = 0; i < goods.size(); i++)
-        {
-            customers.push_back(customerId);
-            goodSums.push_back(goods[i]);
-        }
-        return;
-    }
-
-    void Deliver(vector<string> goods)
-    {
-        for (int i = 0; i < goods.size(); i++)
-        {
-            auto it = find(goodSums.begin(), goodSums.end(), goods[i]);
-            if (it != goodSums.end())
-            {
-                customers.erase(customers.begin() + (it - goodSums.begin()));
-                goodSums.erase(it);
-            }
-        }
-        return;
-    }
-
-    int Query()
-    {
-        if (customers.size() == 0)
-        {
-            return -1;
-        }
-        int ans = 0;
-        vector<int> vec(customers.begin(), customers.end());
-        unordered_map<int, int> cntMap;
-        for (int i = 0; i < vec.size(); i++)
-        {
-            cntMap[vec[i]]++;
-        }
-        sort(vec.begin(), vec.end(), [&](int i, int j)
-             { 
-            if(cntMap[i] ==cntMap[j]){
-                return i < j;
-            }
-            return cntMap[i] > cntMap[j]; });
-        ans = vec[0];
-        return ans;
-    }
-};
+    free(obj);
+    return;
+}
 
 int main()
 {
@@ -133,4 +114,5 @@ int main()
     OrderSystemDeliver({"gd666"});
     int q2 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q2);
+    OrderSystemFree(orderSystem);
 }

@@ -6,6 +6,7 @@
 #include <math.h>
 #include <assert.h>
 #include "../uthash/uthash.h"
+#include "../uthash/utarray.h"
 
 // 随机数:
 int GenerateRandomNum(int low, int high)
