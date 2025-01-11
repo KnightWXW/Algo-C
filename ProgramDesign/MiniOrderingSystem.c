@@ -71,12 +71,20 @@ OrderSystem *OrderSystemCreate()
     return obj;
 }
 
-void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods)
+void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods, int goodsSize)
 {
+    for (int i = 0; i < goodsSize; i++)
+    {
+    }
+    return;
 }
 
-void OrderSystemDeliver(OrderSystem *obj, char **goods)
+void OrderSystemDeliver(OrderSystem *obj, char **goods, int goodsSize)
 {
+    for (int i = 0; i < goodsSize; i++)
+    {
+    }
+    return;
 }
 
 int OrderSystemQuery(OrderSystem *obj)
@@ -104,14 +112,14 @@ int main()
 {
     OrderSystem *orderSystem = OrderSystemCreate();
     char *arr1[] = {"gd1000"};
-    OrderSystemOrder(orderSystem, 99, arr1);
+    OrderSystemOrder(orderSystem, 99, arr1, 1);
     char *arr2[] = {"gd666", "gd555"};
-    OrderSystemOrder(orderSystem, 88, arr2);
+    OrderSystemOrder(orderSystem, 88, arr2, 2);
     char *arr3[] = {"gd666"};
-    OrderSystemOrder(orderSystem, 99, arr3);
+    OrderSystemOrder(orderSystem, 99, arr3, 1);
     int q1 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q1);
-    OrderSystemDeliver({"gd666"});
+    OrderSystemDeliver({"gd666"}, 1);
     int q2 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q2);
     OrderSystemFree(orderSystem);

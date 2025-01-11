@@ -26,16 +26,50 @@
 //          1 <= s.length <= 100
 //          s 仅由英文大写字母和小写字母组成。
 
-int CountKeyChanges(char *s);
+int CountKeyChanges_A(char *s);
+int CountKeyChanges_B(char *s);
 
 int main()
 {
     int n = GenerateRandomNum(1, 10);
-    char arr1[] = {'A', 'L', 'P'};
-    char *str = GenerateRandomString(n, arr1, strlen(arr1));
+    char arr[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    char *str = GenerateRandomString(n, arr, strlen(str));
     PrintString(str);
-    bool ans_A = CheckRecord(str);
+    int ans_A = CountKeyChanges_A(str);
+    int ans_B = CountKeyChanges_B(str);
+    printf("用户输入过程中按键变更的次数 为 %d\n", ans_A);
+    printf("用户输入过程中按键变更的次数 为 %d\n", ans_B);
     FreeString(str);
-    printf("学生是否可以获得出勤奖励？\n");
-    PrintBool(ans_A);
+}
+
+// 遍历：
+// Time: O(N)
+// Space: O(1)
+int CountKeyChanges_A(char *s)
+{
+    int cnt = 0;
+    for (int i = 1; i < strlen(s); i++)
+    {
+        if (s[i] != s[i - 1] && abs(s[i] - s[i - 1]) != abs('A' - 'a'))
+        {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
+// 遍历：使用 tolower()
+// Time: O(N)
+// Space: O(1)
+int CountKeyChanges_A(char *s)
+{
+    int cnt = 0;
+    for (int i = 1; i < strlen(s); i++)
+    {
+        if (tolower(s[i]) != tolower(s[i - 1]))
+        {
+            cnt++;
+        }
+    }
+    return cnt;
 }
