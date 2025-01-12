@@ -75,6 +75,19 @@ void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods, int goodsS
 {
     for (int i = 0; i < goodsSize; i++)
     {
+        Goods cur = NULL;
+        HASH_FIND_STR(obj->goodlist, goods[i], cur);
+        if (cur == NULL)
+        {
+            cur = (Goods *)malloc(sizeof(Goods));
+            memset(cur, 0, sizeof(Goods));
+            strcpy(cur->goodsname, goods[i]);
+        }
+        Customer* a = NULL;
+        Customer* b = NULL;
+        HASH_ITER(hh, obj->goodlist->customers, a, b){
+            if()
+        }
     }
     return;
 }

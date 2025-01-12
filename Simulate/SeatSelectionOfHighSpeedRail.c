@@ -19,20 +19,80 @@
 //          1 <= rows <= 10^9
 //          0 <= seats.size() <= 10^5
 
-int SeatSelectionOfHighSpeedRail(int rows, char **seats, int l);
+#define MAX_SEAT_LEN 6
+
+int SeatSelectionOfHighSpeedRail_A(int rows, char **seats, int l);
 
 int main()
 {
     char *vec_A[] = {"3A", "4F", "3B"};
     int rows_A = 4;
-    int ans_A = SeatSelectionOfHighSpeedRail(rows_A, vec_A);
+    int ans_A = SeatSelectionOfHighSpeedRail_A(rows_A, vec_A, 3);
+    int ans_B = SeatSelectionOfHighSpeedRail_A(rows_A, vec_A, 3);
     PrintStringVec(vec_A, 3);
     printf("订到 %d 对(2张)同一行并且相邻的座位.\n", ans_A);
+    printf("订到 %d 对(2张)同一行并且相邻的座位.\n", ans_B);
 }
 
-// 模拟:
+typedef struct
+{
+    int rowId;
+    int *seat;
+    UT_hash_handle hh;
+} SeatSet;
+
+// 模拟 + 哈希:
 // Time: O(N)
 // Space: O(N)
-int SeatSelectionOfHighSpeedRail(int rows, char **seats, int l)
+int SeatSelectionOfHighSpeedRail_A(int rows, char **seats, int l)
 {
+    int ans = 0;
+    SeatSet *seatSet = NULL;
+    for (int i = 0; i < l; i++)
+    {
+        int id = seats[i][0] - '0';
+        int seat = seats[i][1] - 'A';
+        SeatSet *cur = NULL;
+        HASH_FIND_INT(seatSet, &id, cur);
+        if (cur == NULL)
+        {
+            cur = (SeatSet *)malloc(sizeof(*seatSet));
+            cur->seat = (int *)malloc(sizeof(int) * MAX_SEAT_LEN);
+            memset(cur->seat, 0, sizeof(int) * MAX_SEAT_LEN);
+            cur->rowId = id;
+            HASH_ADD_INT(seatSet, rowId, cur);
+        }
+        cur->seat[seat] = 1;
+    }
+    for (int i = 1; i <= rows; i++)
+    {
+        SeatSet *cur = NULL;
+        HASH_FIND_INT(seatSet, &i, cur);
+        if (cur == NULL)
+        {
+            ans += 2;
+        }
+        else
+        {
+            if (cur->seat[3] == 0 && cur->seat[5] == 0)
+            {
+                ans++;
+            }
+            if (cur->seat[1] == 0 && (cur->seat[2] == 0 || cur->seat[0] == 0))
+            {
+                ans++;
+            }
+        }
+    }
+    HASH_CLEAR(hh, seatSet);
+    free(seatSet);
+    return ans;
+}
+
+// 模拟 + 数组统计:
+// Time: O(N)
+// Space: O(N)
+int SeatSelectionOfHighSpeedRail_B(int rows, char **seats, int l)
+{
+    
 }
