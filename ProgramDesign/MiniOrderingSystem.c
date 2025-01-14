@@ -51,8 +51,8 @@ typedef struct
 
 typedef struct
 {
-    Customer *customer;
     char goodsname[GOOD_NAME_LEN];
+    Customer *customer;
     UT_hash_handle hh;
 } Goods;
 
@@ -65,9 +65,8 @@ typedef struct
 OrderSystem *OrderSystemCreate()
 {
     OrderSystem *obj = (OrderSystem *)malloc(sizeof(OrderSystem));
-    obj->costomersArr = (int *)malloc(sizeof(int) * ORDER_CUSTOMER_LEN);
     memset(obj->costomersArr, 0, sizeof(int) * ORDER_CUSTOMER_LEN);
-    obj->goodlist = NULL;
+    obj->goodslist = NULL;
     return obj;
 }
 
@@ -75,19 +74,21 @@ void OrderSystemOrder(OrderSystem *obj, int customerId, char **goods, int goodsS
 {
     for (int i = 0; i < goodsSize; i++)
     {
-        Goods cur = NULL;
-        HASH_FIND_STR(obj->goodlist, goods[i], cur);
+        Goods *cur = NULL;
+        Customer *c = NULL;
+        HASH_FIND_STR(obj->goodslist, goods[i], cur);
         if (cur == NULL)
         {
             cur = (Goods *)malloc(sizeof(Goods));
             memset(cur, 0, sizeof(Goods));
             strcpy(cur->goodsname, goods[i]);
+            cur->customer = NULL;
+            HASH_ADD_STR(obj->goodslist, goodsname, cur);
         }
-        Customer* a = NULL;
-        Customer* b = NULL;
-        HASH_ITER(hh, obj->goodlist->customers, a, b){
-            if()
-        }
+        c = (Customer *)malloc(sizeof(Customer));
+        c->id = customerId;
+        HASH_ADD_INT(cur->customer, id, c);
+        obj->costomersArr[customerId]++;
     }
     return;
 }
@@ -96,6 +97,21 @@ void OrderSystemDeliver(OrderSystem *obj, char **goods, int goodsSize)
 {
     for (int i = 0; i < goodsSize; i++)
     {
+        Goods *cur = NULL;
+        Customer *a = NULL;
+        Customer *b = NULL;
+        HASH_FIND_STR(obj->goodslist, goods[i], cur);
+        if (HASH_COUNT(obj->goodslist) == 0)
+        {
+            continue;
+        }
+        HASH_ITER(hh, cur->customer, a, b)
+        {
+            obj->costomersArr[a->id]--;
+            HASH_DELETE(hh, cur->customer, a);
+            free(a);
+            break;
+        }
     }
     return;
 }
@@ -132,7 +148,8 @@ int main()
     OrderSystemOrder(orderSystem, 99, arr3, 1);
     int q1 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q1);
-    OrderSystemDeliver({"gd666"}, 1);
+    char *arr4[] = {"gd666"};
+    OrderSystemDeliver(orderSystem, arr4, 1);
     int q2 = OrderSystemQuery(orderSystem);
     printf("系统中未发货件数最大的客户Id为 %d \n", q2);
     OrderSystemFree(orderSystem);
