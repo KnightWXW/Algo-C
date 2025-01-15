@@ -22,15 +22,15 @@
 #define MAX_SEAT_LEN 6
 
 int SeatSelectionOfHighSpeedRail_A(int rows, char **seats, int l);
-
+int SeatSelectionOfHighSpeedRail_B(int rows, char **seats, int l);
 int main()
 {
     char *vec_A[] = {"3A", "4F", "3B"};
     int rows_A = 4;
-    int ans_A = SeatSelectionOfHighSpeedRail_A(rows_A, vec_A, 3);
-    int ans_B = SeatSelectionOfHighSpeedRail_A(rows_A, vec_A, 3);
+    // int ans_A = SeatSelectionOfHighSpeedRail_A(rows_A, vec_A, 3);
+    int ans_B = SeatSelectionOfHighSpeedRail_B(rows_A, vec_A, 3);
     PrintStringVec(vec_A, 3);
-    printf("订到 %d 对(2张)同一行并且相邻的座位.\n", ans_A);
+    // printf("订到 %d 对(2张)同一行并且相邻的座位.\n", ans_A);
     printf("订到 %d 对(2张)同一行并且相邻的座位.\n", ans_B);
 }
 
@@ -94,5 +94,53 @@ int SeatSelectionOfHighSpeedRail_A(int rows, char **seats, int l)
 // Space: O(N)
 int SeatSelectionOfHighSpeedRail_B(int rows, char **seats, int l)
 {
-    
+    printf("111.\n");
+    int ans = 0;
+    int **m = (int **)malloc(sizeof(int *) * (rows+1));
+    for (int i = 0; i <= rows; i++)
+    {
+        m[i] = (int *)malloc(sizeof(int) * (MAX_SEAT_LEN));
+        for (int j = 0; j < MAX_SEAT_LEN; j++)
+        {
+           (*((int *)(m) + MAX_SEAT_LEN * i + j)) = 0;
+        }
+    }
+    PrintVecElement2D(m, rows, MAX_SEAT_LEN);
+    printf("222.\n");
+    for (int i = 0; i < l; i++)
+    {
+        int id = seats[i][0] - '0';
+        int seat = seats[i][1] - 'A';
+        (*((int *)(m) + MAX_SEAT_LEN * i + seat))++;
+    }
+    printf("333.\n");
+    for (int i = 1; i <= rows; i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < MAX_SEAT_LEN; j++)
+        {
+            sum += (*((int *)(m) + MAX_SEAT_LEN * i + j));
+        }
+        if (sum == 0)
+        {
+            ans += 2;
+        }
+        else
+        {
+            if ((*((int *)(m) + MAX_SEAT_LEN * i + 3)) == 0 && (*((int *)(m) + MAX_SEAT_LEN * i + 5)) == 0)
+            {
+                ans++;
+            }
+            if ((*((int *)(m) + MAX_SEAT_LEN * i + 1)) == 0 && ((*((int *)(m) + MAX_SEAT_LEN * i + 0)) == 0 || (*((int *)(m) + MAX_SEAT_LEN * i + 2)) == 0))
+            {
+                ans++;
+            }
+        }
+    }
+    printf("333.\n");
+    for (int i = 0; i <= rows; i++)
+    {
+        free((((int *)(m) + MAX_SEAT_LEN * i)));
+    }
+    return ans;
 }
