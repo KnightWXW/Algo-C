@@ -13,52 +13,26 @@
 //      输入样例1：
 //          10
 //      输出样例1：
-//          4 1 2 5 10
+//          4 
+//          1 2 5 10
 
-int generateRandomNum(int low, int high);
-void printVecElement(vector<int> &vec);
-
-vector<int> ContestRanking(int num);
+int* ContestRanking(int num, int l);
 
 int main()
 {
-    int n = generateRandomNum(1, 999999);
-    vector<int> vec = ContestRanking(n);
-    printf("当有 %d 名选手参赛时，小明参赛可能获得的排名为：\n", n);
-    printVecElement(vec);
+    int n = GenerateRandomNum(1, 999999);
+    int l = 1;
+    int* vec = ContestRanking(n, l);
+    printf("当有 %d 名选手参赛时,小明参赛可能获得的排名为:\n", n);
+    PrintVecElement(vec, l);
+    FreeVec(vec);
 }
 
-int generateRandomNum(int low, int high)
-{
-    srand((int)time(0));
-    return (rand() % (high - low + 1)) + low;
-}
-
-void printVecElement(vector<int> &vec)
-{
-    for (int i = 0; i < vec.size(); i++)
-    {
-        printf("%d ", vec[i]);
-    }
-    printf("\n");
-}
-
-// 模拟：
+// 模拟: 
 // Time: O(N^1/2)
 // Space: O(1)
-vector<int> ContestRanking(int num)
+int* ContestRanking(int num, int l)
 {
-    vector<int> ans;
-    int k = 1;
-    while (k <= (int)(sqrt(num)))
-    {
-        if (num % k == 0)
-        {
-            ans.push_back(k);
-            ans.push_back(num / k);
-        }
-        k++;
-    }
-    sort(ans.begin(), ans.end());
+    
     return ans;
 }
