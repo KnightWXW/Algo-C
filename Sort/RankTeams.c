@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 1366. 通过投票对团队排名
 
@@ -39,3 +39,35 @@
 //          votes[0] 中出现的所有字母 同样也 出现在 votes[j] 中，其中 1 <= j < votes.length
 
 char* RankTeams(char** votes, int votesSize);
+
+int main()
+{
+    char* arr1[] = {"ABC","ACB","ABC","ACB","ACB"};
+    int l1 = 5;
+    char* ans1 = RankTeams(arr1, l1);
+    PrintStringVec(arr1, l1);
+    printf("按排名系统 排序后 的所有团队排名的字符串为:\n");
+    PrintString(ans1);
+    FreeString(ans1);
+
+    char* arr2[] = {"WXYZ","XYZW"};
+    int l2 =2;
+    char* ans2 = RankTeams(arr2, l2);
+    PrintStringVec(arr2, l2);
+    printf("按排名系统 排序后 的所有团队排名的字符串为:\n");
+    PrintString(ans2);
+    FreeString(ans2);
+
+    char* arr3[] = {"ZMNAGUEDSJYLBOPHRQICWFXTVK"};
+    int l3 = 1;
+    char* ans3 = RankTeams(arr3, l3);
+    PrintStringVec(arr3, l3);
+    printf("按排名系统 排序后 的所有团队排名的字符串为:\n");
+    PrintString(ans3);
+    FreeString(ans3);
+}
+
+char* RankTeams(char** votes, int votesSize)
+{
+    
+}
