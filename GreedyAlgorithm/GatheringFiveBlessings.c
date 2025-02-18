@@ -39,6 +39,9 @@ int main()
     FreeStringVec(strs, n);
 }
 
+// 贪心：
+// Time：O(N^2)
+// Space: O(N)
 int GatheringFiveBlessings(char **vec, int n)
 {
     int ans = n + 1;

@@ -22,17 +22,46 @@ int CombinationOfGivenDiff(int *vec, int n, int diff);
 
 int main()
 {
-    int n = GenerateRandomNum(0, 30);
-    int *vec = GenerateRandomVec(0, 100, n);
-    int diff = GenerateRandomNum(0, 10);
+    int n = GenerateRandomNum(0, 10);
+    int *vec = GenerateRandomVec(0, 20 ,n);
+    int diff = GenerateRandomNum(1, 5);
     int ans_A = CombinationOfGivenDiff(vec, n, diff);
     PrintVecElement(vec, n);
     printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff, ans_A);
 }
 
+typedef struct
+{
+    int num;
+    UT_hash_handle hh;
+} HashSet;
+
+// 哈希表：
+// Time: O(N)
+// Space: O(N)
 int CombinationOfGivenDiff(int *vec, int n, int diff)
 {
     int ans = 0;
-    
+    HashSet *set = NULL;
+    HashSet *cur = NULL;
+    for (int i = 0; i < n; i++)
+    {
+        cur = (HashSet *)malloc(sizeof(HashSet));
+        cur->num = vec[i];
+        HASH_ADD_INT(set, num, cur);
+    }
+    cur = NULL;
+    for (int i = 0; i < n; i++)
+    {
+        int target = vec[i] + diff;
+        HASH_FIND_INT(set, &target, cur);
+        if (cur != NULL)
+        {
+            HASH_DEL(set, cur);
+            ans++;
+        }
+    }
+    HASH_CLEAR(hh, set);
+    free(set);
     return ans;
 }
