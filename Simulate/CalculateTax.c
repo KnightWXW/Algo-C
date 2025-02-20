@@ -53,7 +53,7 @@ int main()
     int bracketsColSize_A = 2;
     int brackets_A[3][2] = {{3, 50}, {7, 10}, {12, 25}};
     int income_A = 10;
-    PrintVecElement2D(*brackets_A, 3, 2);
+    ///////////////////////////////////////(*brackets_A, 3, 2);
     double ans_A = CalculateTax((int **)brackets_A, bracketsSize_A, &bracketsColSize_A, income_A);
     printf("需要缴纳的税款总额为：%lf。\n", ans_A); // 2.65
     int brackets_B[3][2] = {{1, 0}, {4, 25}, {5, 50}};
