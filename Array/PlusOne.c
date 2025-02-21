@@ -22,46 +22,20 @@
 //          1 <= digits.length <= 100
 //          0 <= digits[i] <= 9
 
-int* PlusOne(int* digits, int l, int return);
+int *PlusOne(int *digits, int digitsSize, int *returnSize);
 
 int main()
 {
-    int n = generateRandomNum(1, 20);
-    vector<int> vec = generateRandomVec(0, 9, n);
-    printVec(vec);
-    vector<int> ans = PlusOne(vec);
+    int n = GenerateRandomNum(1, 20);
+    int *vec = GenerateRandomVec(0, 9, n);
+    PrintVec(vec);
+    int l = 0;
+    int *ans = PlusOne(vec, n, l);
     printf("该数的基础上加一后数组为：\n");
-    printVec(ans);
+    PrintVec(ans);
+    FreeVec(ans);
 }
 
-int generateRandomNum(int low, int high)
+int *PlusOne(int *digits, int digitsSize, int *returnSize)
 {
-    srand((int)time(0));
-    return (rand() % (high - low + 1)) + low;
-}
-
-vector<int> generateRandomVec(int low, int high, int len)
-{
-    vector<int> vec;
-    srand(time(0));
-    for (int i = 0; i < len; i++)
-    {
-        int v = (rand() % (high - low + 1)) + low;
-        vec.push_back(v);
-    }
-    return vec;
-}
-
-void printVec(vector<int> &vec)
-{
-    for (int i = 0; i < vec.size(); i++)
-    {
-        printf("%d ", vec[i]);
-    }
-    printf("\n");
-}
-
-vector<int> PlusOne(vector<int> &digits)
-{
-    
 }
