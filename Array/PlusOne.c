@@ -22,20 +22,44 @@
 //          1 <= digits.length <= 100
 //          0 <= digits[i] <= 9
 
+#define NUMBER_TEN 10
+
 int *PlusOne(int *digits, int digitsSize, int *returnSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 20);
     int *vec = GenerateRandomVec(0, 9, n);
-    PrintVec(vec);
+    PrintVecElement(vec, n);
     int l = 0;
-    int *ans = PlusOne(vec, n, l);
+    int *ans = PlusOne(vec, n, &l);
     printf("该数的基础上加一后数组为：\n");
-    PrintVec(ans);
+    PrintVecElement(ans, n);
     FreeVec(ans);
 }
 
+// 数组操作：
+// Time: O(N)
+// Space: O(N)
 int *PlusOne(int *digits, int digitsSize, int *returnSize)
 {
+    for (int i = digitsSize - 1; i >= 0; i--)
+    {
+        digits[i]++;
+        if (digits[i] == NUMBER_TEN)
+        {
+            digits[i] = 0;
+        }
+        else
+        {
+            *returnSize = digitsSize;
+            return digits;
+        }
+    }
+    // 全为 9 的情况:
+    int *ans = (int *)malloc(sizeof(int) * (digitsSize + 1));
+    memset(ans, 0, sizeof(int) * (digitsSize + 1));
+    ans[0] = 1;
+    *returnSize = digitsSize + 1;
+    return ans;
 }

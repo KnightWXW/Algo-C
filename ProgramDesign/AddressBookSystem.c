@@ -15,9 +15,14 @@
 //          把前缀为 s 的联系人过滤出来(区分大小写),
 //          并把记录按照名字的字典序返回;
 
+#define MAX_BOOK_NAME_LEN 100
+#define MAX_BOOK_NUMBER_LEN 100
+
 typedef struct
 {
-
+    char name[MAX_BOOK_NAME_LEN];
+    char number[MAX_BOOK_NAME_LEN];
+    UT_hash_handle hh;
 } AddressBookSystem;
 
 AddressBookSystem *AddressBookSystemCreate()

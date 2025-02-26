@@ -73,13 +73,13 @@ int *RestaurantSystemQueryRestaurant(RestaurantSystem *obj, int *l)
     memset(ans, 0, sizeof(ans));
     RestaurantItem *arr = (RestaurantItem *)malloc(sizeof(RestaurantItem) * cnt);
     memset(arr, 0, sizeof(arr));
-    RestaurantItem *a = NULL;
-    RestaurantItem *b = NULL;
+    RestaurantSystem *a = NULL;
+    RestaurantSystem *b = NULL;
     int index = 0;
     HASH_ITER(hh, obj, a, b)
     {
         arr[index].restaurantId = a->restaurantId;
-        arr[index].profit = a->profit;
+        arr[index].profit = a->meal[0];
         index++;
     }
     qsort(arr, cnt, sizeof(RestaurantItem), CompareInt);
@@ -93,7 +93,7 @@ int *RestaurantSystemQueryRestaurant(RestaurantSystem *obj, int *l)
 int RestaurantSystemGetRestaurantMoney(RestaurantSystem *obj, int restaurantId)
 {
     RestaurantSystem *cur = NULL;
-    HASH_FIND_INT(*obj, &restaurantId, cur);
+    HASH_FIND_INT(obj, &restaurantId, cur);
     if (cur == NULL)
     {
         return 0;
