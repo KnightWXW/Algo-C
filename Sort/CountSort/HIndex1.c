@@ -1,4 +1,4 @@
-#include "../Mybasic/mybasic.h"
+#include "../../Mybasic/mybasic.h"
 
 //      LeetCode 274. H 指数
 
@@ -12,7 +12,7 @@
 //      如果 h 有多种可能的值，h 指数 是其中最大的那个。
 //      示例 1：
 //          输入：citations = [3,0,6,1,5]
-//          输出：3 
+//          输出：3
 //          解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 3, 0, 6, 1, 5 次。
 //              由于研究者有 3 篇论文每篇 至少 被引用了 3 次，
 //              其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3。
@@ -24,19 +24,46 @@
 //          1 <= n <= 5000
 //          0 <= citations[i] <= 1000
 
-int HIndex1(int* citations, int citationsSize);
+int HIndex1(int *citations, int citationsSize);
 
 int main()
 {
     int citationsSize = GenerateRandomNum(1, 15);
-    int *citations = GenerateRandomVec(0, 1000, citationsSize);
-    PrintVecElement(citations, specialSize);
+    int *citations = GenerateRandomVec(0, 10, citationsSize);
+    PrintVecElement(citations, citationsSize);
     int ans = HIndex1(citations, citationsSize);
     printf("该研究者的 h 指数为 %d", ans);
-    FreeVec(HIndex1);
+    FreeVec(citations);
 }
 
-int HIndex1(int* citations, int citationsSize)
+// 计数排序:
+// Time: O(N)
+// Space: O(N)
+int HIndex1(int *citations, int citationsSize)
 {
-
+    int *cnt = (int *)malloc(sizeof(int) * (citationsSize + 1));
+    memset(cnt, 0, sizeof(int) * (citationsSize + 1));
+    for (int i = 0; i < citationsSize; i++)
+    {
+        if (citations[i] >= citationsSize)
+        {
+            cnt[citationsSize]++;
+        }
+        else
+        {
+            cnt[citations[i]]++;
+        }
+    }
+    for (int i = citationsSize - 1; i >= 0; i--)
+    {
+        cnt[i] += cnt[i + 1];
+    }
+    for (int i = citationsSize; i >= 0; i--)
+    {
+        if (cnt[i] >= i)
+        {
+            return i;
+        }
+    }
+    return -1;
 }

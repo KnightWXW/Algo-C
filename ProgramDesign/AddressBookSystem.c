@@ -61,7 +61,7 @@ char *AddressBookSystemUpdate(AddressBookSystem *obj, char *name, char *number)
     return ans;
 }
 
-char *AddressBookSystemDelete(AddressBookSystem *obj, char *name)
+char *AddressBookSystemDelete(AddressBookSystem **obj, char *name)
 {
     AddressBookSystem *cur;
     HASH_FIND_STR(*obj, name, cur);
