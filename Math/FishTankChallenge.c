@@ -4,8 +4,8 @@
 
 //      最近小华买了 N 条鱼，小华想买一些鱼缸去装他们，
 //      商店有两种鱼缸：
-//          第一种：每个鱼缸价格是C1元，可以装N1条鱼
-//          第二种：每个鱼缸价格是C2元，可以装N2条鱼
+//          第一种：每个鱼缸价格是 C1 元，可以装 N1 条鱼
+//          第二种：每个鱼缸价格是 C2 元，可以装 N2 条鱼
 //      小华想把所有的鱼都养在买的那些鱼缸里，
 //      而且每个鱼缸都要装满鱼，
 //      小华很难计算出两种鱼缸各买多少个最实惠(总花费最小)，
@@ -28,23 +28,50 @@
 //      输出样例1：
 //          13 1
 
-int* FishTankChallenge(int fishes, int c1, int n1, int c2, int n2);
+char *FishTankChallenge(int fishes, int c1, int n1, int c2, int n2);
 
 int main()
 {
-    int fishes = GenerateRandomNum(1, 1000);
-    int c1 = GenerateRandomNum(1, 100);
-    int n1 = GenerateRandomNum(1, 101);
-    int c2 = GenerateRandomNum(1, 102);
-    int n2 = GenerateRandomNum(1, 103);
-    int* ans_A = FishTankChallenge(fishes, c1, n1, c2, n2);
-    printf("fishes == %d, c1 == %d, n1 == %d, c2 == %d, n2 == %d, \n最小花费为:[1]%d $ [2]%d\n", fishes, c1, n1, c2, n2, ans_A[0], ans_A[1]);
+    int fishes = GenerateRandomNum(1, 100);
+    int c1 = GenerateRandomNum(1, 5);
+    int n1 = GenerateRandomNum(10, 15);
+    int c2 = GenerateRandomNum(1, 6);
+    int n2 = GenerateRandomNum(9, 14);
+    int ansL = 0;
+    char *ans_A = FishTankChallenge(fishes, c1, n1, c2, n2);
+    printf("fishes == %d, c1 == %d, n1 == %d, c2 == %d, n2 == %d, \n最小花费为:\n", fishes, c1, n1, c2, n2);
+    PrintString(ans_A);
+    FreeString(ans_A);
 }
 
 // 数学：
 // Time: O(N)
 // Space: O(1)
-int* FishTankChallenge(int fishes, int c1, int n1, int c2, int n2)
+char *FishTankChallenge(int fishes, int c1, int n1, int c2, int n2)
 {
-    
+    int bigC = c1;
+    int bigN = n1;
+    int smallC = c2;
+    int smallN = n2;
+    if ((c1 / n1) < (c2 / n2))
+    {
+        bigC = c2;
+        bigN = n2;
+        smallC = c1;
+        smallN = n1;
+    }
+    int a = fishes / bigN;
+    int b = (fishes - (a * bigN)) / smallC;
+    char *ans = (char *)malloc(sizeof(char) * 32);
+    memset(ans, 0, sizeof(char) * 32);
+    if ((fishes - (a * bigN)) % smallC != 0)
+    {
+        strcpy(ans, "Failed");
+        return ans;
+    }
+    else
+    {
+        sprintf(ans, "%d %d", a, b);
+        return ans;
+    }
 }

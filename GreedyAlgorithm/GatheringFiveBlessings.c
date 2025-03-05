@@ -54,7 +54,6 @@ int GatheringFiveBlessings(char **vec, int n)
             cnt[j] += (vec[i][j] == '0' ? 0 : 1);
         }
     }
-    PrintVecElement(cnt, 5);
     for (int i = 0; i < NUM_FIVE; i++)
     {
         ans = min(ans, cnt[i]);
