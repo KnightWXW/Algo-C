@@ -14,8 +14,7 @@
 //          输入: [[7,10],[2,4]]
 //          输出: true
 
-void print2DVecElement(vector<vector<int>> vec);
-bool canAttendMeeting(vector<vector<int>> &intervals);
+bool CanAttendMeeting(vector<vector<int>> &intervals);
 
 int main()
 {

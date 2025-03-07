@@ -32,7 +32,7 @@ int main()
     FreeVec(vec);
 }
 
-// 动态规划:
+// 前缀积 + 贪心:
 // Time:O(N)
 // Space:O(1)
 int MaxProduct(int *nums, int numsSize)
