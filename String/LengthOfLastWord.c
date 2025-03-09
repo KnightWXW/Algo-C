@@ -28,11 +28,10 @@ int LengthOfLastWord(char *s);
 
 int main()
 {
-    // int n = GenerateRandomNum(1, 10);
-    // char arr1[] = {'A', 'B', 'C', ' '};
-    // char *str = GenerateRandomString(n, arr1, strlen(arr1));
-    // PrintString(str);
-    char str[] = "a";
+    int n = GenerateRandomNum(1, 10);
+    char arr1[] = {'A', 'B', 'C', ' '};
+    char *str = GenerateRandomString(n, arr1, strlen(arr1));
+    PrintString(str);
     int ans_A = LengthOfLastWord(str);
     printf("字符串中 最后一个 单词的长度 为：%d\n", ans_A);
     FreeString(str);

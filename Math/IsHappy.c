@@ -34,7 +34,6 @@ int main()
     PrintBool(ans);
 }
 
-
 bool IsHappy(int n)
 {
     int k = n;
