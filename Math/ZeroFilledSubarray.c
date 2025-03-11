@@ -29,13 +29,13 @@
 //          1 <= nums.length <= 105
 //          -109 <= nums[i] <= 109
 
-long long ZeroFilledSubarray_A(int* nums, int numsSize);
-long long ZeroFilledSubarray_B(int* nums, int numsSize);
+long long ZeroFilledSubarray_A(int *nums, int numsSize);
+long long ZeroFilledSubarray_B(int *nums, int numsSize);
 
 int main()
 {
     int n = GenerateRandomNum(0, 100);
-    int* arr = GenerateRandomVec(0, 100, n);
+    int *arr = GenerateRandomVec(0, 100, n);
     printf("arr数组 元素为: ");
     PrintVecElement(arr, n);
     long long ans_A = ZeroFilledSubarray_A(arr, n);
@@ -44,12 +44,47 @@ int main()
     printf("全部为 0 的 子数组 数目: %llu\n", ans_B);
 }
 
-long long ZeroFilledSubarray_A(int* nums, int numsSize)
+// 数学：
+// Time: O(N)
+// Space: O(1)
+long long ZeroFilledSubarray_A(int *nums, int numsSize)
 {
-    
+    long long ans = 0;
+    long long cnt = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        if (nums[i] == 0)
+        {
+            cnt++;
+        }
+        else
+        {
+            ans += (cnt * (cnt + 1)) >> 1;
+            cnt = 0;
+        }
+    }
+    ans += (cnt * (cnt + 1)) >> 1;
+    return ans;
 }
 
-long long ZeroFilledSubarray_B(int* nums, int numsSize)
+// 数学：
+// Time: O(N)
+// Space: O(1)
+long long ZeroFilledSubarray_B(int *nums, int numsSize)
 {
-    
+    long long ans = 0;
+    long long cnt = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        if (nums[i] == 0)
+        {
+            cnt++;
+            ans += cnt;
+        }
+        else
+        {
+            cnt = 0;
+        }
+    }
+    return ans;
 }
