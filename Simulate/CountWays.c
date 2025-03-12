@@ -43,6 +43,9 @@ int main()
     FreeVec(nums);
 }
 
+// 模拟：
+// Time: O(N)
+// Space: O(1)
 int CountWays(int* nums, int numsSize)
 {
 

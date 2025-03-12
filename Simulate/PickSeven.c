@@ -39,6 +39,9 @@ bool ContainsSeven(int cur)
     return cur % 7 == 0;
 }
 
+// 模拟：
+// Time: O(N)
+// Space: O(1)
 int PickSeven(int num)
 {
     int cnt = 0;

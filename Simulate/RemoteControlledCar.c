@@ -32,6 +32,9 @@ int main()
     FreeString(s);
 }
 
+// 模拟：
+// Time: O(N)
+// Space: O(1)
 int *RemoteControlledCar(char *s, int l)
 {
     int x = 0;
