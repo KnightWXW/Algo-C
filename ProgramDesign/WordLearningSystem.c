@@ -17,22 +17,91 @@
 
 typedef struct
 {
+    int index;
+    int cnt;
+} WordItem;
+
+typedef struct
+{
+    WordItem *wordVec;
 } WordLearningSystem;
 
-WordLearningSystemCreate(WordLearningSystem *obj, int wordNum, int learningCnt)
+int wordNum;
+int learningCnt;
+
+WordLearningSystem *WordLearningSystemCreate(int wordNum, int learningCnt)
 {
+    WordLearningSystem *obj = (WordLearningSystem *)malloc(sizeof(WordLearningSystem));
+    obj->wordVec = (WordItem *)malloc(sizeof(WordItem) * wordNum);
+    wordNum = wordNum;
+    learningCnt = learningCnt;
+    for (int i = 0; i < wordNum; i++)
+    {
+        obj->wordVec[i].index = i;
+        obj->wordVec[i].cnt = learningCnt;
+    }
+    return obj;
 }
 
-int *WordLearningSystemLearn(WordLearningSystem *obj, int num, int *l)
+int CompareWordItem(const void *a, const void *b)
 {
+    if (((WordItem *)a)->cnt == ((WordItem *)b)->cnt)
+    {
+        return ((WordItem *)a)->index - ((WordItem *)b)->index;
+    }
+    return ((WordItem *)b)->cnt - ((WordItem *)a)->index;
+}
+
+int *WordLearningSystemLearn(WordLearningSystem **obj, int num, int *l)
+{
+    qsort((*obj)->wordVec, wordNum, sizeof(WordItem), CompareWordItem);
+    int index = 0;
+    int k = min(wordNum, num);
+    int *ans = (int *)malloc(sizeof(int) * k);
+    memset(ans, 0, sizeof(int) * k);
+    for (int i = 0; i < k; i++)
+    {
+        if ((*obj)->wordVec[i].cnt > 0)
+        {
+            (*obj)->wordVec[i].cnt--;
+            ans[i] = (*obj)->wordVec[i].index;
+            index++;
+        }
+    }
+    *l = index;
+    return ans;
 }
 
 void WordLearningSystemReset(WordLearningSystem *obj, int *wordList, int l)
 {
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < wordNum; j++)
+        {
+            if (wordList[j] == obj->wordVec[i].index)
+            {
+                obj->wordVec[j].cnt = learningCnt;
+            }
+        }
+    }
+    return;
 }
 
 int WordLearningSystemQuery(WordLearningSystem *obj)
 {
+    int ans = 0;
+    for (int i = 0; i < wordNum; i++)
+    {
+        ans += (obj->wordVec[i].cnt > 0) ? 1 : 0;
+    }
+    return ans;
+}
+
+void WordLearningSystemFree(WordLearningSystem *obj)
+{
+    free(obj->wordVec);
+    free(obj);
+    return;
 }
 
 int main()
@@ -41,31 +110,32 @@ int main()
     int a1 = WordLearningSystemQuery(obj); // 6
     printf("还需要背诵的单词总量 为：%d\n", a1);
     int l2 = 1;
-    int *a2 = WordLearningSystemLearn(obj, 3, l1);
-    printf("序号数列 为：\n");
-    PrintVecElement(a2); // 0 1 2
+    int *a2 = WordLearningSystemLearn(&obj, 3, &l2);
+    printf("序号数列 为:");
+    PrintVecElement(a2, l2); // 0 1 2
     int l3 = 1;
-    int *a3 = WordLearningSystemLearn(obj, 5, l3);
-    printf("序号数列 为：\n");
-    PrintVecElement(a3); // 3 4 5 0 1
+    int *a3 = WordLearningSystemLearn(&obj, 5, &l3);
+    printf("序号数列 为:");
+    PrintVecElement(a3, l3); // 3 4 5 0 1
     int a4 = WordLearningSystemQuery(obj);
     printf("还需要背诵的单词总量 为：%d\n", a4); // 4
     int l5 = 1;
-    int *a5 = WordLearningSystemLearn(obj, 6, l5);
-    printf("序号数列 为：\n");
-    PrintVecElement(a5); // 2 3 4 5
+    int *a5 = WordLearningSystemLearn(&obj, 6, &l5);
+    printf("序号数列 为:");
+    PrintVecElement(a5, l5); // 2 3 4 5
     int l6 = 1;
-    int *a6 = WordLearningSystemLearn(obj, 2, l6);
-    printf("序号数列 为：\n");
-    PrintVecElement(a6); // 空
+    int *a6 = WordLearningSystemLearn(&obj, 2, &l6);
+    printf("序号数列 为:");
+    PrintVecElement(a6, l6); // 空
     int arr1[] = {0, 2};
     WordLearningSystemReset(obj, arr1, 2);
     int l7 = 1;
-    int *a7 = WordLearningSystemLearn(obj, 1, l7);
-    printf("序号数列 为：\n");
-    PrintVecElement(a7); // 0
+    int *a7 = WordLearningSystemLearn(&obj, 1, &l7);
+    printf("序号数列 为:");
+    PrintVecElement(a7, l7); // 0
     int arr2[] = {0, 2};
     WordLearningSystemReset(obj, arr2, 1);
     int a8 = WordLearningSystemQuery(obj);
     printf("还需要背诵的单词总量 为：%d\n", a8); // 3
+    WordLearningSystemFree(obj);
 }

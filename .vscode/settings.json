@@ -17,7 +17,9 @@
         "set": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "limits": "c"
+        "limits": "c",
+        "unordered_map": "c",
+        "JJ.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
