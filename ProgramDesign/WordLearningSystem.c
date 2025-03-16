@@ -78,7 +78,7 @@ void WordLearningSystemReset(WordLearningSystem *obj, int *wordList, int l)
     {
         for (int j = 0; j < gWordNum; j++)
         {
-            if (wordList[j] == obj->wordVec[i].index)
+            if (wordList[i] == obj->wordVec[j].index)
             {
                 obj->wordVec[j].cnt = gLearningCnt;
             }
