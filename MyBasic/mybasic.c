@@ -81,13 +81,13 @@ void FreeVec2D(int **vec, int row)
     return;
 }
 
-void PrintVecElement2D(int *vec, int row, int col)
+void PrintVecElement2D(int **vec, int row, int col)
 {
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < col; j++)
         {
-            printf("%d\t", *(vec + i * col + j));
+            printf("%d\t", vec[i][j]);
         }
         printf("\n");
     }

@@ -51,18 +51,41 @@ int main()
 {
     int bracketsSize_A = 3;
     int bracketsColSize_A = 2;
-    int brackets_A[3][2] = {{3, 50}, {7, 10}, {12, 25}};
+    int** brackets_A = (int**)malloc(sizeof(int*) * bracketsSize_A);
+    for(int i = 0; i < bracketsSize_A; i++)
+    {
+        brackets_A[i] = (int*)malloc(sizeof(int) * bracketsSize_A);
+    }
+    brackets_A[0][0] = 3;
+    brackets_A[0][1] = 50;
+    brackets_A[1][0] = 7;
+    brackets_A[1][1] = 10;
+    brackets_A[2][0] = 12;
+    brackets_A[2][1] = 25;
     int income_A = 10;
-    PrintVecElement2D(*brackets_A, 3, 2);
+    PrintVecElement2D(brackets_A, 3, 2);
     double ans_A = CalculateTax((int **)brackets_A, bracketsSize_A, &bracketsColSize_A, income_A);
     printf("需要缴纳的税款总额为：%lf。\n", ans_A); // 2.65
-    int brackets_B[3][2] = {{1, 0}, {4, 25}, {5, 50}};
-    int income_B = 2;
+    FreeVec2D(brackets_A, bracketsSize_A);
+
     int bracketsSize_B = 3;
     int bracketsColSize_B = 2;
-    PrintVecElement2D(*brackets_B, 3, 2);
+    int** brackets_B = (int**)malloc(sizeof(int*) * bracketsSize_B);
+    for(int i = 0; i < bracketsSize_B; i++)
+    {
+        brackets_B[i] = (int*)malloc(sizeof(int) * bracketsSize_B);
+    }
+    brackets_B[0][0] = 1;
+    brackets_B[0][1] = 0;
+    brackets_B[1][0] = 4;
+    brackets_B[1][1] = 25;
+    brackets_B[2][0] = 5;
+    brackets_B[2][1] = 50;
+    int income_B = 2;
+    PrintVecElement2D(brackets_B, 3, 2);
     double ans_B = CalculateTax((int **)brackets_B, bracketsSize_B, &bracketsColSize_B, income_B);
     printf("需要缴纳的税款总额为：%lf。\n", ans_B);  // 0.25
+    FreeVec2D(brackets_B, bracketsSize_B);
 }
 
 // 模拟：
@@ -74,8 +97,8 @@ double CalculateTax(int **brackets, int bracketsSize, int *bracketsColSize, int 
     int preUpper = 0;
     for (int i = 0; i < bracketsSize; i++)
     {
-        int upper = *((int*)(brackets) + i * (*bracketsColSize) + 0);
-        int percent= *((int*)(brackets) + i * (*bracketsColSize) + 1);
+        int upper = brackets[i][0];
+        int percent=  brackets[i][1];
         int tem = (min(income, upper) - preUpper) * percent;
         ans += tem;
         if (income <= upper)
