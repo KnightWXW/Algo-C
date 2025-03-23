@@ -14,7 +14,7 @@
 //              在第 data 天记录 steps 运动步数，
 //              返回这一天已累计的步数
 //          int GetMaxCompleteDays(int date):
-//              根据已有记录，返回截止date(含), 达标的最长天数
+//              根据已有记录，返回截止date(含), 连续达标的最长天数
 //              达标：某天的累积步数大于等于当天的目标步数
 //          输入保证 setTarget、Record、GetMaxCompleteDays Date参数按顺序递增
 //      提示：
@@ -39,27 +39,63 @@
 
 typedef struct
 {
-
+    int *targetSteps;
+    int *currentSteps;
 } Pedometer;
 
 Pedometer *PedometerCreate(int target)
 {
+    Pedometer *obj = (Pedometer *)malloc(sizeof(Pedometer));
+    obj->targetSteps = (int *)malloc(sizeof(int) * (YEAR_DAYS_NUM + 1));
+    for (int i = 0; i <= YEAR_DAYS_NUM; i++)
+    {
+        obj->targetSteps[i] = target;
+    }
+    obj->currentSteps = (int *)malloc(sizeof(int) * (YEAR_DAYS_NUM + 1));
+    memset(obj->currentSteps, 0, sizeof(int) * (YEAR_DAYS_NUM + 1));
+    return obj;
 }
 
 void PedometerSetTarget(Pedometer *obj, int date, int target)
 {
+    for (int i = date + 1; i <= YEAR_DAYS_NUM; i++)
+    {
+        obj->targetSteps[i] = target;
+    }
+    return;
 }
 
 int PedometerRecord(Pedometer *obj, int date, int steps)
 {
+    obj->currentSteps[date] += steps;
+    return obj->currentSteps[date];
 }
 
 int PedometerGetMaxCompleteDays(Pedometer *obj, int date)
 {
+    int ans = 0;
+    int cur = 0;
+    for (int i = 0; i <= YEAR_DAYS_NUM; i++)
+    {
+        if (obj->currentSteps[i] >= obj->targetSteps[i])
+        {
+            cur++;
+        }
+        else
+        {
+            ans = max(ans, cur);
+            cur = 0;
+        }
+    }
+    return ans;
 }
 
 void PedometerFree(Pedometer *obj)
 {
+    free(obj->currentSteps);
+    free(obj->targetSteps);
+    free(obj);
+    return;
 }
 
 int main()

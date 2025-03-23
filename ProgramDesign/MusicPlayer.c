@@ -19,7 +19,7 @@
 
 typedef struct
 {
-
+    
 } MusicPlayer;
 
 MusicPlayer *MusicPlayerCreate(int num)

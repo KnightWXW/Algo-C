@@ -37,7 +37,13 @@ int main()
     printf("%n 轮后有多少个亮着的灯泡为 %d。\n", n, ans);
 }
 
+// 数学：
+//      n 的 约数 为奇数才会亮，偶数才会灭，
+//      求 1-n 中 的 完全平方根个数
+// Time：O(1)
+// Space：O(1)
 int BulbSwitch(int n)
 {
-
+    return sqrt(n);
+    // return pow(n, 0.5);
 }

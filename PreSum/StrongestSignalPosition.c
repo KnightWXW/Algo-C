@@ -14,14 +14,46 @@ int main()
 {
     int row1 = 6;
     int col1 = 2;
-    int vec1[row1][col1] = {{1, 1}, {3, -1}, {4, 1}, {6, -1}, {7, 1}, {9, -1}};
+    int** vec1 = (int**)malloc(sizeof(int*) * row1);
+    for(int i = 0; i < row1; i++)
+    {
+        vec1[i] = (int*)malloc(sizeof(int) * col1);
+    } 
+    vec1[0][0] = 1;
+    vec1[0][1] = 1;
+    vec1[1][0] = 3;
+    vec1[1][1] = -1;
+    vec1[2][0] = 4;
+    vec1[2][1] = 1;
+    vec1[3][0] = 6;
+    vec1[3][1] = -1;
+    vec1[4][0] = 7;
+    vec1[4][1] = 1;
+    vec1[5][0] = 9;
+    vec1[5][1] = -1;
     int ans1 = StrongestSignalPosition(vec1, row1, col1);
     PrintVecElement2D(vec1, row1, col1);
     printf("信号最强的位置是 %d\n", ans1);
 
     int row2 = 6;
     int col2 = 2;
-    int vec2[row2][col2] = {{1, -1}, {3, -1}, {4, 1}, {6, -1}, {7, 1}, {9, 1}};
+    int** vec2 = (int**)malloc(sizeof(int*) * row2);
+    for(int i = 0; i < row2; i++)
+    {
+        vec2[i] = (int*)malloc(sizeof(int) * col2);
+    } 
+    vec2[0][0] = 1;
+    vec2[0][1] = -1;
+    vec2[1][0] = 3;
+    vec2[1][1] = -1;
+    vec2[2][0] = 4;
+    vec2[2][1] = 1;
+    vec2[3][0] = 6;
+    vec2[3][1] = -1;
+    vec2[4][0] = 7;
+    vec2[4][1] = 1;
+    vec2[5][0] = 9;
+    vec2[5][1] = 1;
     int ans2 = StrongestSignalPosition(vec2, row2, col2);
     PrintVecElement2D(vec2, row2, col2);
     printf("信号最强的位置是 %d\n", ans2);
