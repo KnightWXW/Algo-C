@@ -1,13 +1,4 @@
-
-
-
-#include <stdio.h>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <string>     
-
-using namespace std;
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 14. 最长公共前缀
 

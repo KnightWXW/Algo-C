@@ -29,21 +29,87 @@
 //          输出：
 //              [null, 1, 1, -1, 2]
 
+int lineSize;
+int periodSize;
+
 typedef struct
 {
+    int productId;
+    int startDate;
+} Line;
 
+typedef struct
+{
+    int period;
+    int num;
+} Production;
+typedef struct
+{
+    Line *lineVec;
+    Production *prodectionVec;
 } ProductionLineMgmtSyn;
 
 ProductionLineMgmtSyn *ProductionLineMgmtSynCreate(int num, int *periods, int size)
 {
+    ProductionLineMgmtSyn *obj = (ProductionLineMgmtSyn *)malloc(sizeof(ProductionLineMgmtSyn));
+    lineSize = num;
+    periodSize = size;
+    obj->lineVec = (Line *)malloc(sizeof(Line) * lineSize);
+    for (int i = 0; i < lineSize; i++)
+    {
+        obj->lineVec[i].productId = -1;
+        obj->lineVec[i].startDate = -1;
+    }
+    obj->prodectionVec = (Production *)malloc(sizeof(Production) * periodSize);
+    for (int i = 0; i < periodSize; i++)
+    {
+        obj->prodectionVec[i].period = periods[i];
+        obj->prodectionVec[i].num = 0;
+    }
+    return obj;
 }
 
 int ProductionLineMgmtSynProduction(ProductionLineMgmtSyn *obj, int date, int assemblyId, int productId)
 {
+    if (obj->lineVec[assemblyId].productId == -1)
+    {
+        obj->lineVec[assemblyId].productId = productId;
+        obj->lineVec[assemblyId].startDate = date;
+        return 1;
+    }
+    else if (obj->lineVec[assemblyId].productId == productId)
+    {
+        return 0;
+    }
+    else
+    {
+        int preProductId = obj->lineVec[assemblyId].productId;
+        obj->prodectionVec[preProductId].num += (date - obj->lineVec[assemblyId].startDate) / obj->prodectionVec[preProductId].period;
+        obj->lineVec[assemblyId].productId = productId;
+        obj->lineVec[assemblyId].startDate = date;
+        return -1;
+    }
 }
 
 int ProductionLineMgmtSynGetProductCount(ProductionLineMgmtSyn *obj, int date, int productId)
 {
+    int ans = obj->prodectionVec[productId].num;
+    for (int i = 0; i < lineSize; i++)
+    {
+        if (obj->lineVec[i].productId == productId)
+        {
+            ans += (date - obj->lineVec[i].startDate) / obj->prodectionVec[productId].period;
+        }
+    }
+    return ans;
+}
+
+void ProductionLineMgmtSynFree(ProductionLineMgmtSyn *obj)
+{
+    free(obj->lineVec);
+    free(obj->prodectionVec);
+    free(obj);
+    return;
 }
 
 int main()
@@ -60,4 +126,5 @@ int main()
     printf("工厂生产结果 为 %d:\n", p3);
     int g2 = ProductionLineMgmtSynGetProductCount(productionLineMgmtSyn, 10, 1);
     printf("工厂统计结果 为 %d:\n", g2);
+    ProductionLineMgmtSynFree(productionLineMgmtSyn);
 }
