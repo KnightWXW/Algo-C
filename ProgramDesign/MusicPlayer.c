@@ -17,35 +17,107 @@
 //      bool DeleteMusic(int musicId): 删除一首歌曲; 输入参数为 musicId,
 //         如果播放器中不存在 musicId，返回 false, 否则删除该歌曲返回 true
 
+int capacity;
+int minPlay;
+int curCnt;
+
 typedef struct
 {
-    
+    int musicId;
+    int playCnt;
+    UT_hash_handle hh;
 } MusicPlayer;
 
 MusicPlayer *MusicPlayerCreate(int num)
 {
+    curCnt = 0;
+    minPlay = 0;
+    capacity = num;
     MusicPlayer *obj = NULL;
     return obj;
 }
 
-int MusicPlayerFindMusic(MusicPlayer *obj, int musicId)
+void MusicPlayerUpdate(MusicPlayer *obj)
 {
+    MusicPlayer *a = NULL;
+    MusicPlayer *b = NULL;
+    int mplay = INT_MAX;
+    HASH_ITER(hh, obj, a, b)
+    {
+        mplay = min(mplay, a->playCnt);
+    }
+    minPlay = mplay;
+    return;
 }
 
 int MusicPlayerAddMusic(MusicPlayer **obj, int musicId)
 {
+    MusicPlayer *cur = NULL;
+    HASH_FIND_INT(*obj, &musicId, cur);
+    if (cur != NULL)
+    {
+        return -1;
+    }
+    cur = (MusicPlayer *)malloc(sizeof(MusicPlayer));
+    cur->musicId = musicId;
+    cur->playCnt = 0;
+    if (curCnt == capacity)
+    {
+        int id = -1;
+        MusicPlayer *a = NULL;
+        MusicPlayer *b = NULL;
+        HASH_ITER(hh, *obj, a, b)
+        {
+            if (a->playCnt == minPlay)
+            {
+                id = a->musicId;
+                HASH_DEL(*obj, a);
+                break;
+            }
+        }
+        HASH_ADD_INT(*obj, musicId, cur);
+        return id;
+    }
+    else
+    {
+        HASH_ADD_INT(*obj, musicId, cur);
+        curCnt++;
+        return 0;
+    }
 }
 
 bool MusicPlayerPlayMusic(MusicPlayer *obj, int musicId)
 {
+    MusicPlayer *cur = NULL;
+    HASH_FIND_INT(obj, &musicId, cur);
+    if (cur == NULL)
+    {
+        return false;
+    }
+    cur->playCnt++;
+    MusicPlayerUpdate(obj);
+    return true;
 }
 
 bool MusicPlayerDeleteMusic(MusicPlayer **obj, int musicId)
 {
+    MusicPlayer *cur = NULL;
+    HASH_FIND_INT(*obj, &musicId, cur);
+    if (cur == NULL)
+    {
+        return false;
+    }
+    HASH_DEL(*obj, cur);
+    MusicPlayerUpdate(*obj);
+    curCnt--;
+    return true;
 }
 
-void MusicPlayerDeleteMusic(MusicPlayer **obj)
+void MusicPlayerFree(MusicPlayer **obj)
 {
+    HASH_CLEAR(hh, *obj);
+    free(*obj);
+    return;
 }
 
 int main()
@@ -57,17 +129,17 @@ int main()
     int a2 = MusicPlayerAddMusic(&musicPlayer, 30);
     printf("添加结果为：%d\n", a2); // 0
     bool a3 = MusicPlayerPlayMusic(musicPlayer, 30);
-    printf("播放结果为：\n");
-    printBool(a3); // true
+    printf("播放结果为：");
+    PrintBool(a3); // true
     int a4 = MusicPlayerAddMusic(&musicPlayer, 10);
     printf("添加结果为：%d\n", a4); // 0
     int a5 = MusicPlayerAddMusic(&musicPlayer, 50);
     printf("添加结果为：%d\n", a5); // 20
     bool a6 = MusicPlayerDeleteMusic(&musicPlayer, 30);
-    printf("删除结果为：\n");
+    printf("删除结果为：");
     PrintBool(a6); // true
     bool a7 = MusicPlayerPlayMusic(musicPlayer, 30);
-    printf("播放结果为：\n");
+    printf("播放结果为：");
     PrintBool(a7); // false
     int a8 = MusicPlayerAddMusic(&musicPlayer, 60);
     printf("添加结果为：%d\n", a8); // 0

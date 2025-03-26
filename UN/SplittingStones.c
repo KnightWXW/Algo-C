@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      Huawei: 分石子
 

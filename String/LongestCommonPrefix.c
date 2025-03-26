@@ -34,7 +34,6 @@ int main()
     PrintString(ans_B);
 }
 
-
 // 纵向比较：
 // Time: O(N * M)
 // Space: O(1)
