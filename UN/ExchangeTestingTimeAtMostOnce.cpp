@@ -31,19 +31,52 @@ int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n);
 
 int main()
 {
-    int nums1[9] = {6, 2, 2, 1, 7, 5, 7, 3, 4};
     int l1 = 9;
-    int vec1[3][3] = {{4, 1, 3}, {1, 2, 5}, {7, 6, 2}};
+    int nums1[9] = {6, 2, 2, 1, 7, 5, 7, 3, 4};
     int n1 = 3;
+    int **vec1 = (int **)malloc(sizeof(int *) * n1);
+    for (int i = 0; i < n1; i++)
+    {
+        vec1[i] = (int *)malloc(sizeof(int) * n1);
+    }
+    vec1[0][0] = 4;
+    vec1[0][1] = 1;
+    vec1[0][2] = 3;
+    vec1[1][0] = 1;
+    vec1[1][1] = 2;
+    vec1[1][2] = 5;
+    vec1[2][0] = 7;
+    vec1[2][1] = 6;
+    vec1[2][2] = 2;
     PrintVecElement(nums1, l1);
     PrintVecElement2D(vec1, n1, n1);
     int ans_A = ExchangeTestingTimeAtMostOnce(nums1, l1, vec1, n1, n1);
     printf(" 仪器最早在接受第 %d 个数字(从1开始计数) 时完成测试。\n", ans_A);
 
-    int nums2[12] = {8, 9, 2, 7, 10, 1, 1, 1, 4, 5, 5, 3};
     int l2 = 12;
-    int vec2[4][4] = {{5, 9, 5, 1}, {1, 4, 2, 8}, {2, 8, 1, 3}, {3, 1, 7, 2}};
+    int nums2[12] = {8, 9, 2, 7, 10, 1, 1, 1, 4, 5, 5, 3};
     int n2 = 4;
+    int **vec2 = (int **)malloc(sizeof(int *) * n2);
+    for (int i = 0; i < n2; i++)
+    {
+        vec2[i] = (int *)malloc(sizeof(int) * n2);
+    }
+    vec2[0][0] = 5;
+    vec2[0][1] = 9;
+    vec2[0][2] = 5;
+    vec2[1][3] = 1;
+    vec2[1][0] = 1;
+    vec2[1][1] = 4;
+    vec2[1][2] = 2;
+    vec2[1][3] = 8;
+    vec2[2][0] = 2;
+    vec2[2][1] = 8;
+    vec2[2][2] = 1;
+    vec2[2][3] = 3;
+    vec2[3][0] = 3;
+    vec2[3][1] = 1;
+    vec2[3][2] = 7;
+    vec2[3][3] = 2;
     PrintVecElement(nums2, l2);
     PrintVecElement2D(vec2, n2, n2);
     int ans_B = ExchangeTestingTimeAtMostOnce(nums2, l2, vec2, n2, n2);
@@ -53,5 +86,4 @@ int main()
 int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n)
 {
     int used[MAX_BOARD_LEN] = 0;
-    
 }

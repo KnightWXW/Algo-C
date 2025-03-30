@@ -28,25 +28,76 @@
 //          digit 是 '1' 到 '9' 中的一个数字
 //          digit 在 number 中出现至少一次
 
-char *RemoveDigit(char *number, char digit);
+char *RemoveDigit_A(char *number, char digit);
+char *RemoveDigit_B(char *number, char digit);
 
 int main()
 {
     int n = GenerateRandomNum(1, 20);
-    int k = GenerateRandomNum(0, 9);
+    int k = GenerateRandomNum(1, n);
     char arr1[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    char *number= GenerateRandomString(n, arr1, strlen(arr1));
-    char digit = arr1[k];
+    char *number = GenerateRandomString(n, arr1, strlen(arr1));
+    char digit = number[k - 1];
     PrintString(number);
-    char* ans_A = RemoveDigit(number, digit);
-    printf("移除指定数字得到的最大结果为：\n");
+    char *ans_A = RemoveDigit_A(number, digit);
+    printf("移除指定数字 %c 得到的最大结果为：\n", digit);
+    char *ans_B = RemoveDigit_B(number, digit);
+    printf("移除指定数字 %c 得到的最大结果为：\n", digit);
     PrintString(ans_A);
     FreeString(number);
     FreeString(ans_A);
+    FreeString(ans_B);
 }
 
-char *RemoveDigit(char *number, char digit)
+// 模拟：
+// Time：O(N)
+// Space：O(N)
+char *RemoveDigit_A(char *number, char digit)
 {
     int l = strlen(number);
-    
+    char *ans = (char *)malloc(sizeof(char) * l);
+    memset(ans, 0, sizeof(char) * l);
+    ans[l - 1] = '\0';
+    char *s = (char *)malloc(sizeof(char) * l);
+    for (int i = 0; i < l; i++)
+    {
+        if (number[i] != digit)
+        {
+            continue;
+        }
+        memcpy(&s[0], &number[0], sizeof(char) * i);
+        memcpy(&s[i], &number[i + 1], sizeof(char) * (l - i - 1));
+        s[l - 1] = '\0';
+        if (strcmp(s, ans) > 0)
+        {
+            strcpy(ans, s);
+        }
+    }
+    return ans;
+}
+
+// 贪心：
+// Time：O(N)
+// Space：O(1)
+char *RemoveDigit_B(char *number, char digit)
+{
+    int l = strlen(number);
+    int i = 0;
+    int index = 0;
+    for (i = 0; i < l; i++)
+    {
+        if (number[i] == digit)
+        {
+            index = i;
+            if (number[i] < number[i + 1])
+            {
+                break;
+            }
+        }
+    }
+    for (int i = index; i < l; i++)
+    {
+        number[i] = number[i + 1];
+    }
+    return number;
 }
