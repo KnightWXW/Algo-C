@@ -58,4 +58,5 @@ int main()
 // Space: O(1)
 int DistributeConferenceTickets(int *distribute, int distributeSize, int num, int *arrive, int arriveSize)
 {
+    
 }

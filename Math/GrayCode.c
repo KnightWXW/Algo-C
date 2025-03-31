@@ -31,18 +31,29 @@
 //      提示：
 //          1 <= n <= 16
 
-int* GrayCode(int n, int* returnSize);
+int *GrayCode(int n, int *returnSize);
 
 int main()
 {
-    int n = GenerateRandomNum(0, 100);
+    int n = GenerateRandomNum(1, 16);
     int returnSize = 0;
-    int* ans_A = GrayCode(n, &returnSize);
+    int *ans_A = GrayCode(n, &returnSize);
     printf("整数 %d 的任一有效的 %d 位格雷码序列为:\n", n, n);
     PrintVecElement(ans_A, returnSize);
+    FreeVec(ans_A);
 }
 
-int* GrayCode(int n, int* returnSize)
+// 数学：Gray(n) = n ^ (n >> 1) 
+// Time: O(N)
+// Space: O(1)
+int *GrayCode(int n, int *returnSize)
 {
-    
+    int l = pow(2.0, n);
+    int *ans = (int *)malloc(sizeof(int) * l);
+    for (int i = 0; i < l; i++)
+    {
+        ans[i] = i ^ (i >> 1);
+    }
+    *returnSize = l;
+    return ans;
 }
