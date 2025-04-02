@@ -18,3 +18,24 @@
 
 char* AddBinary(char* a, char* b);
 
+int main()
+{
+    int n1 = GenerateRandomNum(1, 10);
+    int n2 = GenerateRandomNum(1, 9);
+    char arr[] = {'0', '1'};
+    char *a = GenerateRandomString(n1, arr, strlen(arr));
+    char *b = GenerateRandomString(n2, arr, strlen(arr));
+    PrintString(a);
+    PrintString(b);
+    char* ans = AddBinary(a, b);
+    printf("二进制求和为:");
+    PrintString(ans);
+    FreeString(a);
+    FreeString(b);
+    FreeString(ans);
+}
+
+char* AddBinary(char* a, char* b)
+{
+    
+}

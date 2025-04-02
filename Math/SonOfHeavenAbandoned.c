@@ -19,11 +19,12 @@ long SonOfHeavenAbandoned(int* buttons, int l);
 
 int main()
 {
-    int n = GenerateRandomNum(0, 30);
-    int* buttons = GenerateRandomVec(1, 20, n);
+    int n = GenerateRandomNum(0, 20);
+    int* buttons = GenerateRandomVec(1, 10, n);
     PrintVecElement(buttons, n);
     long ans = SonOfHeavenAbandoned(buttons, n);
     printf("最多的按按钮次数 %d\n", ans);
+    FreeVec(buttons);
 }
 
 // buttons[i] : 尝试 到正确按钮 通过 最少次数 为 buttons[i] - 1
@@ -32,10 +33,10 @@ int main()
 long SonOfHeavenAbandoned(int* buttons, int l)
 {
     long cnt = 0;
-    for (int i = 0; i < buttons.size(); i++)
+    for (int i = 0; i < l; i++)
     {
         cnt += (i + 1) * (buttons[i] - 1);
     }
-    cnt += buttons.size();
+    cnt += l;
     return cnt;
 }

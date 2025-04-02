@@ -34,6 +34,7 @@ int main()
     int ans_A = CommunityVegetableDelivery(num, communities, n);
     PrintVecElement(communities, n);
     printf("志愿者个数为 %d 时, 完成配送任务的最少小时数是 %d\n", num, ans_A);
+    FreeVec(communities);
 }
 
 // 二分查找：
