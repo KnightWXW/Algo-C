@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 1936. 新增的最少台阶数
 
@@ -38,7 +38,8 @@
 //          1 <= dist <= 109
 //          rungs 严格递增
 
-int AddRungs(int *rungs, int l, int dist);
+int AddRungs_A(int *rungs, int rungsSize, int dist);
+int AddRungs_B(int *rungs, int rungsSize, int dist);
 
 int CompareInt(const int *a, const int *b)
 {
@@ -52,14 +53,47 @@ int main()
     int dist = GenerateRandomNum(1, 100);
     qsort(nums, n, sizeof(int), CompareInt);
     PrintVecElement(nums, n);
-    int ans_A = AddRungs(nums, n);
+    int ans_A = AddRungs_A(nums, n);
     printf("dist 为 %d 时, 爬到最后一阶时必须添加到梯子上的 最少 台阶数 为 %d\n", dist, ans_A);
+    int ans_B = AddRungs_B(nums, n);
+    printf("dist 为 %d 时, 爬到最后一阶时必须添加到梯子上的 最少 台阶数 为 %d\n", dist, ans_B);
     FreeVec(nums);
 }
 
-// 贪心
+// 贪心: 遍历累加[超时]
 // Time: O(N)
 // Space: O(1)
-int AddRungs(int *rungs, int l, int dist)
+int AddRungs_A(int *rungs, int rungsSize, int dist)
 {
+    int ans = 0;
+    int pre = 0;
+    for (int i = 0; i < rungsSize; i++)
+    {
+        if (pre + dist < rungs[i])
+        {
+            ans++;
+            pre += dist;
+            i--;
+        }
+        else
+        {
+            pre = rungs[i];
+        }
+    }
+    return ans;
+}
+
+// 贪心: 遍历求差
+// Time: O(N)
+// Space: O(1)
+int AddRungs_B(int *rungs, int rungsSize, int dist)
+{
+    int ans = 0;
+    int cur = 0;
+    for (int i = 0; i < rungsSize; i++)
+    {
+        ans += (rungs[i] - cur - 1) / dist;
+        cur = rungs[i];
+    }
+    return ans;
 }
