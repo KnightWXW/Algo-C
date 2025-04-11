@@ -9,7 +9,7 @@
 //          先到先得，一人一票，本轮余票作废
 //          本轮没有拿到票的会等到下一轮派发，直到拿到票或者所有门票分发完毕
 //      每位同事预计到达时间按时间先后顺序记录在数组arrive中，
-//      假设你也想去参加大会，请问什么时候去保证可以拿到票？
+//      假设你也想去参加大会，请问最晚什么时候去保证可以拿到票？
 //      示例1：
 //          输入：distribute = {11, 20}
 //              num = 2
@@ -35,9 +35,9 @@ int CompareInt(const int *a, const int *b)
 
 int main()
 {
-    int n1 = generateRandomNum(1, 10);
-    int n2 = generateRandomNum(1, 20);
-    int num = generateRandomNum(1, 5);
+    int n1 = GenerateRandomNum(1, 6);
+    int n2 = GenerateRandomNum(1, 10);
+    int num = GenerateRandomNum(1, 5);
     int *distribute = GenerateRandomVec(1, 30, n1);
     qsort(distribute, n1, sizeof(int), CompareInt);
     printf("distribute 数组 元素为: ");
@@ -58,5 +58,24 @@ int main()
 // Space: O(1)
 int DistributeConferenceTickets(int *distribute, int distributeSize, int num, int *arrive, int arriveSize)
 {
-    
+    int ans = 0;
+    int index = 0;
+    for (int i = 0; i < distributeSize; i++)
+    {
+        for (int j = 0; j < num; j++)
+        {
+            // 分发门票时，无人领取，余票作废
+            // 此时 来领取门票 可以领到
+            if (distribute[i] < arrive[index])
+            {
+                ans = distribute[i];
+                break;
+            }
+            // 分发门票时, 有人领取，
+            // 若要 领到票，要早于 arrive[index]
+            ans = arrive[index] - 1;
+            index++;
+        }
+    }
+    return ans;
 }
