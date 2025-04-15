@@ -37,6 +37,8 @@
 //          1 <= staple[i],drinks[i] <= 10^5
 //          1 <= x <= 2*10^5
 
+#define BREAKFAST_MOD 1000000008
+
 int BreakfastNumber(int *staple, int stapleSize, int *drinks, int drinksSize, int x);
 
 int main()
@@ -45,18 +47,41 @@ int main()
     int *staple = GenerateRandomVec(0, 100, stapleSize);
     int drinksSize = GenerateRandomNum(1, 25);
     int *drinks = GenerateRandomVec(0, 99, drinksSize);
-    int k = GenerateRandomNum(1, 50);
+    int x = GenerateRandomNum(1, 50);
     printf("每种主食的价格 为:\n");
     PrintVecElement(staple, stapleSize);
     printf("每种饮料的价格 为:\n");
     PrintVecElement(drinks, drinksSize);
-    int ans_A = MaxArea(nums, n);
+    int ans_A = BreakfastNumber_A(staple, stapleSize, drinks, drinksSize, x);
     printf("花费不超过 %d 元时，小扣共有 %d 种购买方案\n", x, ans_A);
     FreeVec(staple);
     FreeVec(drinks);
 }
 
-int BreakfastNumber(int *staple, int stapleSize, int *drinks, int drinksSize, int x)
+int CompareInt(const void *a, const void *b)
 {
-    
+    return *(int *)a - *(int *)b;
+}
+
+// 双指针 + 贪心:
+// Time: O(NlogN)
+// Space: O(logN)
+int BreakfastNumber_A(int *staple, int stapleSize, int *drinks, int drinksSize, int x)
+{
+    qsort(staple, stapleSize, sizeof(int), CompareInt);
+    qsort(drinks, drinksSize, sizeof(int), CompareInt);
+    int ans = 0;
+    int j = 0;
+    for (int i = stapleSize - 1; i >= 0; i--)
+    {
+        for (; j < drinksSize; j++)
+        {
+            if (staple[i] + drinks[j] > x)
+            {
+                break;
+            }
+        }
+        ans = (ans + j) % BREAKFAST_MOD;
+    }
+    return ans;
 }

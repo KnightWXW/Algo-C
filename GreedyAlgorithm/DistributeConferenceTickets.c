@@ -28,7 +28,7 @@
 
 int DistributeConferenceTickets(int *distribute, int distributeSize, int num, int *arrive, int arriveSize);
 
-int CompareInt(const int *a, const int *b)
+int CompareInt(const void *a, const void *b)
 {
     return *(int *)a - *(int *)b;
 }
