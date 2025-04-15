@@ -64,4 +64,15 @@ int main()
 // Space: O(N)
 int StrongestSignalPosition(int **arr, int row, int col)
 {
+    int ans = 0;
+    int * left = (int *)malloc(sizeof(int) * row);
+    memset(left, 0, sizeof(int) * row);
+    int * right = (int *)malloc(sizeof(int) * row);
+    memset(right, 0, sizeof(int) * row);
+    for(int i = 0 ;i < row; i++)
+    {
+        if(arr[i][0] == 1){
+            left[arr[i][1]]++;
+        }
+    }
 }

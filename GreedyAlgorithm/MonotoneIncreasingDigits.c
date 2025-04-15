@@ -30,4 +30,8 @@ int main()
 
 int MonotoneIncreasingDigits(int n)
 {
+    char* str = itoa(n);
+    int minVal = 10;
+    int minIndex = -1;
+    for(int i 0 ; i < )
 }
