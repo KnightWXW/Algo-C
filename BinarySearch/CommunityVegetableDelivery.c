@@ -28,13 +28,9 @@ int CommunityVegetableDelivery(int num, int *communities, int size);
 
 int main()
 {
-    // int n = GenerateRandomNum(1, 20);
-    // int *communities = GenerateRandomVec(0, 50, n);
-    // int num = GenerateRandomNum(1, 10);
-    // int ans_A = CommunityVegetableDelivery(num, communities, n);
-    int communities[] = {1, 1, 6, 2};
-    int n = 4;
-    int num = 2;
+    int n = GenerateRandomNum(1, 20);
+    int *communities = GenerateRandomVec(0, 50, n);
+    int num = GenerateRandomNum(1, 10);
     int ans_A = CommunityVegetableDelivery(num, communities, n);
     PrintVecElement(communities, n);
     printf("志愿者个数为 %d 时, 完成配送任务的最少小时数是 %d\n", num, ans_A);
