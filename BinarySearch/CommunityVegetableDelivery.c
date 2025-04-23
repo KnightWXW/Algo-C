@@ -24,23 +24,71 @@
 //          1 2
 //      输出样例 2
 
-int CommunityVegetableDelivery(int num, int* communities, int size);
+int CommunityVegetableDelivery(int num, int *communities, int size);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 20);
-    int* communities = GenerateRandomVec(0, 50, n);
-    int num = GenerateRandomNum(1, 100);
+    // int n = GenerateRandomNum(1, 20);
+    // int *communities = GenerateRandomVec(0, 50, n);
+    // int num = GenerateRandomNum(1, 10);
+    // int ans_A = CommunityVegetableDelivery(num, communities, n);
+    int communities[] = {1, 1, 6, 2};
+    int n = 4;
+    int num = 2;
     int ans_A = CommunityVegetableDelivery(num, communities, n);
     PrintVecElement(communities, n);
     printf("志愿者个数为 %d 时, 完成配送任务的最少小时数是 %d\n", num, ans_A);
     FreeVec(communities);
 }
 
+bool JudgeCommunityVegetableDelivery(int num, int *communities, int size, int mid)
+{
+    int cnt = 0;
+    int cur = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (cur + communities[i] < mid)
+        {
+            cur += communities[i];
+        }
+        else
+        {
+            cnt++;
+            cur = communities[i];
+        }
+        if (cnt > num)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 // 二分查找：
 // Time: O(logN)
 // Space: O(1)
-int CommunityVegetableDelivery(int num, int* communities, int size)
+int CommunityVegetableDelivery(int num, int *communities, int size)
 {
-    
+    int maxVal = 0;
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += communities[i];
+        maxVal = max(maxVal, communities[i]);
+    }
+    int left = maxVal;
+    int right = sum;
+    while (left < right)
+    {
+        int mid = left + ((right - left) >> 1);
+        if (JudgeCommunityVegetableDelivery(num, communities, size, mid) == true)
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid;
+        }
+    }
+    return left;
 }
