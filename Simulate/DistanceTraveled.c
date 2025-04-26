@@ -28,17 +28,43 @@
 //      提示：
 //          1 <= mainTank, additionalTank <= 100
 
-int DistanceTraveled(int mainTank, int additionalTank);
+int DistanceTraveled_A(int mainTank, int additionalTank);
+int DistanceTraveled_B(int mainTank, int additionalTank);
 
 int main()
 {
     int mainTank = GenerateRandomNum(1, 99);
     int additionalTank = GenerateRandomNum(1, 100);
-    int ans1 = DistanceTraveled(mainTank, additionalTank);
-    printf("主油箱中的燃料 为 %d 时, 副油箱中的燃料为 %d 时，卡车可以行驶的最大距离为 %d。\n, ", mainTank, additionalTank, ans1);
+    int ans1 = DistanceTraveled_A(mainTank, additionalTank);
+    int ans2 = DistanceTraveled_B(mainTank, additionalTank);
+    printf("主油箱中的燃料为 %d 时, 副油箱中的燃料为 %d 时，卡车可以行驶的最大距离为 %d\n", mainTank, additionalTank, ans1);
+    printf("主油箱中的燃料为 %d 时, 副油箱中的燃料为 %d 时，卡车可以行驶的最大距离为 %d\n", mainTank, additionalTank, ans2);
 }
 
-int DistanceTraveled(int mainTank, int additionalTank)
+// 模拟：
+// Time: O(N)
+// Space: O(1)
+int DistanceTraveled_A(int mainTank, int additionalTank)
 {
-   
+    int ans = 0;
+    while (mainTank >= 5)
+    {
+        mainTank -= 5;
+        ans += 50;
+        if (additionalTank > 0)
+        {
+            mainTank++;
+            additionalTank--;
+        }
+    }
+    ans += 10 * mainTank;
+    return ans;
+}
+
+// 数学：
+// Time: O(1)
+// Space: O(1)
+int DistanceTraveled_B(int mainTank, int additionalTank)
+{
+    return 10 * (mainTank + min((mainTank - 1) / 4, additionalTank));
 }

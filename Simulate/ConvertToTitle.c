@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 168. Excel 表列名称
 
@@ -31,7 +31,14 @@
 
 char *ConvertToTitle(int columnNumber);
 
-C
+int main()
+{
+    int n = GenerateRandomNum(1, 1000);
+    char * ans = ConvertToTitle(n);
+    printf("%d 在 Excel 表中相对应的列名称为\n", n);
+    PrintString(ans);
+    FreeString(ans);
+}
 
 void ReverseString(char *s, int len)
 {

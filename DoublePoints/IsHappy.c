@@ -34,10 +34,33 @@ int main()
     PrintBool(ans);
 }
 
+int DigitHappySum(int n)
+{
+    int sum = 0;
+    while (n != 0)
+    {
+        int tem = n % 10;
+        sum += tem * tem;
+        n /= 10;
+    }
+    return sum;
+}
+
+// 快慢指针：
+// Time: O(N)
+// Space: O(1)
 bool IsHappy(int n)
 {
-    int k = n;
-     while(k != 1){
-        
-     }
+    int slow = DigitHappySum(n);
+    int fast = DigitHappySum(DigitHappySum(n));
+    while (slow != 1)
+    {
+        if (slow == fast)
+        {
+            return false;
+        }
+        slow = DigitHappySum(slow);
+        fast = DigitHappySum(DigitHappySum(fast));
+    }
+    return true;
 }

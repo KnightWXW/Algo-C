@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 58. 最后一个单词的长度
 
