@@ -20,9 +20,27 @@
 //          01:02:03:002-03-04-05-06-07
 //      输出样例2
 //          1
-//       输入样例3
+//      输入样例3
 //          0a-0a-0a-0a-0a-0a-0A
 //      输出样例3
 //          1
 
 int LegitimateMACAddress(char* str);
+
+int main()
+{
+    char s1[] = "01-02-03-04-05-06-07";
+    PrintString(s1);
+    int ans1 = LegitimateMACAddress(s1);
+    printf("所有的合法mac地址的数量为 %d \n", ans1);
+    
+    char s2[] = "01:02:03:002-03-04-05-06-07";
+    PrintString(s2);
+    int ans2 = LegitimateMACAddress(s2);
+    printf("所有的合法mac地址的数量为 %d \n", ans2);
+
+    char s3[] = "0a-0a-0a-0a-0a-0a-0A";
+    PrintString(s3);
+    int ans3 = LegitimateMACAddress(s3);
+    printf("所有的合法mac地址的数量为 %d \n", ans3);
+}

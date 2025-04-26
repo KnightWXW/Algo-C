@@ -23,7 +23,7 @@ char* LongestCommonPrefix_B(char** strs);
 
 int main()
 {
-    int n = generateRandomNum(2, 4);
+    int n = GenerateRandomNum(2, 4);
     char arr1[] = {'A', 'L', 'P'};
     char** strs = GenerateRandomString(n, 1, 10);
     printStringVector(strs);
