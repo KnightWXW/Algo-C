@@ -82,13 +82,13 @@ int *MatchLogTrait_A(int *events, int l1, int *traits, int l2, int *returnSize)
             if (index == l2)
             {
                 curl = j - i + 1;
-                if (curl < ansl)
-                {
-                    ansl = min(curl, ansl);
-                    memcpy(ans, events + i, ansl * sizeof(int));
-                }
                 break;
             }
+        }
+        if (curl < ansl)
+        {
+            ansl = min(curl, ansl);
+            memcpy(ans, events + i, ansl * sizeof(int));
         }
         i++;
     }
