@@ -1,15 +1,5 @@
 
 
-#include <stdio.h>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
-
-using namespace std;
-
 //      LeetCode 2150. 找出数组中的所有孤独数字
 
 //      链接：https://leetcode.cn/problems/find-all-lonely-numbers-in-the-array/

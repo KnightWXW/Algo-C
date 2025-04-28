@@ -31,11 +31,21 @@ int main()
     char *s = GenerateRandomString(n, arr1, strlen(arr1));
     char letter = s[k - 1];
     PrintString(s);
-    char *ans_A = RemoveDigit_A(s, letter);
-    printf("在 s 中等于 %c 字符所占的 百分比 为：%d\n", letter, ans_A);
+    int ans_A = PercentageLetter(s, letter);
+    printf("在 s 中等于字符 %c 所占的 百分比 为：%d\n", letter, ans_A);
     FreeString(s);
 }
 
+// 遍历：
+// Time: O(N)
+// Space: O(1)
 int PercentageLetter(char *s, char letter)
 {
+    int cnt = 0;
+    for (int i = 0; i < strlen(s); i++)
+    {
+        cnt += s[i] == letter ? 1 : 0;
+    }
+    printf("%d --\n", cnt);
+    return (int)(cnt * 1.0 / strlen(s) * 100);
 }

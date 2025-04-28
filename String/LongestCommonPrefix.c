@@ -18,17 +18,16 @@
 //          0 <= strs[i].length <= 200
 //          strs[i] 仅由小写英文字母组成
 
-char* LongestCommonPrefix_A(char** strs);
-char* LongestCommonPrefix_B(char** strs);
+char *LongestCommonPrefix_A(char **strs, int l);
+char *LongestCommonPrefix_B(char **strs, int l);
 
 int main()
 {
-    int n = GenerateRandomNum(2, 4);
-    char arr1[] = {'A', 'L', 'P'};
-    char** strs = GenerateRandomString(n, 1, 10);
-    printStringVector(strs);
-    char* ans_A = LongestCommonPrefix_A(strs);
-    char* ans_B = LongestCommonPrefix_B(strs);
+    int l1 = 3;
+    char *arr1[] = {"flower", "flow", "flight"};
+    PrintStringVec(arr1, l1);
+    char *ans_A = LongestCommonPrefix_A(arr1, l1);
+    char *ans_B = LongestCommonPrefix_B(arr1, l1);
     printf("字符串数组中的最长公共前缀为：\n");
     PrintString(ans_A);
     PrintString(ans_B);
@@ -37,47 +36,14 @@ int main()
 // 纵向比较：
 // Time: O(N * M)
 // Space: O(1)
-char* LongestCommonPrefix_A(char** strs)
+char *LongestCommonPrefix_A(char **strs, int l)
 {
-    char cur = ' ';
-    for (int j = 0; j < strs[0].size(); j++)
-    {
-        cur = strs[0][j];
-        for (int i = 1; i < strs.size(); i++)
-        {
-            if (j >= strs[i].size() || strs[i][j] != cur)
-            {
-                return strs[0].substr(0, j);
-            }
-        }
-    }
-    return strs[0];
 }
 
 // 横向比较：
 // Time: O(N * M)
 // Space: O(1)
-string LongestCommonPrefix_B(vector<string> &strs)
+char *LongestCommonPrefix_B(char **strs, int l)
 {
-    int l = strs.size();
-    if (l == 0)
-    {
-        return "";
-    }
-    string cur = strs[0];
-    int ans = INT_MAX;
-    for(int i = 0; i < l; i++){
-        int index = 0;
-        while(index < strs[i].size() && index < cur.size()){
-            if(strs[i][index] != cur[index]){
-                break;
-            }
-            index++;
-        }
-        ans = min(ans, index);
-        if(ans == 0){
-            return "";
-        }
-    }
-    return strs[0].substr(0, ans);
+    
 }
