@@ -31,7 +31,19 @@ int main()
 int MonotoneIncreasingDigits(int n)
 {
     char* str = itoa(n);
+    int l = strlen(str);
     int minVal = 10;
     int minIndex = -1;
-    for(int i 0 ; i < )
+    for(int i = 0 ; i < l; i++)
+    {
+        if(str[i] < minVal){
+            minVal = str[i];
+            minIndex = i;
+        }
+    }
+    if(minVal == 0){
+
+    }else{
+        
+    }
 }
