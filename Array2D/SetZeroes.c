@@ -41,9 +41,9 @@ int main()
     int** vec = GenerateRandomVec2D(0, 10, row, col);
     printf("数组元素为：\n");
     PrintVecElement2D(vec, row, col);
-    vector<vector<int>> ans_A = SetZeroes_A(vec);
-    vector<vector<int>> ans_B = SetZeroes_B(vec);
-    vector<vector<int>> ans_C = SetZeroes_C(vec);
+    SetZeroes_A(vec, row, col);
+    SetZeroes_B(vec, row, col);
+    SetZeroes_C(vec, row, col);
     printf("数组置零后为：\n");
     print2DVecElement(ans_A);
     print2DVecElement(ans_B);
