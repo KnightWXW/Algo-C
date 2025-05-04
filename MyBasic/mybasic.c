@@ -114,7 +114,7 @@ void FreeString(char *str)
 
 void PrintString(char *str)
 {
-    printf("%s \n", str);
+    printf("%s\n", str);
 }
 
 // 随机字符串数组:
