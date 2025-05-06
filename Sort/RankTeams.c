@@ -38,6 +38,8 @@
 //          votes[i] 中的所有字母都是唯一的
 //          votes[0] 中出现的所有字母 同样也 出现在 votes[j] 中，其中 1 <= j < votes.length
 
+#define MAX_RANK_TEAM_LEN 26
+
 char* RankTeams(char** votes, int votesSize);
 
 int main()
@@ -67,7 +69,31 @@ int main()
     FreeString(ans3);
 }
 
+typedef struct{
+    char c;
+    int* vec;
+    int size;
+}RankData;
+
 char* RankTeams(char** votes, int votesSize)
 {
-    
+    int n = strlen(votes[0]);
+    int** arr = (int*)malloc(sizeof(int*)*MAX_RANK_TEAM_LEN);
+    for(int i = 0; i < MAX_RANK_TEAM_LEN; i++)
+    {
+        arr[i] = (int*)malloc(sizeof(int)*n);
+        memset(arr[i], 0, sizeof(int)*n);
+    }
+    for(int i = 0; i < votesSize; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            int index = votes[i][j] - 'A';
+            arr[index][i] = j + 1;
+        }
+    }
+    RankData* rankVec = (RankData*)malloc(sizeof(RankData)*votesSize);
+    memset(rankVec, 0, sizeof(RankData)*votesSize);
+    for(int i = 0; i < )
+
 }

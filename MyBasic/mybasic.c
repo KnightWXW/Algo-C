@@ -101,7 +101,7 @@ char *GenerateRandomString(int n, char *arr, int arrLen)
     memset(str, '\0', n + 1);
     for (int i = 0; i < n; i++)
     {
-        int index = rand() % (arrLen);
+        int index = rand() % (arrLen - 1);
         str[i] = arr[index];
     }
     return str;

@@ -36,5 +36,5 @@ int main()
 
 char* FractionToDecimal(int numerator, int denominator)
 {
-
+    char* ans = (char*)malloc(sizeof(char)*);
 }
