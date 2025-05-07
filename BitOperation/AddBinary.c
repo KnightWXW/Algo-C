@@ -71,6 +71,9 @@ char *DigitAddBinary(char *a, char *b)
     return ans;
 }
 
+// 模拟：
+// Time：O(N)
+// Space: O(1)
 char *AddBinary(char *a, char *b)
 {
     int l1 = strlen(a);

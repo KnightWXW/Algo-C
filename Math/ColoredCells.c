@@ -21,19 +21,36 @@
 //      提示：
 //          1 <= n <= 105
 
-long long ColoredCells(int n);
+long long ColoredCells_A(int n);
+long long ColoredCells_B(int n);
 
 int main()
 {
     int n = GenerateRandomNum(1, 10000);
-    long long ans = ColoredCells(n);
-    printf("%u 分钟之后 被染色的格子 数目 为 %llu。", n, ans);
+    long long ans1 = ColoredCells_A(n);
+    printf("%u 分钟之后 被染色的格子 数目 为 %llu。", n, ans1);
+    long long ans2 = ColoredCells_B(n);
+    printf("%u 分钟之后 被染色的格子 数目 为 %llu。", n, ans2);
 }
 
-// 数学：作差后递归求和
+// 模拟
+// Time: O(N)
+// Space: O(1)
+long long ColoredCells_A(int n)
+{
+    long long ans = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        ans += 4 * (i - 1);
+    }
+    return ans;
+}
+
+// 数学：
 // Time: O(1)
 // Space: O(1)
-long long ColoredCells(int n)
+long long ColoredCells_B(int n)
 {
-    
+    long long ans = (long long)2 * n * (n - 1) + 1;
+    return ans;
 }
