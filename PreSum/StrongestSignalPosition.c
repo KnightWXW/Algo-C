@@ -6,7 +6,7 @@
 //      信号塔可以向东或者向西方向发射信号，信号强度是1个信号单位，
 //      假设信号塔发射的信号不会衰减，
 //      现给出N组信号塔的位置和信号发射的方向。
-//      计算直线上的哪个位置信号最强。
+//      计算直线上的哪个位置信号最强。(若强度相同，则选择序号最小的位置)
 
 int StrongestSignalPosition(int **arr, int row, int col);
 
@@ -14,11 +14,11 @@ int main()
 {
     int row1 = 6;
     int col1 = 2;
-    int** vec1 = (int**)malloc(sizeof(int*) * row1);
-    for(int i = 0; i < row1; i++)
+    int **vec1 = (int **)malloc(sizeof(int *) * row1);
+    for (int i = 0; i < row1; i++)
     {
-        vec1[i] = (int*)malloc(sizeof(int) * col1);
-    } 
+        vec1[i] = (int *)malloc(sizeof(int) * col1);
+    }
     vec1[0][0] = 1;
     vec1[0][1] = 1;
     vec1[1][0] = 3;
@@ -37,11 +37,11 @@ int main()
 
     int row2 = 6;
     int col2 = 2;
-    int** vec2 = (int**)malloc(sizeof(int*) * row2);
-    for(int i = 0; i < row2; i++)
+    int **vec2 = (int **)malloc(sizeof(int *) * row2);
+    for (int i = 0; i < row2; i++)
     {
-        vec2[i] = (int*)malloc(sizeof(int) * col2);
-    } 
+        vec2[i] = (int *)malloc(sizeof(int) * col2);
+    }
     vec2[0][0] = 1;
     vec2[0][1] = -1;
     vec2[1][0] = 3;
@@ -65,14 +65,33 @@ int main()
 int StrongestSignalPosition(int **arr, int row, int col)
 {
     int ans = 0;
-    int * left = (int *)malloc(sizeof(int) * row);
-    memset(left, 0, sizeof(int) * row);
-    int * right = (int *)malloc(sizeof(int) * row);
-    memset(right, 0, sizeof(int) * row);
-    for(int i = 0 ;i < row; i++)
+    int n = arr[row - 1][0];
+    int *left = (int *)malloc(sizeof(int) * (n + 1));
+    memset(left, 0, sizeof(int) * (n + 1));
+    int *right = (int *)malloc(sizeof(int) * (n + 1));
+    memset(right, 0, sizeof(int) * (n + 1));
+    for (int i = 0; i < row; i++)
     {
-        if(arr[i][0] == 1){
-            left[arr[i][1]]++;
+        if (arr[i][1] == -1)
+        {
+            left[arr[i][0]]++;
+        }
+        if (arr[i][1] == 1)
+        {
+            right[arr[i][0]]++;
         }
     }
+    for (int i = 1; i <= n; i++)
+    {
+        right[i] += right[i - 1];
+    }
+    for (int i = n - 1; i >= 0; i--)
+    {
+        left[i] += left[i + 1];
+    }
+    for (int i = 0; i <= n; i++)
+    {
+        ans = max(ans, left[i] + right[i]);
+    }
+    return ans;
 }

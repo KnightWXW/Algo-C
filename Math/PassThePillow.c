@@ -40,5 +40,14 @@ int main()
 // Space: O(1)
 int PassThePillow(int n, int time)
 {
-    
+    int a = time / (n - 1);
+    int b = time % (n - 1);
+    if ((a & 1) == 1)
+    {
+        return n - b;
+    }
+    else
+    {
+        return b + 1;
+    }
 }

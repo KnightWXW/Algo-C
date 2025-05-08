@@ -40,7 +40,16 @@ int main()
 // Space: O(1)
 int NumWaterBottles_A(int numBottles, int numExchange)
 {
-    
+    int bottles = numBottles;
+    int ans = numBottles;
+    while (bottles >= numExchange)
+    {
+        int tem = bottles / numExchange;
+        int dif = bottles % numExchange;
+        ans += tem;
+        bottles = dif + tem;
+    }
+    return ans;
 }
 
 // 数学:
@@ -48,5 +57,12 @@ int NumWaterBottles_A(int numBottles, int numExchange)
 // Space: O(1)
 int NumWaterBottles_B(int numBottles, int numExchange)
 {
-   
+    if (numBottles >= numExchange)
+    {
+        return (numBottles - numExchange) / (numExchange - 1) + 1 + numBottles;
+    }
+    else
+    {
+        return numBottles;
+    }
 }
