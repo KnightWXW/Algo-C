@@ -23,7 +23,7 @@ int main()
     int *vec = GenerateRandomVec(0, n - 1, n);
     PrintVecElement(vec, n);
     int ans = FindRepeatDocument(vec, n);
-    printf("返回任一存在副本的文件 id 为: %d。\n", ans);
+    printf("返回任一存在副本的文件 id 为: %d\n", ans);
     FreeVec(vec);
 }
 

@@ -65,6 +65,7 @@ int main()
 int StrongestSignalPosition(int **arr, int row, int col)
 {
     int ans = 0;
+    int signal = 0;
     int n = arr[row - 1][0];
     int *left = (int *)malloc(sizeof(int) * (n + 1));
     memset(left, 0, sizeof(int) * (n + 1));
@@ -91,7 +92,11 @@ int StrongestSignalPosition(int **arr, int row, int col)
     }
     for (int i = 0; i <= n; i++)
     {
-        ans = max(ans, left[i] + right[i]);
+        if (signal > left[i] + right[i])
+        {
+            signal = left[i] + right[i];
+            ans = i;
+        }
     }
     return ans;
 }

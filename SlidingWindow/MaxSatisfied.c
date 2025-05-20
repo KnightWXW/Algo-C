@@ -27,20 +27,24 @@
 //          0 <= customers[i] <= 1000
 //          grumpy[i] == 0 or 1
 
-int MaxSatisfied(int* customers, int customersSize, int* grumpy, int grumpySize, int minutes);
+int MaxSatisfied(int *customers, int customersSize, int *grumpy, int grumpySize, int minutes);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 20);
-    int minutes = GenerateRandomNum(1, n);
-    int* customers =GenerateRandomVec(0, 10, n);
-    int* grumpy = GenerateRandomVec(0, 1, n);
+    // int n = GenerateRandomNum(1, 20);
+    // int minutes = GenerateRandomNum(1, n);
+    // int *customers = GenerateRandomVec(0, 10, n);
+    // int *grumpy = GenerateRandomVec(0, 1, n);
+    int customers[] = {1,0,1,2,1,1,7,5};
+    int grumpy[] = {0,1,0,1,0,1,0,1};
+    int minutes = 3;
+    int n = 8;
     printf("customers数组 元素为: ");
     PrintVecElement(customers, n);
     printf("grumpy数组 元素为: ");
     PrintVecElement(grumpy, n);
     printf("minutes 为: %d\n", minutes);
-    int ans = maxSatisfied(customers, n, grumpy, n, minutes);
+    int ans = MaxSatisfied(customers, n, grumpy, n, minutes);
     printf("这一天营业下来，最多有 %d 名客户能够感到满意 \n", ans);
     FreeVec(customers);
     FreeVec(grumpy);
@@ -49,6 +53,24 @@ int main()
 // 滑动窗口：定长
 // Time: O(N)
 // Space: O(1)
-int MaxSatisfied(int* customers, int customersSize, int* grumpy, int grumpySize, int minutes) {
-    
+int MaxSatisfied(int *customers, int customersSize, int *grumpy, int grumpySize, int minutes)
+{
+    int sum = 0;
+    for (int i = 0; i < customersSize; i++)
+    {
+        sum += (grumpy[i] == 0 ? customers[i] : 0);
+    }
+    int cur = sum;
+    for (int i = 0; i < minutes; i++)
+    {
+        cur += (grumpy[i] == 1 ? customers[i] : 0);
+    }
+    int ans = cur;
+    for (int i = 0; i < customersSize - minutes; i++)
+    {
+        cur -= (grumpy[i] == 1 ? customers[i] : 0);
+        cur += (grumpy[i + minutes] == 1 ? customers[i + minutes] : 0);
+        ans = max(ans, cur);
+    }
+    return ans;
 }

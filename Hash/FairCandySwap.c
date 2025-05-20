@@ -32,24 +32,70 @@
 //          爱丽丝和鲍勃的糖果总数量不同。
 //          题目数据保证对于给定的输入至少存在一个有效答案。
 
-int *FairCandySwap(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize);
+int *FairCandySwap_A(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize);
+int *FairCandySwap_B(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize);
 
 int main()
 {
     int n1 = GenerateRandomNum(1, 20);
     int *aliceSizes = GenerateRandomVec(1, 100, n1);
     printf("Alice数组 元素为: \n");
-    PrintVecElement(aliceSizes);
+    PrintVecElement(aliceSizes, n1);
     int n2 = GenerateRandomNum(1, 21);
     int *bobSizes = GenerateRandomVec(1, 100, n2);
     printf("Bob数组 元素为: \n");
-    PrintVecElement(bobSizes);
-    int returnSize = 0;
-    int *ans = FairCandySwap(aliceSizes, n1, bobSizes, n2, &returnSize);
+    PrintVecElement(bobSizes, n2);
+    int returnSize1 = 0;
+    int *ans = FairCandySwap_A(aliceSizes, n1, bobSizes, n2, &returnSize1);
+    int returnSize2 = 0;
+    int *ans = FairCandySwap_B(aliceSizes, n1, bobSizes, n2, &returnSize2);
     printf("ans数组 元素为：\n");
-    PrintVecElement(ans, returnSize);
+    PrintVecElement(ans, returnSize1);
+    PrintVecElement(ans, returnSize2);
 }
 
-int *FairCandySwap(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize)
+// 双层暴力循环：
+// Time: O(N^2)
+// Space: O(1)
+int *FairCandySwap_A(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize)
 {
+    int *ans = (int *)malloc(sizeof(int) * 2);
+    memset(ans, 0, sizeof(int) * 2);
+    *returnSize = 2;
+    int sumA = 0;
+    int sumB = 0;
+    for (int i = 0; i < aliceSizesSize; i++)
+    {
+        sumA += aliceSizes[i];
+    }
+    for (int i = 0; i < bobSizesSize; i++)
+    {
+        sumB += bobSizes[i];
+    }
+    int dif = sumA - sumB;
+    if (dif == 0)
+    {
+        return ans;
+    }
+    for (int i = 0; i < aliceSizesSize; i++)
+    {
+        for (int j = 0; j < bobSizesSize; j++)
+        {
+            if (2 * (aliceSizes[i] - bobSizes[j]) == dif)
+            {
+                ans[0] = aliceSizes[i];
+                ans[1] = bobSizes[j];
+                return ans;
+            }
+        }
+    }
+    return ans;
+}
+
+// 哈希：
+// Time: O(N)
+// Space: O(1)
+int *FairCandySwap_B(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize)
+{
+
 }

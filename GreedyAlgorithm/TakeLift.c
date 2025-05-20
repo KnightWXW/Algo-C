@@ -23,6 +23,7 @@ int CompareInt(const void *a, const void *b)
 {
     return *(int *)a - *(int *)b;
 }
+
 // 贪心：
 // Time: O(NlogN)
 // Space: O(logN)

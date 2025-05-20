@@ -23,24 +23,45 @@
 //          1 <= nums.length <= 105
 //          -104 <= nums[i] <= 104
 
-int MaxAbsoluteSum(int* nums, int numsSize);
+int MaxAbsoluteSum(int *nums, int numsSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
-    int* vec = GenerateRandomVec(-1000, 1000, n);
+    int *vec = GenerateRandomVec(-1000, 1000, n);
     PrintVecElement(vec);
     int ans_A = MaxAbsoluteSum(vec, n);
     printf("和的绝对值 最大的任意子数组, 该值为: %d\n", ans_A);
     FreeVec(vec);
 }
 
-int MaxAbsoluteSum(int* nums, int numsSize)
+// 贪心：
+// Time：O(N)
+// Space: O(1)
+int MaxAbsoluteSum(int *nums, int numsSize)
 {
     int ans = 0;
+    int a = 0;
+    int b = 0;
     int cur = 0;
-    for(int i = 0; i < numSize; i++){
+    for (int i = 0; i < numsSize; i++)
+    {
         cur += nums[i];
-        
+        if (cur < 0)
+        {
+            cur = 0;
+        }
+        a = max(a, cur);
     }
+    cur = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        cur += nums[i];
+        if (cur > 0)
+        {
+            cur = 0;
+        }
+        b = max(b, -cur);
+    }
+    return max(a, b);
 }
