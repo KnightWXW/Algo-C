@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 2150. 找出数组中的所有孤独数字
 
