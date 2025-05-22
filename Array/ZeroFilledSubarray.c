@@ -46,23 +46,7 @@ int main()
 
 long long ZeroFilledSubarray_A(int* nums, int l)
 {
-    int l = nums.size();
-    long long zeroCnt = 0;
-    long long ans = 0;
-    for (int i = 0; i < l; i++)
-    {
-        if (nums[i] == 0)
-        {
-            zeroCnt++;
-        }
-        else
-        {
-            ans += (zeroCnt + 1) * zeroCnt / 2;
-            zeroCnt = 0;
-        }
-    }
-    ans += (zeroCnt + 1) * zeroCnt / 2;
-    return ans;
+    
 }
 
 long long ZeroFilledSubarray_B(int* nums, int l)
