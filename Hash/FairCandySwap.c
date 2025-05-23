@@ -97,5 +97,5 @@ int *FairCandySwap_A(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bob
 // Space: O(1)
 int *FairCandySwap_B(int *aliceSizes, int aliceSizesSize, int *bobSizes, int bobSizesSize, int *returnSize)
 {
-
+    
 }
