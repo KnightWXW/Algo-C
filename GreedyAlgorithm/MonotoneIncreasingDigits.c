@@ -33,33 +33,26 @@ int MonotoneIncreasingDigits(int n)
     char str[32] = {0};
     sprintf(str, "%d", n);
     int l = strlen(str);
-    int minVal = 10;
-    int minIndex = -1;
-    int maxVal = -1;
-    int maxIndex = -1;
+    bool flag = false;
     for (int i = 0; i < l; i++)
     {
-        if (str[i] < minVal)
+        if (flag == true)
         {
-            minVal = str[i] - '0';
-            minIndex = i;
+            str[i] = '9';
+            continue;
         }
-        if (str[i] > maxVal)
+        else
         {
-            maxVal = str[i] - '0';
-            maxIndex = i;
+            if ((i != l - 1) && (str[i] > str[i + 1]))
+            {
+                while (i >= 1 && str[i] == str[i - 1])
+                {
+                    i--;
+                }
+                str[i]--;
+                flag = true;
+            }
         }
     }
-    int ans = 0;
-    char *c = (char *)malloc(sizeof(char) * l);
-    memset(c, 0, sizeof(char) * l);
-    if (minIndex != 0)
-    {
-        for (int i = minIndex; i < l; i++)
-        {
-            str[i] = '0';
-        }
-        ans = atoi(str);
-        return ans - 1;
-    }
+    return atoi(str);
 }
