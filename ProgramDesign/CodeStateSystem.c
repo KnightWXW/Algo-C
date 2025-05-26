@@ -1,4 +1,4 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      Huawei: 编程语言设计系统
 
