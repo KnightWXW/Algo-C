@@ -28,31 +28,26 @@ int main()
     printf("小于或等于 %d 的最大数字, 且数字呈 单调递增 为 %d。\n", n, ans);
 }
 
+// 贪心：
+// Time: O(N)
+// Space: O(1)
 int MonotoneIncreasingDigits(int n)
 {
     char str[32] = {0};
     sprintf(str, "%d", n);
     int l = strlen(str);
-    bool flag = false;
-    for (int i = 0; i < l; i++)
+    int index = 32;
+    for (int i = l - 1; i > 0; i--)
     {
-        if (flag == true)
+        if (str[i] < str[i - 1])
         {
-            str[i] = '9';
-            continue;
+            str[i - 1]--;
+            index = i;
         }
-        else
-        {
-            if ((i != l - 1) && (str[i] > str[i + 1]))
-            {
-                while (i >= 1 && str[i] == str[i - 1])
-                {
-                    i--;
-                }
-                str[i]--;
-                flag = true;
-            }
-        }
+    }
+    for (int i = index; i < l; i++)
+    {
+        str[i] = '9';
     }
     return atoi(str);
 }

@@ -15,7 +15,6 @@
 //          输入: [[7,10],[2,4]]
 //          输出: 1
 
-void print2DVecElement(vector<vector<int>> vec);
 int minMeetingRooms(vector<vector<int>> &intervals);
 
 int main()
@@ -30,26 +29,6 @@ int main()
     int ans2 = minMeetingRooms(intervals2);
     printf("至少需要 %d 间会议室 。\n", ans2);
 }
-
-void print2DVecElement(vector<vector<int>> vec)
-{
-    for (int i = 0; i < vec.size(); i++)
-    {
-        for (int j = 0; j < vec[0].size(); j++)
-        {
-            printf("%d\t", vec[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-struct cmp
-{
-    bool operator()(int a, int b)
-    {
-        return a < b;
-    }
-};
 
 // 贪心算法：
 // Time: O(NlogN)
