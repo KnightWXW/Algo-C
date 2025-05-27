@@ -62,7 +62,7 @@ int CompareInt(const void *a, const void *b)
 
 // 贪心算法 + 排序：
 //    每次操作既可以理解为使 n - 1 个元素增加 1，也可以理解使 1 个元素减少 1
-// Time: O(N)
+// Time: O(NlogN)
 // Space: O(1)
 int MinMovesToEqualArrayElements_B(int *nums, int numsSize)
 {

@@ -32,4 +32,41 @@
 //          1 <= neededTime[i] <= 104
 //          colors 仅由小写英文字母组成
 
-int MinTimeToMakeRopeColorful(char* colors, int* neededTime, int neededTimeSize);
+int MinTimeToMakeRopeColorful(char *colors, int *neededTime, int neededTimeSize);
+
+int main()
+{
+    int l = GenerateRandomNum(1, 10);
+    char arr[] = {'a', 'b', 'c'};
+    char *str = GenerateRandomString(l, arr, strlen(arr));
+    int *vec = GenerateRandomVec(1, 5, l);
+    int ans = MinTimeToMakeRopeColorful(str, vec, l);
+    PrintVecElement(vec, l);
+    PrintString(str);
+    printf("使绳子变成 彩色 需要的 最少时间 为 %d", ans);
+    FreeVec(vec);
+    FreeString(str);
+}
+
+// 贪心：
+// Time: O(N)
+// Space: O(1)
+int MinTimeToMakeRopeColorful(char *colors, int *neededTime, int neededTimeSize)
+{
+    int ans = 0;
+    int i = 0;
+    while (i < neededTimeSize)
+    {
+        char c = colors[i];
+        int sum = 0;
+        int maxVal = 0;
+        while (i < neededTimeSize && colors[i] == c)
+        {
+            sum += neededTime[i];
+            maxVal = max(maxVal, neededTime[i]);
+            i++;
+        }
+        ans += (sum - maxVal);
+    }
+    return ans;
+}

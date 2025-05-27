@@ -47,7 +47,7 @@ int MinMovesToSeat(int *seats, int seatsSize, int *students, int studentsSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 50);
+    int n = GenerateRandomNum(1, 10);
     int *seats = GenerateRandomVec(1, 100, n);
     printf("数组 seats 为：\n");
     PrintVecElement(seats, n);
@@ -58,6 +58,23 @@ int main()
     printf("使所有学生都有座位坐的 最少移动次数为：%d\n", ans);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    return *(int *)a - *(int *)b;
+}
+
+// 贪心：
+// Time: O(NlogN)
+// Space: O(1)
 int MinMovesToSeat(int *seats, int seatsSize, int *students, int studentsSize)
 {
+    qsort(seats, seatsSize, sizeof(int), CompareInt);
+    qsort(students, studentsSize, sizeof(int), CompareInt);
+    int ans = 0;
+    for (int i = 0; i < seatsSize; i++)
+    {
+        int tem = seats[i] - students[i];
+        ans += abs(tem);
+    }
+    return ans;
 }
