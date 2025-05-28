@@ -26,7 +26,7 @@
 //          如何证明 nums 中至少存在一个重复的数字?
 //          你可以设计一个线性级时间复杂度 O(n) 的解决方案吗？
 
-int FindDuplicate(int* nums, int numsSize);
+int FindDuplicate(int *nums, int numsSize);
 
 int main()
 {
@@ -38,18 +38,23 @@ int main()
     FreeVec(vec);
 }
 
-void SwapElement(int *arr, int i, int j)
-{
-    int tem = arr[i];
-    arr[i] = arr[j];
-    arr[j] = tem;
-    return;
-}
-
-// 原地交换(数组哈希):
+// 快慢双指针:
 // Time: O(N)
 // Space: O(1)
-int FindDuplicate(int* nums, int numsSize)
+int FindDuplicate(int *nums, int numsSize)
 {
-    
+    int slow = 0;
+    int fast = 0;
+    do
+    {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    } while (slow != fast);
+    slow = 0;
+    while (slow != fast)
+    {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
 }
