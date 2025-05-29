@@ -43,3 +43,20 @@
 
 int EarliestFullBloom(int* plantTime, int plantTimeSize, int* growTime, int growTimeSize);
 
+int main()
+{
+    int n = GenerateRandomNum(1, 20);
+    int *pvec = GenerateRandomVec(0, 100, n);
+    int *gvec = GenerateRandomVec(0, 99, n);
+    PrintVecElement(pvec, n);
+    PrintVecElement(gvec, n);
+    int ans = EarliestFullBloom(pvec, n, gvec, n);
+    printf("所有种子都开花的 最早 一天是第 %d 天\n", ans);
+    FreeVec(pvec);
+    FreeVec(gvec);
+}
+
+int EarliestFullBloom(int* plantTime, int plantTimeSize, int* growTime, int growTimeSize)
+{
+    
+}

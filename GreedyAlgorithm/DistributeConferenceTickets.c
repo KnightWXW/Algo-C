@@ -53,7 +53,7 @@ int main()
     FreeVec(arrive);
 }
 
-// 贪心算法：
+// 贪心：
 // Time: O(N)
 // Space: O(1)
 int DistributeConferenceTickets(int *distribute, int distributeSize, int num, int *arrive, int arriveSize)
