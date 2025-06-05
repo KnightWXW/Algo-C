@@ -48,55 +48,55 @@
 //          1 <= plans.length, plans[i].length <= 1000
 //          1 <= plans[i][j], depts[i] <= 10^5
 
-int RentCars1(int* depts, int deptsSize, int** plans, int row, int col);
+int RentCars1(int *depts, int deptsSize, int **plans, int row, int *col);
 
 int main()
 {
-    vector<int> depts1 = {10, 8, 15};
-    vector<vector<int>> plans1 = {{8, 15, 12}, {20, 4, 15, 4}, {15, 8}};
-    int ans11 = RentCars1(depts1, plans1);
-    printf("所选方案的下标为 %d\n", ans11);
-    vector<int> depts2 = {5, 9};
-    vector<vector<int>> plans2 = {{4}, {6, 10}, {5, 11}};
-    int ans12 = RentCars1(depts2, plans2);
-    printf("所选方案的下标为 %d\n", ans12);
-    vector<int> depts3 = {10, 10};
-    vector<vector<int>> plans3 = {{2, 9, 8, 3}, {7}};
-    int ans13 = RentCars1(depts3, plans3);
-    printf("所选方案的下标为 %d\n", ans13);
+    int n1 = 3;
+    int depts1[] = {10, 8, 15};
+    int row1 = 3;
+    int col1[] = {3, 4, 2};
+    int **plans1 = (int **)malloc(sizeof(int *) * row1);
+    for (int i = 0; i < row1; i++)
+    {
+        plans1[i] = (int *)malloc(sizeof(int) * col1[i]);
+    }
+    plans1[0][0] = 8;
+    plans1[0][1] = 15;
+    plans1[0][2] = 12;
+    plans1[1][0] = 20;
+    plans1[1][1] = 4;
+    plans1[1][2] = 15;
+    plans1[1][3] = 4;
+    plans1[2][0] = 15;
+    plans1[2][1] = 8;
+    int ans1 = RentCars1(depts1, n1, plans1, row1, col1);
+    printf("所选方案的下标为 %d\n", ans1);
+    FreeVec2D(depts1, row1);
+
+    int n2 = 2;
+    int depts2[] = {5, 9};
+    int row2 = 3;
+    int col2[] = {1, 2, 2};
+    int **plans2 = (int **)malloc(sizeof(int *) * row2);
+    for (int i = 0; i < row2; i++)
+    {
+        plans2[i] = (int *)malloc(sizeof(int) * col2[i]);
+    }
+    plans2[0][0] = 4;
+    plans2[1][0] = 6;
+    plans2[1][1] = 10;
+    plans2[2][0] = 5;
+    plans2[2][1] = 11;
+    int ans2 = RentCars1(depts2, n2, plans2, row2, col2);
+    printf("所选方案的下标为 %d\n", ans2);
+    FreeVec2D(depts2, row2);
 }
 
-int RentCars1(vector<int> depts, vector<vector<int>> plans)
+// 贪心：
+// Time: O(NlogN)
+// Space: O(logN)
+int RentCars1(int *depts, int deptsSize, int **plans, int row, int *col)
 {
-    int l1 = depts.size();
-    sort(depts.begin(), depts.end());
-    int ans = -1;
-    int val = INT_MAX;
-    for (int k = 0; k < plans.size(); k++)
-    {
-        vector<int> vec = plans[k];
-        int l2 = vec.size();
-        int tem = 0;
-        sort(vec.begin(), vec.end());
-        int i = 0;
-        int j = 0;
-        while (i < l1 && j < l2)
-        {
-            if (vec[j] >= depts[i])
-            {
-                tem += vec[j] - depts[i];
-                i++;
-            }
-            else
-            {
-                j++;
-            }
-        }
-        if (i == l1 && tem < val)
-        {
-            ans = k;
-            val = tem;
-        }
-    }
-    return ans;
+
 }

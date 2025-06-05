@@ -25,27 +25,41 @@
 //          输出2：
 //              4
 
-int DigitSumDiff(int k, vector<int> arr);
-int ServerClusterNetworkLatency(vector<int> arr);
+int DigitSumDiff(int k, int *arr, int l);
+int ServerClusterNetworkLatency(int *arr, int l);
 
 int main()
 {
     int n = GenerateRandomNum(0, 20);
-    int* vec = GenerateRandomVec(0, 100, n);
+    int *vec = GenerateRandomVec(0, 100, n);
     PrintVecElement(vec, n);
     int ans_A = ServerClusterNetworkLatency(vec, n);
     printf("集群网络延迟最小 为 %d \n", ans_A);
 }
 
-int DigitSumDiff(int k, int* arr, int l)
+int DigitSumDiff(int k, int *arr, int l)
 {
-    
+    int sum = 0;
+    int tem = 0;
+    for (int i = 0; i < l; i++)
+    {
+        tem = abs(arr[i] - arr[k]);
+        sum += tem;
+    }
+    return sum;
 }
 
-// 贪心：
+// 模拟：
 // Time: O(N)
 // Space: O(1)
-int ServerClusterNetworkLatency(int* arr, int l)
+int ServerClusterNetworkLatency(int *arr, int l)
 {
-    
+    int ans = INT_MAX;
+    int tem = 0;
+    for (int i = 0; i < l; i++)
+    {
+        tem = DigitSumDiff(i, arr, l);
+        ans = min(ans, tem);
+    }
+    return ans;
 }

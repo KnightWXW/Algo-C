@@ -46,6 +46,5 @@ int PercentageLetter(char *s, char letter)
     {
         cnt += s[i] == letter ? 1 : 0;
     }
-    printf("%d --\n", cnt);
     return (int)(cnt * 1.0 / strlen(s) * 100);
 }
