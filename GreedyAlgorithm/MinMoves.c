@@ -38,20 +38,59 @@
 //          1 <= target <= 109
 //          0 <= maxDoubles <= 100
 
-int MinMoves(int target, int maxDoubles);
+int MinMoves_A(int target, int maxDoubles);
+int MinMoves_B(int target, int maxDoubles);
 
 int main()
 {
     int target = GenerateRandomNum(1, 10000000);
     int maxDoubles = GenerateRandomNum(0, 100);
-    int ans = MinMoves(target, maxDoubles);
+    int ansA = MinMoves_A(target, maxDoubles);
+    int ansB = MinMoves_B(target, maxDoubles);
     printf("target 和 maxDoubles 分别为 %d 与 %d 时，从 1 开始得到 target 需要的最少行动次数为 %d。\n", target, maxDoubles, ans);
 }
 
-// 贪心算法
+// 贪心算法: 反向模拟(超时)
 // Time: O(N)
-// Space: O(N)
-int MinMoves(int target, int maxDoubles)
+// Space: O(1)
+int MinMoves_A(int target, int maxDoubles)
 {
-    
+    int move = 0;
+    while (target != 1)
+    {
+        if ((target & 1) == 0 && maxDoubles > 0)
+        {
+            target >>= 1;
+            maxDoubles--;
+        }
+        else
+        {
+            target -= 1;
+        }
+        move++;
+    }
+    return move;
+}
+
+// 贪心算法: 反向操作
+// Time: O(N)
+// Space: O(1)
+int MinMoves_B(int target, int maxDoubles)
+{
+    int move = 0;
+    while (target != 1 && maxDoubles > 0)
+    {
+        if ((target & 1) == 0)
+        {
+            target >>= 1;
+            maxDoubles--;
+        }
+        else
+        {
+            target -= 1;
+        }
+        move++;
+    }
+    move += (target - 1);
+    return move;
 }

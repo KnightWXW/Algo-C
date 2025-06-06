@@ -15,6 +15,7 @@
 //          1 ≤ a[i] 数组的长度 ≤ 10^5
 //      输入    [1,1,4,5,1,4]
 //      输出    49
+
 long SonOfHeavenAbandoned(int* buttons, int l);
 
 int main()
