@@ -19,7 +19,8 @@
         "initializer_list": "c",
         "limits": "c",
         "unordered_map": "c",
-        "JJ.C": "cpp"
+        "JJ.C": "cpp",
+        "deque": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
