@@ -17,12 +17,12 @@
 //          1 <= nums.length <= 104
 //          -231 <= nums[i] <= 231 - 1
 
-void MoveZeroes(int* nums, int numsSize);
+void MoveZeroes(int *nums, int numsSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
-    int* vec = GenerateRandomVec(0, 10, n);
+    int *vec = GenerateRandomVec(0, 10, n);
     PrintVecElement(vec, n);
     MoveZeroes(vec, n);
     printf("移动零后, 数组为:\n");
@@ -30,7 +30,25 @@ int main()
     FreeVec(vec);
 }
 
-void MoveZeroes(int* nums, int numsSize)
+// 贪心：
+// Time: O(N)
+// Space: O(1)
+void MoveZeroes(int *nums, int numsSize)
 {
-    
+    int i = 0;
+    int index = 0;
+    while (i < numsSize)
+    {
+        if (nums[i] != 0)
+        {
+            nums[index] = nums[i];
+            index++;
+        }
+        i++;
+    }
+    for (int i = index; i < numsSize; i++)
+    {
+        nums[i] = 0;
+    }
+    return;
 }
