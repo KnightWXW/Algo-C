@@ -16,7 +16,7 @@ int TencentTShirt_B(int* vec, int n);
 int main()
 {
     int n = GenerateRandomNum(0, 50);
-   int* answers = GenerateRandomVec(1, 5, n);
+    int* answers = GenerateRandomVec(1, 5, n);
     PrintVecElement(answers);
     int ans_A = TencentTShirt_A(answers);
     printf("鹅厂中企鹅的最少数量为 %d\n", ans_A);

@@ -39,7 +39,10 @@ int main()
 // Space: O(1)
 bool ConstantSum_A(int n)
 {
-    
+    int if(n < 3){
+        return false;
+    }
+    int left
 }
 
 // 打表 找规律：
@@ -48,5 +51,5 @@ bool ConstantSum_A(int n)
 // Space: O(1)
 bool ConstantSum_B(int n)
 {
-   
+   return n & (n - 1) != 0;
 }
