@@ -13,13 +13,13 @@
 //      输出描述：
 //          输出01串S中不包含110的最长子串的长度
 
-int SubStringExcluding110(char* str);
+int SubStringExcluding110(char *str);
 
 int main()
 {
-    int n = GenerateRandomString(1, 10);
-    int arr[] = {'0', '1'};
-    char* str = GenerateRandomString(n, arr, strlen(arr));
+    int n = GenerateRandomNum(1, 20);
+    char arr[] = {'0', '1'};
+    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
     PrintString(str);
     int ans_A = SubStringExcluding110(str);
     printf("不包含110的最长子串的长度: %d\n", ans_A);
@@ -29,7 +29,19 @@ int main()
 // 贪心:
 // Time: O(N)
 // Space: O(1)
-int SubStringExcluding110(char* str)
+int SubStringExcluding110(char *str)
 {
-   
+    int l = strlen(str);
+    int ans = 0;
+    int cur = 0;
+    for (int i = 0; i < l; i++)
+    {
+        cur++;
+        if (i >= 2 && str[i - 2] == '1' && str[i - 1] == '1' && str[i] == '0')
+        {
+            cur = 2;
+        }
+        ans = max(cur, ans);
+    }
+    return ans;
 }

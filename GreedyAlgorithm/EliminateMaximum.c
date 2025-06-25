@@ -60,9 +60,32 @@ int main()
     printf("你输掉游戏前可以消灭的怪物的 最大 数量 为 %d \n", ans);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return *tema - *temb;
+}
+
 // 贪心：
 // Time: O(N)
 // Space: O(1)
 int EliminateMaximum(int *dist, int distSize, int *speed, int speedSize)
 {
+    int *time = (int *)malloc(sizeof(int) * distSize);
+    memset(time, 0, sizeof(int) * distSize);
+    for (int i = 0; i < distSize; i++)
+    {
+        time[i] = (dist[i] + speed[i] - 1) / speed[i];
+    }
+    qsort(time, distSize, sizeof(int), CompareInt);
+    for (int i = 0; i < distSize; i++)
+    {
+        if (time[i] <= i)
+        {
+            return i;
+        }
+    }
+    free(time);
+    return distSize;
 }

@@ -38,4 +38,8 @@ int main()
 // Space: O(1)
 int BrokenCalc(int startValue, int target)
 {
+    int ans = 0;
+    while(startValue< target && target ){
+
+    }
 }
