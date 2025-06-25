@@ -28,8 +28,8 @@ int OpeningCeremonyRehearsal(int* vec, int l);
 
 int main()
 {
-    int n = generateRandomNum(1, 30);
-    int* vec = generateRandomVec(1, 1000, n);
+    int n = GenerateRandomNum(1, 30);
+    int* vec = GenerateRandomVec(1, 1000, n);
     PrintVecElement(vec, n);
     int ans_A = OpeningCeremonyRehearsal(vec, n);
     printf("相邻演员的身高差的最大值至少为：%d\n", ans_A);

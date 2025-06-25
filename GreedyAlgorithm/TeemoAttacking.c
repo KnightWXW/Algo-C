@@ -34,13 +34,21 @@
 //          0 <= timeSeries[i], duration <= 107
 //          timeSeries 按 非递减 顺序排列
 
-int TeemoAttacking(int* timeSeries, int timeSeriesSize, int duration);
+int TeemoAttacking(int *timeSeries, int timeSeriesSize, int duration);
+
+int CmopareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return *tema - *temb;
+}
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
-    int* vec = GenerateRandomVec(1, 100, n);
+    int *vec = GenerateRandomVec(1, 100, n);
     int duration = GenerateRandomNum(1, 2 * n);
+    qsort(vec, n, sizeof(int), CmopareInt);
     PrintVecElement(vec);
     int ans = TeemoAttacking(vec, n, duration);
     printf("当中毒持续时间为 %d 时, 艾希处于中毒状态的 总秒数为 %d ", duration, ans);
@@ -50,7 +58,19 @@ int main()
 // 贪心：
 // Time: O(N)
 // Space: O(1)
-int TeemoAttacking(int* timeSeries, int timeSeriesSize, int duration)
+int TeemoAttacking(int *timeSeries, int timeSeriesSize, int duration)
 {
-    
+    int ans = duration;
+    for (int i = 1; i < timeSeriesSize; i++)
+    {
+        if (timeSeries[i - 1] + duration > timeSeries[i])
+        {
+            ans += timeSeries[i] - timeSeries[i - 1];
+        }
+        else
+        {
+            ans += duration;
+        }
+    }
+    return ans;
 }

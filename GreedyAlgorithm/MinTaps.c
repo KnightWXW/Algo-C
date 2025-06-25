@@ -35,8 +35,8 @@ int MinTaps(int n, int *ranges, int rangesSize);
 
 int main()
 {
-    int l = generateRandomNum(1, 20);
-    int *arr = generateRandomVec(0, 10, l);
+    int l = GenerateRandomNum(1, 20);
+    int *arr = GenerateRandomVec(0, 10, l);
     printf("arr数组 元素为: ");
     PrintVecElement(arr, l);
     int ans = MinTaps(l - 1, arr, l);

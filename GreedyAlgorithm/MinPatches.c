@@ -34,9 +34,9 @@ int MinPatches(int* nums, int numsSize, int n);
 
 int main()
 {
-    int n = generateRandomNum(1, 30);
-    int l = generateRandomNum(1, 100);
-    int* vec = generateRandomVec(1, 50, n);
+    int n = GenerateRandomNum(1, 30);
+    int l = GenerateRandomNum(1, 100);
+    int* vec = GenerateRandomVec(1, 50, n);
     PrintVecElement(vec, n);
     int ans_A = MinPatches(vec, n, l);
     printf("最少需要补充的数字个数为: %d\n", ans_A);
