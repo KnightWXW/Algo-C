@@ -1,8 +1,8 @@
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 650. 两个键的键盘
 
-//
+//      链接：https://leetcode.cn/problems/2-keys-keyboard/
 
 //      最初记事本上只有一个字符 'A' 。你每次可以对这个记事本进行两种操作：
 //          Copy All（复制全部）：复制这个记事本中的所有字符（不允许仅复制部分字符）。
