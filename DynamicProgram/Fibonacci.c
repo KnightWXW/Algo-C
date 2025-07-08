@@ -35,15 +35,93 @@ int Fibonacci_E(int n);
 int main()
 {
     int num = GenerateRandomNum(0, 46);
-    printf("随机数字为：%d\n", num);
-    printf("暴力递归：%d\n", Fibonacci_A(num));
-    printf("记忆化搜索：%d\n", Fibonacci_B(num));
-    printf("动态规划：%d\n", Fibonacci_C(num));
-    printf("动态规划（空间优化）：%d\n", Fibonacci_D(num));
-    printf("矩阵快速幂：%d\n", Fibonacci_E(num));
+    printf("随机数字为: %d\n", num);
+    printf("暴力递归: %d\n", Fibonacci_A(num));
+    printf("记忆化搜索: %d\n", Fibonacci_B(num));
+    printf("动态规划: %d\n", Fibonacci_C(num));
+    printf("动态规划(空间优化): %d\n", Fibonacci_D(num));
+    printf("矩阵快速幂: %d\n", Fibonacci_E(num));
 }
 
+// 暴力递归：
+// Time: O(2^N)
+// Space: O(N)
 int Fibonacci_A(int n)
 {
-    
+    if (n <= 1)
+    {
+        return n;
+    }
+    return Fibonacci_A(n - 2) + Fibonacci_A(n - 1);
+}
+
+int DFSFibonacci_B(int n, int *mem)
+{
+    if (n <= 1)
+    {
+        mem[n] = n;
+        return n;
+    }
+    if (mem[n] != -1)
+    {
+        return mem[n];
+    }
+    int f = DFSFibonacci_B(n - 2, mem) + DFSFibonacci_B(n - 1, mem);
+    mem[n] = f;
+    return f;
+}
+
+// 记忆化搜索：
+// Time: O(2^N)
+// Space: O(N)
+int Fibonacci_B(int n)
+{
+    int *mem = (int *)malloc(sizeof(int) * (n+1));
+    memset(mem, -1, sizeof(int) * (n+1));
+    int ans = DFSFibonacci_B(n, mem);
+    FreeVec(mem);
+    return ans;
+}
+
+// 动态规划：
+// Time: O(N)
+// Space: O(N)
+int Fibonacci_C(int n)
+{
+    int *dp = (int *)malloc(sizeof(int) * (n+1));
+    memset(dp, -1, sizeof(int) * (n+1));
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    int ans = dp[n];
+    FreeVec(dp);
+    return ans;
+}
+
+// 动态规划(空间优化)：
+// Time: O(N)
+// Space: O(1)
+int Fibonacci_D(int n)
+{
+    int a = 0;
+    int b = 1;
+    int c = -1;
+    for (int i = 2; i <= n; i++)
+    {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+// 矩阵快速幂:
+// Time: O(N)
+// Space: O(1)
+int Fibonacci_E(int n)
+{
+
 }

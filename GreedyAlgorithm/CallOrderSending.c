@@ -22,10 +22,10 @@ int main()
     int k = 110;
     int row = 5;
     int col = 2;
-    int** vec = (int**)malloc(sizeof(int*) * row);
-    for(int i = 0; i < row; i++ )
+    int **vec = (int **)malloc(sizeof(int *) * row);
+    for (int i = 0; i < row; i++)
     {
-        vec[i] = (int*)malloc(sizeof(int) * col);
+        vec[i] = (int *)malloc(sizeof(int) * col);
     }
     vec[0][0] = 50;
     vec[0][1] = 2;
@@ -37,12 +37,36 @@ int main()
     vec[3][1] = 3;
     vec[4][0] = 50;
     vec[4][1] = 1;
-    Print2DVecElement(vec, row);
+    PrintVecElement2D(vec, row, col);
     int ans_A = CallOrderSending(vec, row, col, k);
-    printf("阈值为 %d 时, 最多可以发送多少个话单 %d 。\n", k, ans_A);
+    printf("阈值为 %d 时, 最多可以发送 %d 个话单 。\n", k, ans_A);
     FreeVec2D(vec, row);
+}
+
+int Compare2dInt(const void *a, const void *b)
+{
+    int **tema = (int **)a;
+    int **temb = (int **)b;
+    if (tema[1] == temb[1])
+    {
+        return tema[0] - temb[0];
+    }
+    return tema[1] - temb[1];
 }
 
 int CallOrderSending(int **arr, int row, int col, int k)
 {
+    qsort(arr, row, sizeof(int *), Compare2dInt);
+    int sum = 0;
+    int cnt = 0;
+    for (int i = 0; i < row; i++)
+    {
+        if (sum > k)
+        {
+            return cnt;
+        }
+        sum += arr[i][0];
+        cnt++;
+    }
+    return cnt;
 }

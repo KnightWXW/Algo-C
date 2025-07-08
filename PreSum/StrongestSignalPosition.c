@@ -34,6 +34,7 @@ int main()
     int ans1 = StrongestSignalPosition(vec1, row1, col1);
     PrintVecElement2D(vec1, row1, col1);
     printf("信号最强的位置是 %d\n", ans1);
+    FreeVec2D(vec1, row1);
 
     int row2 = 6;
     int col2 = 2;
@@ -57,6 +58,7 @@ int main()
     int ans2 = StrongestSignalPosition(vec2, row2, col2);
     PrintVecElement2D(vec2, row2, col2);
     printf("信号最强的位置是 %d\n", ans2);
+    FreeVec2D(vec2, row2);
 }
 
 // 前缀和：

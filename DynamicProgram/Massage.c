@@ -37,3 +37,11 @@ int main()
     printf("(暴力递归) 按摩师总预约时间最长 为 %d \n", ansA);
     printf("(记忆化搜索) 按摩师总预约时间最长 为 %d \n", ansB);
 }
+
+// 暴力递归：
+// Time: O(2^N)
+// Space: O(N)
+int Massage_A(int* nums, int numsSize)
+{
+    
+}
