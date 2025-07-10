@@ -55,6 +55,18 @@ int Fibonacci_A(int n)
     return Fibonacci_A(n - 2) + Fibonacci_A(n - 1);
 }
 
+// 记忆化搜索：
+// Time: O(2^N)
+// Space: O(N)
+int Fibonacci_B(int n)
+{
+    int *mem = (int *)malloc(sizeof(int) * (n+1));
+    memset(mem, -1, sizeof(int) * (n+1));
+    int ans = DFSFibonacci_B(n, mem);
+    FreeVec(mem);
+    return ans;
+}
+
 int DFSFibonacci_B(int n, int *mem)
 {
     if (n <= 1)
@@ -69,18 +81,6 @@ int DFSFibonacci_B(int n, int *mem)
     int f = DFSFibonacci_B(n - 2, mem) + DFSFibonacci_B(n - 1, mem);
     mem[n] = f;
     return f;
-}
-
-// 记忆化搜索：
-// Time: O(2^N)
-// Space: O(N)
-int Fibonacci_B(int n)
-{
-    int *mem = (int *)malloc(sizeof(int) * (n+1));
-    memset(mem, -1, sizeof(int) * (n+1));
-    int ans = DFSFibonacci_B(n, mem);
-    FreeVec(mem);
-    return ans;
 }
 
 // 动态规划：

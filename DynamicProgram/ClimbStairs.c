@@ -30,7 +30,7 @@ int ClimbStairs_E(int n);
 
 int main()
 {
-    int num = generateRandomNum(1, 47);
+    int num = GenerateRandomNum(1, 47);
     printf("(暴力递归): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_A(num));
     printf("(记忆化搜索): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_B(num));
     printf("(动态规划): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_C(num));

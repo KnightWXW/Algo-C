@@ -23,7 +23,8 @@
 
 int LongestValidParentheses(char* s);
 
-int main(){
+int main()
+{
     int n = GenerateRandomNum(0, 20);
     char arr[] = {'(', ')'};
     char* s = GenerateRandomString(n, arr, strlen(arr) + 1);

@@ -8,7 +8,7 @@
 //      实现一种方法，计算小孩有多少种上楼梯的方式。
 //      结果可能很大，你需要对结果模 1000000007。
 //      示例 1：
-//          输入：n = 3 
+//          输入：n = 3
 //          输出：4
 //          说明：有四种走法
 //      示例 2：
@@ -29,3 +29,69 @@ int main()
     printf("(矩阵快速幂): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_E(num));
 }
 
+// 暴力递归：
+// Time: O(2^N)
+// Space: O(N)
+int WaysToStep_A(int n)
+{
+    if (n == 1)
+    {
+        return 1;
+    }
+    else if (n == 2)
+    {
+        return 2;
+    }
+    else if (n == 3)
+    {
+        return 4;
+    }
+    else
+    {
+        return WaysToStep_A(n - 1) + WaysToStep_A(n - 2) + WaysToStep_A(n - 3);
+    }
+}
+
+// 记忆化搜索：
+// Time: O(2^N)
+// Space: O(N)
+int WaysToStep_B(int n)
+{
+    int *mem = (int *)malloc(sizeof(int) * (n + 1));
+    memset(mem, 0, sizeof(int) * (n + 1));
+    return DFSWaysToStep_B(n, mem);
+}
+
+int DFSWaysToStep_B(int n, int *mem)
+{
+    if (n == 1)
+    {
+        mem[n] = 1;
+        return 1;
+    }
+    else if (n == 2)
+    {
+        mem[n] = 2;
+        return 2;
+    }
+    else if (n == 3)
+    {
+        mem[n] = 4;
+        return 4;
+    }
+    if (mem[n] != 0)
+    {
+        return mem[n];
+    }
+    int tem = DFSWaysToStep_B(n - 1) + DFSWaysToStep_B(n - 2) + DFSWaysToStep_B(n - 3);
+    mem[n] = tem;
+    return tem;
+}
+
+// 动态规划：
+// Time: O(N)
+// Space: O(N)
+int WaysToStep_C(int n)
+{
+    
+}
