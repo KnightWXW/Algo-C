@@ -20,7 +20,7 @@
 //          1 <= m, n <= 200
 //          0 <= grid[i][j] <= 100
 
-int MinPathSum(int** grid, int gridSize, int* gridColSize);
+int MinPathSum_A(int** grid, int gridSize, int* gridColSize);
 
 int main()
 {

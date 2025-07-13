@@ -43,12 +43,11 @@ int main()
 // Space: O(N)
 int ClimbStairs_A(int n)
 {
-   
-}
-
-int DFSClimbStairs_B(int n, int *arr)
-{
-    
+    if (n <= 2)
+    {
+        return n;
+    }
+    return ClimbStairs_A(n - 1) + ClimbStairs_A(n - 2);
 }
 
 // 记忆化搜索:
@@ -56,7 +55,24 @@ int DFSClimbStairs_B(int n, int *arr)
 // Space: O(N)
 int ClimbStairs_B(int n)
 {
-    
+    int *mem = (int *)malloc(sizeof(int) * (n + 1));
+    memset(mem, -1, sizeof(int) * (n + 1));
+    int ans = DFSClimbStairs_B(n, mem);
+    free(mem);
+    return ans;
+}
+
+int DFSClimbStairs_B(int n, int *mem)
+{
+    if (n <= 2)
+    {
+        return n;
+    }
+    if (mem[n] != -1)
+    {
+        return mem[n];
+    }
+    return DFSClimbStairs_B(n - 1, mem) + DFSClimbStairs_B(n - 2, mem);
 }
 
 // 动态规划:
@@ -64,7 +80,21 @@ int ClimbStairs_B(int n)
 // Space: O(N)
 int ClimbStairs_C(int n)
 {
-    
+    if (n <= 2)
+    {
+        return n;
+    }
+    int *dp = (int *)malloc(sizeof(int) * (n + 1));
+    memset(dp, -1, sizeof(int) * (n + 1));
+    dp[1] = 1;
+    dp[2] = 2;
+    for (int i = 3; i <= n; i++)
+    {
+        dp[i] = dp[i - 2] + dp[i - 1];
+    }
+    int ans = dp[n];
+    free(dp);
+    return ans;
 }
 
 // 动态规划(压缩空间):
@@ -72,7 +102,21 @@ int ClimbStairs_C(int n)
 // Space: O(1)
 int ClimbStairs_D(int n)
 {
-    
+    if (n <= 2)
+    {
+        return n;
+    }
+    int a = 1;
+    int b = 2;
+    int c = 0;
+    for (int i = 3; i <= n; i++)
+    {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    int ans = c;
+    return ans;
 }
 
 // 矩阵快速幂:
@@ -80,5 +124,4 @@ int ClimbStairs_D(int n)
 // Space: O(1)
 int ClimbStairs_E(int n)
 {
-   
 }

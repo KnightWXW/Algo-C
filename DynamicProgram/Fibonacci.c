@@ -11,6 +11,7 @@
 //          F(0) = 0，F(1) = 1
 //          F(n) = F(n - 1) + F(n - 2)，其中 n > 1
 //      给定 n ，请计算 F(n) 。
+//      答案需要取模 1e9+7(1000000007) ，如计算初始结果为：1000000008，请返回 1。
 //      示例 1：
 //          输入：n = 2
 //          输出：1
@@ -24,6 +25,8 @@
 //          输出：3
 //          解释：F(4) = F(3) + F(2) = 2 + 1 = 3
 //      提示：0 <= n <= 30
+
+#define FIBONACCI_MOD 1000000007
 
 int Fibonacci_A(int n);
 int Fibonacci_B(int n);
@@ -52,7 +55,7 @@ int Fibonacci_A(int n)
     {
         return n;
     }
-    return Fibonacci_A(n - 2) + Fibonacci_A(n - 1);
+    return (Fibonacci_A(n - 2) + Fibonacci_A(n - 1)) % FIBONACCI_MOD;
 }
 
 // 记忆化搜索：
@@ -60,10 +63,10 @@ int Fibonacci_A(int n)
 // Space: O(N)
 int Fibonacci_B(int n)
 {
-    int *mem = (int *)malloc(sizeof(int) * (n+1));
-    memset(mem, -1, sizeof(int) * (n+1));
+    int *mem = (int *)malloc(sizeof(int) * (n + 1));
+    memset(mem, -1, sizeof(int) * (n + 1));
     int ans = DFSFibonacci_B(n, mem);
-    FreeVec(mem);
+    free(mem);
     return ans;
 }
 
@@ -78,7 +81,7 @@ int DFSFibonacci_B(int n, int *mem)
     {
         return mem[n];
     }
-    int f = DFSFibonacci_B(n - 2, mem) + DFSFibonacci_B(n - 1, mem);
+    int f = (DFSFibonacci_B(n - 2, mem) + DFSFibonacci_B(n - 1, mem)) % FIBONACCI_MOD;
     mem[n] = f;
     return f;
 }
@@ -88,16 +91,20 @@ int DFSFibonacci_B(int n, int *mem)
 // Space: O(N)
 int Fibonacci_C(int n)
 {
-    int *dp = (int *)malloc(sizeof(int) * (n+1));
-    memset(dp, -1, sizeof(int) * (n+1));
+    if (n <= 1)
+    {
+        return n;
+    }
+    int *dp = (int *)malloc(sizeof(int) * (n + 1));
+    memset(dp, -1, sizeof(int) * (n + 1));
     dp[0] = 0;
     dp[1] = 1;
     for (int i = 2; i <= n; i++)
     {
-        dp[i] = dp[i - 1] + dp[i - 2];
+        dp[i] = (dp[i - 1] + dp[i - 2]) % FIBONACCI_MOD;
     }
     int ans = dp[n];
-    FreeVec(dp);
+    free(dp);
     return ans;
 }
 
@@ -106,12 +113,16 @@ int Fibonacci_C(int n)
 // Space: O(1)
 int Fibonacci_D(int n)
 {
+    if (n <= 1)
+    {
+        return n;
+    }
     int a = 0;
     int b = 1;
     int c = -1;
     for (int i = 2; i <= n; i++)
     {
-        c = a + b;
+        c = (a + b) % FIBONACCI_MOD;
         a = b;
         b = c;
     }
@@ -123,5 +134,4 @@ int Fibonacci_D(int n)
 // Space: O(1)
 int Fibonacci_E(int n)
 {
-
 }
