@@ -38,14 +38,9 @@ int main()
     int ans1A = CoinChange1_A(coins, n, amount);
     int ans1B = CoinChange1_B(coins, n, amount);
     int ans1C = CoinChange1_C(coins, n, amount);
-    printf("[暴力递归] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1A);
-    printf("[记忆化搜索] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1B);
-    printf("[动态规划] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1C);
-
-    printf("[暴力递归] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, );
-    printf("[记忆化搜索] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, );
-    printf("[动态规划] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, );
-    printf("[动态规划(空间压缩)] 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, );
+    printf("暴力递归: 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1A);
+    printf("记忆化搜索: 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1B);
+    printf("动态规划: 凑成总金额为 %d 最少所需 %d 个硬币。\n", amount, ans1C);
 }
 
 int CoinChange1_A(int *coins, int coinsSize, int amount)

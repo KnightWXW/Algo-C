@@ -29,7 +29,7 @@ int main()
     printf("暴力递归：%d\n", ansA);             // 13
     printf("记忆化搜索：%d\n", ansB);           // 13
     printf("动态规划：%d\n", ansC);             // 13
-    printf("动态规划（空间优化）：%d\n", ansD); // 13
+    printf("动态规划(空间优化)：%d\n", ansD); // 13
 }
 
 // 暴力递归：

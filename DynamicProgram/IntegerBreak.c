@@ -27,10 +27,10 @@ int IntegerBreak_D(int n);
 int main()
 {
     int n = GenerateRandomNum(2, 58);
-    printf("(暴力递归): 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_A(n));
-    printf("(记忆化搜索): 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_B(n));
-    printf("(动态规划): 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_C(n));
-    printf("(贪心算法): 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_D(n));
+    printf("暴力递归: 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_A(n));
+    printf("记忆化搜索: 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_B(n));
+    printf("动态规划: 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_C(n));
+    printf("贪心算法: 整数 %d 分割得到的最大乘积 为 %d。\n", n, IntegerBreak_D(n));
 }
 
 // 暴力递归:

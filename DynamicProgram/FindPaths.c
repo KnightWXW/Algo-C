@@ -32,5 +32,5 @@ int main()
     int startRow = GenerateRandomNum(0, m);
     int startCol = GenerateRandomNum(0, n);
     int ansA = FindPaths_A(m, n, maxMove, startRow, startCol);
-    printf("(暴力递归) %d × %d网格, 起始坐标为[%d, %d], 球移动 %d 次, 移出边界的路径数量为 %d\n", m, n, startRow,startCol, maxMove, ansA);
+    printf("暴力递归: %d × %d网格, 起始坐标为[%d, %d], 球移动 %d 次, 移出边界的路径数量为 %d\n", m, n, startRow,startCol, maxMove, ansA);
 }

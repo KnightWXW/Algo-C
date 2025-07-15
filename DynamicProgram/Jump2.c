@@ -33,7 +33,7 @@ int main()
     int ansA = Jump2_A(nums, n);
     int ansB = Jump2_B(nums, n);
     int ansC = Jump2_C(nums, n);
-    printf("(暴力递归) 跳到最后一个位置的最小跳跃数 为 %d \n", ansA);
-    printf("(记忆化搜索) 跳到最后一个位置的最小跳跃数 为 %d \n", ansB);
+    printf("暴力递归: 跳到最后一个位置的最小跳跃数 为 %d \n", ansA);
+    printf("记忆化搜索: 跳到最后一个位置的最小跳跃数 为 %d \n", ansB);
     FreeVec(nums);
 }

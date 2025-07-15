@@ -15,6 +15,7 @@ int DFSLongestCommonSubstring_A(char *s1, char *s2, int i, int j);
 int LongestCommonSubstring_B(char *s1, char *s2);
 int DFSLongestCommonSubstring_B(char *s1, char *s2, int i, int j, int **mem);
 int LongestCommonSubstring_C(char *s1, char *s2);
+int LongestCommonSubstring_D(char *s1, char *s2);
 
 int main()
 {
@@ -28,9 +29,11 @@ int main()
     int ansA = LongestCommonSubstring_A(s1, s2);
     int ansB = LongestCommonSubstring_B(s1, s2);
     int ansC = LongestCommonSubstring_C(s1, s2);
-    printf("(暴力递归) 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
-    printf("(记忆化搜索) 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
-    printf("(动态规划) 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
+    int ansD = LongestCommonSubstring_C(s1, s2);
+    printf("暴力递归: 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
+    printf("记忆化搜索: 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
+    printf("动态规划: 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
+    printf("动态规划(空间优化): 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
 }
 
 // 暴力递归：
@@ -169,4 +172,14 @@ int LongestCommonSubstring_C(char *s1, char *s2)
         free(dp[i]);
     }
     return ans;
+}
+
+// 动态规划(空间优化)：
+// Time: O(N * N)
+// Space: O(N)
+int LongestCommonSubstring_C(char *s1, char *s2)
+{
+    int l1 = strlen(s1);
+    int l2 = strlen(s2);
+    int *dp = (int *)malloc(sizeof(int) * l1);
 }

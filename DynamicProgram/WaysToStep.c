@@ -24,11 +24,11 @@ int WaysToStep_A(int n);
 int main()
 {
     int num = GenerateRandomNum(1, 47);
-    printf("(暴力递归): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_A(num));
-    printf("(记忆化搜索): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_B(num));
-    printf("(动态规划): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_C(num));
-    printf("(动态规划-空间压缩): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_D(num));
-    printf("(矩阵快速幂): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_E(num));
+    printf("暴力递归: 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_A(num));
+    printf("记忆化搜索: 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_B(num));
+    printf("动态规划: 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_C(num));
+    printf("动态规划(空间压缩): 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_D(num));
+    printf("矩阵快速幂: 楼梯有 %d 阶台阶,小孩 %d 种上楼梯的方式\n", num, WaysToStep_E(num));
 }
 
 // 暴力递归：

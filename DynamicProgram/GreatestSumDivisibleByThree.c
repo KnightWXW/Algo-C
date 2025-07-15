@@ -31,6 +31,6 @@ int main()
     int ansA = MaxSumDivThree_A(nums, n);
     int ansB = MaxSumDivThree_B(nums, n);
     int ansC = MaxSumDivThree_C(nums, n);
-    printf("(暴力递归<一>) 数组中能被三整除的元素最大和 为 %d \n", ansA);
-    printf("(记忆化搜索<一>) 数组中能被三整除的元素最大和 为 %d \n", ansB);
+    printf("暴力递归: 数组中能被三整除的元素最大和 为 %d \n", ansA);
+    printf("记忆化搜索: 数组中能被三整除的元素最大和 为 %d \n", ansB);
 }

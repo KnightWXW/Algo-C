@@ -35,10 +35,10 @@ int main()
     int ansB = LongestPalindromeSubsequence_B(s);
     int ansC = LongestPalindromeSubsequence_C(s);
     int ansD = LongestPalindromeSubsequence_D(s);
-    printf("[暴力递归]字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansA);
-    printf("[记忆化搜索] 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansB);
-    printf("[动态规划] 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansC);
-    printf("[动态规划:空间优化] 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansD);
+    printf("暴力递归: 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansA);
+    printf("记忆化搜索: 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansB);
+    printf("动态规划: 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansC);
+    printf("动态规划(空间优化): 字符串 中 最长的回文子序列字符串 的 长度 为 %d\n", ansD);
 }
 
 // 暴力递归:

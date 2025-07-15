@@ -40,10 +40,10 @@ int main()
     int ansB = Robbery_B(vec, n);
     int ansC = Robbery_C(vec, n);
     int ansD = Robbery_D(vec, n);
-    printf("[暴力递归] 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
-    printf("[记忆化搜索] 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
-    printf("[动态规划] 一夜之内能够偷窃到的最高金额 为 %d\n", ansC);
-    printf("[动态规划(空间优化)] 一夜之内能够偷窃到的最高金额 为 %d\n", ansD);
+    printf("暴力递归: 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
+    printf("记忆化搜索: 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
+    printf("动态规划 一夜之内能够偷窃到的最高金额 为 %d\n", ansC);
+    printf("动态规划(空间优化): 一夜之内能够偷窃到的最高金额 为 %d\n", ansD);
 }
 
 // 暴力递归：

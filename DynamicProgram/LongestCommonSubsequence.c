@@ -42,7 +42,7 @@ int main()
     int ansA = LongestCommonSubsequence_A(s);
     int ansB = LongestCommonSubsequence_B(s);
     int ansC = LongestCommonSubsequence_C(s);
-    printf("(暴力递归) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansA);
-    printf("(记忆化搜索) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansB);
-    printf("(动态规划) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansC);
+    printf("暴力递归: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansA);
+    printf("记忆化搜索: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansB);
+    printf("动态规划: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansC);
 }

@@ -31,11 +31,11 @@ int ClimbStairs_E(int n);
 int main()
 {
     int num = GenerateRandomNum(1, 47);
-    printf("(暴力递归): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_A(num));
-    printf("(记忆化搜索): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_B(num));
-    printf("(动态规划): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_C(num));
-    printf("(动态规划-空间压缩): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_D(num));
-    printf("(矩阵快速幂): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_E(num));
+    printf("暴力递归: 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_A(num));
+    printf("记忆化搜索: 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_B(num));
+    printf("动态规划: 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_C(num));
+    printf("动态规划(空间压缩): 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_D(num));
+    printf("矩阵快速幂: 爬 %d 层楼梯的方法数为 %d\n", num, ClimbStairs_E(num));
 }
 
 // 暴力递归:
