@@ -3,9 +3,12 @@
 //      LeetCode 70. 爬楼梯
 
 //      链接：https://leetcode.cn/problems/climbing-stairs/
+//      链接：https://leetcode.cn/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/
 
 //      假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
 //      每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+//      结果可能过大，因此结果需要取模 1e9+7（1000000007），
+//      如计算初始结果为：1000000008，请返回 1。
 //      示例 1：
 //          输入：n = 2
 //          输出：2
@@ -20,6 +23,8 @@
 //              2. 1 阶 + 2 阶
 //              3. 2 阶 + 1 阶
 //      提示：1 <= n <= 45
+
+#define CLIMBSTAIRS_MOD 1000000007
 
 int ClimbStairs_A(int n);
 int ClimbStairs_B(int n);
@@ -47,7 +52,7 @@ int ClimbStairs_A(int n)
     {
         return n;
     }
-    return ClimbStairs_A(n - 1) + ClimbStairs_A(n - 2);
+    return (ClimbStairs_A(n - 1) + ClimbStairs_A(n - 2)) % CLIMBSTAIRS_MOD;
 }
 
 // 记忆化搜索:
@@ -72,7 +77,7 @@ int DFSClimbStairs_B(int n, int *mem)
     {
         return mem[n];
     }
-    return DFSClimbStairs_B(n - 1, mem) + DFSClimbStairs_B(n - 2, mem);
+    return (DFSClimbStairs_B(n - 1, mem) + DFSClimbStairs_B(n - 2, mem)) % CLIMBSTAIRS_MOD;
 }
 
 // 动态规划:
@@ -90,7 +95,7 @@ int ClimbStairs_C(int n)
     dp[2] = 2;
     for (int i = 3; i <= n; i++)
     {
-        dp[i] = dp[i - 2] + dp[i - 1];
+        dp[i] = (dp[i - 2] + dp[i - 1]) % CLIMBSTAIRS_MOD;
     }
     int ans = dp[n];
     free(dp);
@@ -111,7 +116,7 @@ int ClimbStairs_D(int n)
     int c = 0;
     for (int i = 3; i <= n; i++)
     {
-        c = a + b;
+        c = (a + b) % CLIMBSTAIRS_MOD;
         a = b;
         b = c;
     }
