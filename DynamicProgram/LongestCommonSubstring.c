@@ -19,26 +19,26 @@ int LongestCommonSubstring_D(char *s1, char *s2);
 
 int main()
 {
-    int n1 = GenerateRandomNum(0, 25);
-    int n2 = GenerateRandomNum(0, 20);
-    char arr[] = {'a', 'b', 'c'};
-    char *s1 = GenerateRandomString(n1, arr, strlen(arr) + 1);
-    char *s2 = GenerateRandomString(n2, arr, strlen(arr) + 1);
+    int n1 = GenerateRandomNum(1, 10);
+    int n2 = GenerateRandomNum(1, 8);
+    char arr[] = {'a', 'b', 'c', 'd'};
+    char *s1 = GenerateRandomString(n1, arr, strlen(arr));
+    char *s2 = GenerateRandomString(n2, arr, strlen(arr));
     PrintString(s1);
     PrintString(s2);
     int ansA = LongestCommonSubstring_A(s1, s2);
     int ansB = LongestCommonSubstring_B(s1, s2);
     int ansC = LongestCommonSubstring_C(s1, s2);
-    int ansD = LongestCommonSubstring_C(s1, s2);
+    int ansD = LongestCommonSubstring_D(s1, s2);
     printf("暴力递归: 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
     printf("记忆化搜索: 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
     printf("动态规划: 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
-    printf("动态规划(空间优化): 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
+    printf("动态规划(空间优化): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
 }
 
 // 暴力递归：
-// Time: O(2^N)
-// Space: O(N)
+// Time: O(2^(M*N))
+// Space: O((M*N)
 int LongestCommonSubstring_A(char *s1, char *s2)
 {
     int l1 = strlen(s1);
@@ -71,8 +71,8 @@ int DFSLongestCommonSubstring_A(char *s1, char *s2, int i, int j)
 }
 
 // 记忆化搜索：
-// Time: O(2^N)
-// Space: O(N)
+// Time: O(2^(M*N))
+// Space: O((M*N)
 int LongestCommonSubstring_B(char *s1, char *s2)
 {
     int l1 = strlen(s1);
@@ -125,8 +125,8 @@ int DFSLongestCommonSubstring_B(char *s1, char *s2, int i, int j, int **mem)
 }
 
 // 动态规划：
-// Time: O(N * N)
-// Space: O(N * N)
+// Time: O(M * N)
+// Space: O(M * N)
 int LongestCommonSubstring_C(char *s1, char *s2)
 {
     int l1 = strlen(s1);
@@ -175,11 +175,41 @@ int LongestCommonSubstring_C(char *s1, char *s2)
 }
 
 // 动态规划(空间优化)：
-// Time: O(N * N)
+// Time: O(M * N)
 // Space: O(N)
-int LongestCommonSubstring_C(char *s1, char *s2)
+int LongestCommonSubstring_D(char *s1, char *s2)
 {
     int l1 = strlen(s1);
     int l2 = strlen(s2);
-    int *dp = (int *)malloc(sizeof(int) * l1);
+    int ans = 0;
+    int *dp = (int *)malloc(sizeof(int) * l2);
+    memset(dp, 0, sizeof(int) * l2);
+    for (int i = 0; i < l2; i++)
+    {
+        dp[i] = s1[0] == s2[i] ? 1 : 0;
+        ans = max(ans, dp[i]);
+    }
+    PrintVecElement(dp, l2);
+    for (int i = 1; i < l1; i++)
+    {
+        int pre = dp[0];
+        dp[0] = (s1[i] == s2[0]) ? 1 : 0;
+        for (int j = 1; j < l2; j++)
+        {
+            pre = dp[j];
+            if (s1[i] == s2[j])
+            {
+                dp[j] = pre + 1;
+            }
+            else
+            {
+                dp[j] = 0;
+            }
+            ans = max(ans, dp[j]);
+            
+        }
+        PrintVecElement(dp, l2);
+    }
+    free(dp);
+    return ans;
 }
