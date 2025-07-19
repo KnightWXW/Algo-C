@@ -20,7 +20,8 @@
         "limits": "c",
         "unordered_map": "c",
         "JJ.C": "cpp",
-        "deque": "c"
+        "deque": "c",
+        "math.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

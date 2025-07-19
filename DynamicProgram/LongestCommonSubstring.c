@@ -16,6 +16,7 @@ int LongestCommonSubstring_B(char *s1, char *s2);
 int DFSLongestCommonSubstring_B(char *s1, char *s2, int i, int j, int **mem);
 int LongestCommonSubstring_C(char *s1, char *s2);
 int LongestCommonSubstring_D(char *s1, char *s2);
+int LongestCommonSubstring_E(char *s1, char *s2);
 
 int main()
 {
@@ -30,15 +31,17 @@ int main()
     int ansB = LongestCommonSubstring_B(s1, s2);
     int ansC = LongestCommonSubstring_C(s1, s2);
     int ansD = LongestCommonSubstring_D(s1, s2);
+    int ansE = LongestCommonSubstring_E(s1, s2);
     printf("暴力递归: 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
     printf("记忆化搜索: 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
     printf("动态规划: 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
-    printf("动态规划(空间优化): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
+    printf("动态规划(空间优化1): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
+    printf("动态规划(空间优化2): 字符串 中 最长公共子串 的 长度 为 %d\n", ansE);
 }
 
 // 暴力递归：
 // Time: O(2^(M*N))
-// Space: O((M*N)
+// Space: O((M*N))
 int LongestCommonSubstring_A(char *s1, char *s2)
 {
     int l1 = strlen(s1);
@@ -72,7 +75,7 @@ int DFSLongestCommonSubstring_A(char *s1, char *s2, int i, int j)
 
 // 记忆化搜索：
 // Time: O(2^(M*N))
-// Space: O((M*N)
+// Space: O((M*N))
 int LongestCommonSubstring_B(char *s1, char *s2)
 {
     int l1 = strlen(s1);
@@ -174,7 +177,7 @@ int LongestCommonSubstring_C(char *s1, char *s2)
     return ans;
 }
 
-// 动态规划(空间优化)：
+// 动态规划(空间优化[两个一位数组])：
 // Time: O(M * N)
 // Space: O(N)
 int LongestCommonSubstring_D(char *s1, char *s2)
@@ -182,34 +185,47 @@ int LongestCommonSubstring_D(char *s1, char *s2)
     int l1 = strlen(s1);
     int l2 = strlen(s2);
     int ans = 0;
-    int *dp = (int *)malloc(sizeof(int) * l2);
-    memset(dp, 0, sizeof(int) * l2);
+    int *dp1 = (int *)malloc(sizeof(int) * l2);
+    memset(dp1, 0, sizeof(int) * l2);
+    int *dp2 = (int *)malloc(sizeof(int) * l2);
+    memset(dp2, 0, sizeof(int) * l2);
     for (int i = 0; i < l2; i++)
     {
-        dp[i] = s1[0] == s2[i] ? 1 : 0;
-        ans = max(ans, dp[i]);
+        dp1[i] = s1[0] == s2[i] ? 1 : 0;
+        ans = max(ans, dp1[i]);
     }
-    PrintVecElement(dp, l2);
     for (int i = 1; i < l1; i++)
     {
-        int pre = dp[0];
-        dp[0] = (s1[i] == s2[0]) ? 1 : 0;
-        for (int j = 1; j < l2; j++)
+        memcpy(dp2, dp1, sizeof(int) * l2);
+        for (int j = 0; j < l2; j++)
         {
-            pre = dp[j];
-            if (s1[i] == s2[j])
+            if (j == 0)
             {
-                dp[j] = pre + 1;
+                dp1[0] = (s1[i] == s2[0]) ? 1 : 0;
             }
             else
             {
-                dp[j] = 0;
+                if (s1[i] == s2[j])
+                {
+                    dp1[j] = dp2[j - 1]  + 1;
+                }
+                else
+                {
+                    dp1[j] = 0;
+                }
             }
-            ans = max(ans, dp[j]);
-            
+            ans = max(ans, dp1[j]);
         }
-        PrintVecElement(dp, l2);
     }
-    free(dp);
+    free(dp1);
+    free(dp2);
     return ans;
+}
+
+// 动态规划(空间优化[对角线])：
+// Time: O(M * N)
+// Space: O(1)
+int LongestCommonSubstring_E(char *s1, char *s2)
+{
+
 }
