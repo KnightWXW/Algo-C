@@ -38,7 +38,6 @@ int Fibonacci_E(int n);
 int main()
 {
     int num = GenerateRandomNum(0, 46);
-    printf("随机数字为: %d\n", num);
     printf("暴力递归: 第 %d 个斐波那契数 为 %d\n", num, Fibonacci_A(num));
     printf("记忆化搜索: 第 %d 个斐波那契数 为 %d\n", num,Fibonacci_B(num));
     printf("动态规划: 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_C(num));
@@ -96,7 +95,7 @@ int Fibonacci_C(int n)
         return n;
     }
     int *dp = (int *)malloc(sizeof(int) * (n + 1));
-    memset(dp, -1, sizeof(int) * (n + 1));
+    memset(dp, 0, sizeof(int) * (n + 1));
     dp[0] = 0;
     dp[1] = 1;
     for (int i = 2; i <= n; i++)

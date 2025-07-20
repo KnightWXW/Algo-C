@@ -23,7 +23,7 @@
 //      进阶：
 //          你能将算法的时间复杂度降低到 O(n log(n)) 吗?
 
-int LengthOfLIS_A(int* nums, int numsSize);
+int LengthOfLIS_A(int *nums, int numsSize);
 
 int main()
 {
@@ -38,7 +38,22 @@ int main()
     FreeVec(nums);
 }
 
-int LengthOfLIS_A(int* nums, int numsSize)
+// 动态规划:
+// Time: O(N)
+// Space: O(N)
+int LengthOfLIS_A(int *nums, int numsSize)
 {
-    
+    if (numsSize == 1)
+    {
+        return 1;
+    }
+    return DFSLengthOfLIS_A(nums, numsSize, numsSize - 1);
+}
+
+int DFSLengthOfLIS_A(int *nums, int numsSize, int i)
+{
+    if (i == 0)
+    {
+        return 1;
+    }
 }

@@ -3,6 +3,7 @@
 //      LeetCode 198. 打家劫舍
 
 //      链接：https://leetcode.cn/problems/house-robber/
+//      链接: https://leetcode.cn/problems/Gu0c2T/
 
 //      你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，
 //      影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，
@@ -42,7 +43,7 @@ int main()
     int ansD = Robbery_D(vec, n);
     printf("暴力递归: 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
     printf("记忆化搜索: 一夜之内能够偷窃到的最高金额 为 %d\n", ansB);
-    printf("动态规划 一夜之内能够偷窃到的最高金额 为 %d\n", ansC);
+    printf("动态规划: 一夜之内能够偷窃到的最高金额 为 %d\n", ansC);
     printf("动态规划(空间优化): 一夜之内能够偷窃到的最高金额 为 %d\n", ansD);
 }
 
