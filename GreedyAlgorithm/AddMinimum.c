@@ -23,22 +23,32 @@
 //          1 <= word.length <= 50
 //          word 仅由字母 "a"、"b" 和 "c" 组成。
 
-int AddMinimum(char* word);
+int AddMinimum(char *word);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 20);
-    char* str = GenerateRandomString(n);
-    printString(str);
+    int n = GenerateRandomNum(1, 10);
+    char arr[] = {'a', 'b', 'c'};
+    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
+    PrintString(str);
     int ans_A = AddMinimum(str);
-    printf("使 word 有效 需要插入的最少字母数：%d\n", ans_A);
+    printf("word 有效 需要插入的最少字母数为 %d\n", ans_A);
     FreeString(str);
 }
 
 // 贪心：
 // Time: O(N)
 // Space: O(1)
-int AddMinimum(char* word)
+int AddMinimum(char *word)
 {
-    
+    int l = strlen(word);
+    int k = 1;
+    for (int i = 0; i < l - 1; i++)
+    {
+        if (word[i] >= word[i + 1])
+        {
+            k++;
+        }
+    }
+    return 3 * k - l;
 }

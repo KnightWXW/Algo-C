@@ -192,7 +192,7 @@ int MinPathSum_D(int **grid, int gridSize, int *gridColSize)
     return ans;
 }
 
-// 动态规划(空间优化[原地修改]):
+// 动态规划(空间优化2[原地修改]):
 // Time: O(M * N)
 // Space: O(1)
 int MinPathSum_E(int **grid, int gridSize, int *gridColSize)

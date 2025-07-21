@@ -28,7 +28,14 @@
 //          1 <= m, n <= 100
 //          obstacleGrid[i][j] 为 0 或 1
 
-int UniquePathsWithObstacles_A(int** obstacleGrid, int obstacleGridSize, int* obstacleGridColSize);
+int UniquePathsWithObstacles_A(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
+int DFSUniquePathsWithObstacles_A(int **mat, int i, int j);
+int UniquePathsWithObstacles_B(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
+int DFSUniquePathsWithObstacles_B(int **mat, int i, int j, int**mem);
+int UniquePathsWithObstacles_C(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
+int UniquePathsWithObstacles_D(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
+
+int UniquePathsWithObstacles_E(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
 
 int main()
 {
@@ -65,7 +72,195 @@ int main()
 // 暴力递归：
 // Time: O(2^(M*N))
 // Space: O((M*N))
-int UniquePathsWithObstacles_A(int** obstacleGrid, int obstacleGridSize, int* obstacleGridColSize);
+int UniquePathsWithObstacles_A(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize)
 {
-    
+    return DFSUniquePathsWithObstacles_A(obstacleGrid, obstacleGridSize - 1, *obstacleGridColSize - 1);
+}
+
+int DFSUniquePathsWithObstacles_A(int **mat, int i, int j)
+{
+    if (i == 0 && j == 0)
+    {
+        return mat[i][j] == 0 ? 1 : 0;
+    }
+    if (i == 0)
+    {
+        return mat[0][j] == 0 ? DFSUniquePathsWithObstacles_A(mat, i, j - 1) : 0;
+    }
+    if (j == 0)
+    {
+        return mat[i][0] == 0 ? DFSUniquePathsWithObstacles_A(mat, i - 1, j) : 0;
+    }
+    if (mat[i][j] == 0)
+    {
+        return DFSUniquePathsWithObstacles_A(mat, i, j - 1) + DFSUniquePathsWithObstacles_A(mat, i - 1, j);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// 记忆化搜索：
+// Time: O(2^(M*N))
+// Space: O((M*N))
+int UniquePathsWithObstacles_B(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize)
+{
+    int **mem = (int **)malloc(sizeof(int *) * obstacleGridSize);
+    for (int i = 0; i < obstacleGridSize; i++)
+    {
+        mem[i] = (int *)malloc(sizeof(int) * (*obstacleGridColSize));
+        memset(mem[i], -1, sizeof(int) * (*obstacleGridColSize));
+    }
+    int ans = DFSUniquePathsWithObstacles_B(obstacleGrid, obstacleGridSize - 1, *obstacleGridColSize - 1, mem);
+    for (int i = 0; i < obstacleGridSize; i++)
+    {
+        free(mem[i]);
+    }
+    return ans;
+}
+
+int DFSUniquePathsWithObstacles_B(int **mat, int i, int j, int **mem)
+{
+    if (i == 0 && j == 0)
+    {
+        mem[i][j] = (mat[i][j] == 0 ? 1 : 0);
+        return mem[i][j];
+    }
+    if (i == 0)
+    {
+        mem[i][j] = (mat[0][j] == 0 ? DFSUniquePathsWithObstacles_B(mat, i, j - 1, mem) : 0);
+        return mem[i][j];
+    }
+    if (j == 0)
+    {
+        mem[i][j] = (mat[i][0] == 0 ? DFSUniquePathsWithObstacles_B(mat, i - 1, j, mem) : 0);
+        return mem[i][j];
+    }
+    if (mem[i][j] != -1)
+    {
+        return mem[i][j];
+    }
+    if (mat[i][j] == 0)
+    {
+        mem[i][j] = DFSUniquePathsWithObstacles_B(mat, i, j - 1, mem) + DFSUniquePathsWithObstacles_B(mat, i - 1, j, mem);
+        return mem[i][j];
+    }
+    else
+    {
+        mem[i][j] = 0;
+        return 0;
+    }
+}
+
+// 动态规划:
+// Time: O(M * N)
+// Space: O(M * N)
+int UniquePathsWithObstacles_C(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize)
+{
+    int **dp = (int **)malloc(sizeof(int *) * obstacleGridSize);
+    for (int i = 0; i < obstacleGridSize; i++)
+    {
+        dp[i] = (int *)malloc(sizeof(int) * (*obstacleGridColSize));
+        memset(dp[i], 0, sizeof(int) * (*obstacleGridColSize));
+    }
+    dp[0][0] = obstacleGrid[0][0] == 0 ? 1 : 0;
+    for (int i = 1; i < obstacleGridSize; i++)
+    {
+        dp[i][0] = obstacleGrid[i][0] == 0 ? dp[i - 1][0] : 0;
+    }
+    for (int j = 1; j < (*obstacleGridColSize); j++)
+    {
+        dp[0][j] = obstacleGrid[0][j] == 0 ? dp[0][j - 1] : 0;
+    }
+    for (int i = 1; i < obstacleGridSize; i++)
+    {
+        for (int j = 1; j < (*obstacleGridColSize); j++)
+        {
+            if (obstacleGrid[i][j] == 0)
+            {
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+            }
+            else
+            {
+                dp[i][j] = 0;
+            }
+        }
+    }
+    int ans = dp[obstacleGridSize - 1][(*obstacleGridColSize) - 1];
+    for (int i = 0; i < obstacleGridSize; i++)
+    {
+        free(dp[i]);
+    }
+    return ans;
+}
+
+// 动态规划(空间优化1)：
+// Time: O(M * N)
+// Space: O(N)
+int UniquePathsWithObstacles_D(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize)
+{
+    int *dp = (int *)malloc(sizeof(int) * (*obstacleGridColSize));
+    memset(dp, 0, sizeof(int) * (*obstacleGridColSize));
+    dp[0] = obstacleGrid[0][0] == 0 ? 1 : 0;
+    for (int j = 1; j < (*obstacleGridColSize); j++)
+    {
+        dp[j] = obstacleGrid[0][j] == 0 ? dp[j - 1] : 0;
+    }
+    for (int i = 1; i < obstacleGridSize; i++)
+    {
+        for (int j = 0; j < (*obstacleGridColSize); j++)
+        {
+            if (j == 0)
+            {
+                dp[0] = obstacleGrid[i][0] == 0 ? dp[0] : 0;
+            }
+            else
+            {
+                if (obstacleGrid[i][j] == 0)
+                {
+                    dp[j] += dp[j - 1];
+                }
+                else
+                {
+                    dp[j] = 0;
+                }
+            }
+        }
+    }
+    int ans = dp[(*obstacleGridColSize) - 1];
+    free(dp);
+    return ans;
+}
+
+// 动态规划(空间优化2[原地修改])：
+// Time: O(M * N)
+// Space: O(1)
+int UniquePathsWithObstacles_E(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize)
+{
+    obstacleGrid[0][0] = obstacleGrid[0][0] == 0 ? 1 : 0;
+    for (int i = 1; i < obstacleGridSize; i++)
+    {
+        obstacleGrid[i][0] = obstacleGrid[i][0] == 0 ? obstacleGrid[i - 1][0] : 0;
+    }
+    for (int j = 1; j < (*obstacleGridColSize); j++)
+    {
+        obstacleGrid[0][j] = obstacleGrid[0][j] == 0 ? obstacleGrid[0][j - 1] : 0;
+    }
+    for (int i = 1; i < obstacleGridSize; i++)
+    {
+        for (int j = 1; j < (*obstacleGridColSize); j++)
+        {
+            if (obstacleGrid[i][j] == 0)
+            {
+                obstacleGrid[i][j] = obstacleGrid[i - 1][j] + obstacleGrid[i][j - 1];
+            }
+            else
+            {
+                obstacleGrid[i][j] = 0;
+            }
+        }
+    }
+    int ans = obstacleGrid[obstacleGridSize - 1][(*obstacleGridColSize) - 1];
+    return ans;
 }
