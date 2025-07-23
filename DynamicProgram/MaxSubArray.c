@@ -29,11 +29,15 @@ int main()
     int n = GenerateRandomNum(0, 20);
     int* vec = GenerateRandomVec(-100, 100, n);
     int ansA = MaxSubArray_A(vec, n);
+    int ansB = MaxSubArray_B(vec, n);
+    int ansC = MaxSubArray_C(vec, n);
+    int ansD = MaxSubArray_D(vec, n);
+    int ansE = MaxSubArray_D(vec, n);
     PrintVecElement(vec, n);
-    printf("(暴力递归)连续子数组的最大和为 %d \n", );
-    printf("(记忆化搜索)连续子数组的最大和为 %d \n", maxSubArray_B(vec));
-    printf("(动态规划)连续子数组的最大和为 %d \n", maxSubArray_C(vec));
-    printf("(动态规划[空间压缩])连续子数组的最大和为 %d \n", maxSubArray_D(vec));
-    printf("(贪心算法)连续子数组的最大和为 %d \n", maxSubArray_E(vec));
+    printf("暴力递归: 连续子数组的最大和为 %d \n", ansA);
+    printf("记忆化搜索: 连续子数组的最大和为 %d \n", ansB);
+    printf("动态规划: 连续子数组的最大和为 %d \n", ansC);
+    printf("动态规划(空间压缩): 连续子数组的最大和为 %d \n", ansD);
+    printf("贪心算法: 连续子数组的最大和为 %d \n", ansE);
     FreeVec(vec);
 }
