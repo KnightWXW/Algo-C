@@ -32,13 +32,12 @@
 //          1 <= asteroids.length <= 105
 //          1 <= asteroids[i] <= 105
 
-
-bool AsteroidsDestroyed(int mass, int* asteroids, int asteroidsSize);
+bool AsteroidsDestroyed(int mass, int *asteroids, int asteroidsSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
-    int* vec = GenerateRandomVec(1, 30, n);
+    int *vec = GenerateRandomVec(1, 30, n);
     int mass = GenerateRandomNum(1, 30);
     PrintVecElement(vec, n);
     int ans = AsteroidsDestroyed(mass, vec);
@@ -47,10 +46,30 @@ int main()
     FreeVec(vec);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*tema) - (*temb);
+}
+
 // 贪心：
 // Time: O(NlogN)
 // Space: O(logN)
-bool AsteroidsDestroyed(int mass, int* asteroids, int asteroidsSize)
+bool AsteroidsDestroyed(int mass, int *asteroids, int asteroidsSize)
 {
-    
+    qsort(asteroids, asteroidsSize, sizeof(int), CompareInt);
+    long cur = mass;
+    for (int i = 0; i < asteroidsSize; i++)
+    {
+        if (cur >= asteroids[i])
+        {
+            cur += asteroids[i];
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
 }
