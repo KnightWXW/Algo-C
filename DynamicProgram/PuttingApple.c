@@ -1,3 +1,4 @@
+#include "../Mybasic/mybasic.h"
 
 //      牛客 HJ61. 放苹果
 
@@ -20,4 +21,12 @@ int main()
     printf("动态规划: %d 个苹果 放在 %d 个盘子 的 方法数为 %d\n", m, n, PuttingApple_C(m, n));
     printf("动态规划(空间压缩): %d 个苹果 放在 %d 个盘子 的 方法数为 %d\n", m, n, PuttingApple_D(m, n));
     printf("矩阵快速幂: %d 个苹果 放在 %d 个盘子 的 方法数为 %d\n", m, n, PuttingApple_E(m, n));
+}
+
+// 暴力递归:
+// Time: O(2^N)
+// Space: O(N)
+int PuttingApple_A(int m, int n)
+{
+
 }

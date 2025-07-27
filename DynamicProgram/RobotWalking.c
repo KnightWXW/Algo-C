@@ -11,8 +11,9 @@
 //      给定四个参数 n、cur、cnt、end，返回方法数.
 
 int RobotWalking_A(int n, int cur, int cnt, int end);
+int DFSRobotWalking_A(int n, int cur, int cnt, int end);
 int RobotWalking_B(int n, int cur, int cnt, int end);
-int DfsRobotWalking_B(int n, int cur, int cnt, int end, int **arr);
+int DFSRobotWalking_B(int n, int cur, int cnt, int end, int **mem);
 int RobotWalking_C(int n, int cur, int cnt, int end);
 int RobotWalking_D(int n, int cur, int cnt, int end);
 
@@ -24,31 +25,81 @@ int main()
     int end = 4;
     int ansA = RobotWalking_A(n, cur, cnt, end);
     int ansB = RobotWalking_B(n, cur, cnt, end);
-    int ansC = RobotWalking_C(n, cur, cnt, end);
-    int ansD = RobotWalking_C(n, cur, cnt, end);
-    printf("暴力递归：%d\n", ansA);             // 13
-    printf("记忆化搜索：%d\n", ansB);           // 13
-    printf("动态规划：%d\n", ansC);             // 13
-    printf("动态规划(空间优化)：%d\n", ansD); // 13
+    //int ansC = RobotWalking_C(n, cur, cnt, end);
+    //int ansD = RobotWalking_D(n, cur, cnt, end);
+    printf("暴力递归: %d\n", ansA);           // 13
+    printf("记忆化搜索: %d\n", ansB);         // 13
+    //printf("动态规划: %d\n", ansC);           // 13
+    //printf("动态规划(空间优化): %d\n", ansD); // 13
 }
 
 // 暴力递归：
-// Time: O(2^N)
-// Space: O(N)
+// Time: O(2^(M*N))
+// Space: O((M*N)
 int RobotWalking_A(int n, int cur, int cnt, int end)
 {
-    if()
+    return DFSRobotWalking_A(n, cur, cnt, end);
+}
+
+int DFSRobotWalking_A(int n, int cur, int cnt, int end)
+{
+    if (cnt == 0)
+    {
+        return cur == end ? 1 : 0;
+    }
+    if (cur == 1)
+    {
+        return DFSRobotWalking_A(n, cur + 1, cnt - 1, end);
+    }
+    if (cur == n)
+    {
+        return DFSRobotWalking_A(n, cur - 1, cnt - 1, end);
+    }
+    return DFSRobotWalking_A(n, cur + 1, cnt - 1, end) + DFSRobotWalking_A(n, cur - 1, cnt - 1, end);
 }
 
 // 记忆化搜索：
-// Time: O(2^N)
-// Space: O(N)
+// Time: O(2^(M*N))
+// Space: O((M*N)
 int RobotWalking_B(int n, int cur, int cnt, int end)
 {
+    int **mem = (int **)malloc(sizeof(int *) * (cur + 1));
+    for (int i = 0; i <= cur; i++)
+    {
+        mem[i] = (int *)malloc(sizeof(int) * (n + 1));
+        memset(mem[i], -1, sizeof(int) * (n + 1));
+    }
+    int ans = DFSRobotWalking_B(n, cur, cnt, end, mem);
+    for (int i = 0; i <= cur; i++)
+    {
+        free(mem[i]);
+    }
+    return ans;
 }
 
-int DfsRobotWalking_B(int n, int cur, int cnt, int end, int **arr)
+int DFSRobotWalking_B(int n, int cur, int cnt, int end, int **mem)
 {
+    if (cnt == 0)
+    {
+        mem[cnt][cur] = (cur == end ? 1 : 0);
+        return mem[cnt][cur];
+    }
+    if (cur == 1)
+    {
+        mem[cnt][cur] = DFSRobotWalking_B(n, cur + 1, cnt - 1, end, mem);
+        return mem[cnt][cur];
+    }
+    if (cur == n)
+    {
+        mem[cnt][cur] = DFSRobotWalking_B(n, cur - 1, cnt - 1, end, mem);
+        return mem[cnt][cur];
+    }
+    if (mem[cnt][cur] != -1)
+    {
+        return mem[cnt][cur];
+    }
+    mem[cnt][cur] = DFSRobotWalking_B(n, cur + 1, cnt - 1, end, mem) + DFSRobotWalking_B(n, cur - 1, cnt - 1, end, mem);
+    return mem[cnt][cur];
 }
 
 // 动态规划：
@@ -56,11 +107,40 @@ int DfsRobotWalking_B(int n, int cur, int cnt, int end, int **arr)
 // Space: O(cnt * n)
 int RobotWalking_C(int n, int cur, int cnt, int end)
 {
+    int **dp = (int **)malloc(sizeof(int *) * (cur + 1));
+    for (int i = 0; i <= cur; i++)
+    {
+        dp[i] = (int *)malloc(sizeof(int) * (n + 1));
+        memset(dp[i], 0, sizeof(int) * (n + 1));
+    }
+    dp[0][end] = 1;
+    for (int i = 1; i <= cnt; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (j == 1)
+            {
+                dp[i][j] = dp[i - 1][j + 1];
+            }
+            if (j == n)
+            {
+                dp[i][j] = dp[i - 1][j - 1];
+            }
+            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j + 1];
+        }
+    }
+    int ans = dp[cnt][cur];
+    for (int i = 0; i <= cur; i++)
+    {
+        free(dp[i]);
+    }
+    return ans;
 }
 
 // 动态规划(空间优化)：
 // Time: O(n)
 // Space: O(n)
-int RobotWalking_D(int n, int cur, int cnt, int end)
-{
-}
+// int RobotWalking_D(int n, int cur, int cnt, int end)
+// {
+
+// }
