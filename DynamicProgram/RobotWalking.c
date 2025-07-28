@@ -25,12 +25,12 @@ int main()
     int end = 4;
     int ansA = RobotWalking_A(n, cur, cnt, end);
     int ansB = RobotWalking_B(n, cur, cnt, end);
-    //int ansC = RobotWalking_C(n, cur, cnt, end);
-    //int ansD = RobotWalking_D(n, cur, cnt, end);
+    int ansC = RobotWalking_C(n, cur, cnt, end);
+    int ansD = RobotWalking_D(n, cur, cnt, end);
     printf("暴力递归: %d\n", ansA);           // 13
     printf("记忆化搜索: %d\n", ansB);         // 13
-    //printf("动态规划: %d\n", ansC);           // 13
-    //printf("动态规划(空间优化): %d\n", ansD); // 13
+    printf("动态规划: %d\n", ansC);           // 13
+    printf("动态规划(空间优化): %d\n", ansD); // 13
 }
 
 // 暴力递归：
@@ -38,6 +38,10 @@ int main()
 // Space: O((M*N)
 int RobotWalking_A(int n, int cur, int cnt, int end)
 {
+    if (cur <= 0 || cur > n || end <= 0 || end > n || cnt < 0 || n <= 0)
+    {
+        return -1;
+    }
     return DFSRobotWalking_A(n, cur, cnt, end);
 }
 
@@ -63,8 +67,12 @@ int DFSRobotWalking_A(int n, int cur, int cnt, int end)
 // Space: O((M*N)
 int RobotWalking_B(int n, int cur, int cnt, int end)
 {
-    int **mem = (int **)malloc(sizeof(int *) * (cur + 1));
-    for (int i = 0; i <= cur; i++)
+    if (cur <= 0 || cur > n || end <= 0 || end > n || cnt < 0 || n <= 0)
+    {
+        return -1;
+    }
+    int **mem = (int **)malloc(sizeof(int *) * (cnt + 1));
+    for (int i = 0; i <= cnt; i++)
     {
         mem[i] = (int *)malloc(sizeof(int) * (n + 1));
         memset(mem[i], -1, sizeof(int) * (n + 1));
@@ -107,8 +115,12 @@ int DFSRobotWalking_B(int n, int cur, int cnt, int end, int **mem)
 // Space: O(cnt * n)
 int RobotWalking_C(int n, int cur, int cnt, int end)
 {
-    int **dp = (int **)malloc(sizeof(int *) * (cur + 1));
-    for (int i = 0; i <= cur; i++)
+    if (cur <= 0 || cur > n || end <= 0 || end > n || cnt < 0 || n <= 0)
+    {
+        return -1;
+    }
+    int **dp = (int **)malloc(sizeof(int *) * (cnt + 1));
+    for (int i = 0; i <= cnt; i++)
     {
         dp[i] = (int *)malloc(sizeof(int) * (n + 1));
         memset(dp[i], 0, sizeof(int) * (n + 1));
@@ -122,11 +134,14 @@ int RobotWalking_C(int n, int cur, int cnt, int end)
             {
                 dp[i][j] = dp[i - 1][j + 1];
             }
-            if (j == n)
+            else if (j == n)
             {
                 dp[i][j] = dp[i - 1][j - 1];
             }
-            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j + 1];
+            else
+            {
+                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j + 1];
+            }
         }
     }
     int ans = dp[cnt][cur];
@@ -140,7 +155,35 @@ int RobotWalking_C(int n, int cur, int cnt, int end)
 // 动态规划(空间优化)：
 // Time: O(n)
 // Space: O(n)
-// int RobotWalking_D(int n, int cur, int cnt, int end)
-// {
-
-// }
+int RobotWalking_D(int n, int cur, int cnt, int end)
+{
+    if (cur <= 0 || cur > n || end <= 0 || end > n || cnt < 0 || n <= 0)
+    {
+        return -1;
+    }
+    int *dp = (int *)malloc(sizeof(int) * (n + 1));
+    memset(dp, 0, sizeof(int) * (n + 1));
+    dp[end] = 1;
+    for (int i = 1; i <= cnt; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (j == 1)
+            {
+                dp[j] = dp[j + 1];
+            }
+            else if (j == n)
+            {
+                dp[j] = dp[j - 1];
+            }
+            else
+            {
+                dp[j] = dp[j - 1] + dp[j + 1];
+            }
+        }
+        PrintVecElement(dp, n + 1);
+    }
+    int ans = dp[cur];
+    free(dp);
+    return ans;
+}
