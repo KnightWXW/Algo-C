@@ -163,27 +163,30 @@ int RobotWalking_D(int n, int cur, int cnt, int end)
     }
     int *dp = (int *)malloc(sizeof(int) * (n + 1));
     memset(dp, 0, sizeof(int) * (n + 1));
+    int *dp0 = (int *)malloc(sizeof(int) * (n + 1));
+    memset(dp0, 0, sizeof(int) * (n + 1));
     dp[end] = 1;
     for (int i = 1; i <= cnt; i++)
     {
+        memcpy(dp0, dp, sizeof(int) * (n + 1));
         for (int j = 1; j <= n; j++)
         {
             if (j == 1)
             {
-                dp[j] = dp[j + 1];
+                dp[j] = dp0[j + 1];
             }
             else if (j == n)
             {
-                dp[j] = dp[j - 1];
+                dp[j] = dp0[j - 1];
             }
             else
             {
-                dp[j] = dp[j - 1] + dp[j + 1];
+                dp[j] = dp0[j - 1] + dp0[j + 1];
             }
         }
-        PrintVecElement(dp, n + 1);
     }
     int ans = dp[cur];
     free(dp);
+    free(dp0);
     return ans;
 }
