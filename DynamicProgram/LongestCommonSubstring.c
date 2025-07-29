@@ -37,6 +37,8 @@ int main()
     printf("动态规划: 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
     printf("动态规划(空间优化1): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
     printf("动态规划(空间优化2): 字符串 中 最长公共子串 的 长度 为 %d\n", ansE);
+    FreeString(s1);
+    FreeString(s2);
 }
 
 // 暴力递归：
