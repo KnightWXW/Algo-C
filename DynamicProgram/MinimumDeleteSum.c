@@ -45,9 +45,11 @@ int main()
     printf("动态规划: 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansC);
     printf("动态规划(空间优化1): 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansD);
     printf("动态规划(空间优化2): 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansE);
+    FreeString(s1);
+    FreeString(s2);
 }
 
 int MinimumDeleteSum_A(char* s1, char* s2)
 {
-    
+
 }

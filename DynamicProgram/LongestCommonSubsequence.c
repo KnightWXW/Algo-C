@@ -50,6 +50,8 @@ int main()
     printf("记忆化搜索: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansB);
     printf("动态规划: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansC);
     printf("动态规划(空间优化): 字符串 中 最长公共子序列 的 长度 为 %d\n", ansD);
+    FreeVec(s1);
+    FreeVec(s2);
 }
 
 // 暴力递归：
