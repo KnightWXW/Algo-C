@@ -51,5 +51,5 @@ int main()
 
 int MinimumDeleteSum_A(char* s1, char* s2)
 {
-
+    
 }

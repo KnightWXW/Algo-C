@@ -10,7 +10,7 @@
 //          输出: 8
 
 int PuttingApple_A(int m, int n);
-int PuttingApple_A(int m, int n);
+int PuttingApple_B(int m, int n);
 
 int main()
 {
