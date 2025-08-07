@@ -34,6 +34,7 @@ int main()
     printf("整数 为 %d, 返回 arr 最后剩下的数字 为 %d。\n", n, ans);
 }
 
+
 int LastRemaining(int n)
 {
 
