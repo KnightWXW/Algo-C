@@ -17,7 +17,7 @@
 //          s 仅由数字和英文字母组成
 
 char *LongestPalindrome_A(char *s);
-char *LongestPalindrome_A(char *s);
+char *LongestPalindrome_B(char *s);
 
 int main()
 {
