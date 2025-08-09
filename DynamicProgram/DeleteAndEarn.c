@@ -25,7 +25,7 @@
 //          1 <= nums.length <= 2 * 104
 //          1 <= nums[i] <= 104
 
-int DeleteAndEarn_A(int* nums, int numsSize);
+int DeleteAndEarn_A(int *nums, int numsSize);
 
 int main()
 {
@@ -43,7 +43,122 @@ int main()
     FreeVec(vec);
 }
 
-int DeleteAndEarn_A(int* nums, int numsSize)
+// 暴力递归：
+// Time: O(2^N)
+// Space: O(N)
+int DeleteAndEarn_A(int *nums, int numsSize)
 {
-    
+    int maxVal = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        maxVal = max(maxVal, nums[i]);
+    }
+    int *vec = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(vec, 0, sizeof(int) * (maxVal + 1));
+    for (int i = 0; i < numsSize; i++)
+    {
+        vec[nums[i]] += nums[i];
+    }
+    int ans = DFSDeleteAndEarn_A(vec, maxVal + 1, maxVal);
+    free(vec);
+    return ans;
+}
+
+int DFSDeleteAndEarn_A(int *vec, int l, int i)
+{
+    if (i == 1)
+    {
+        return vec[1];
+    }
+    else if (i == 2)
+    {
+        return max(vec[1], vec[2]);
+    }
+    int a1 = DFSDeleteAndEarn_A(vec, l, i - 2) + vec[i];
+    int a2 = DFSDeleteAndEarn_A(vec, l, i - 1);
+    return max(a1, a2);
+}
+
+// 记忆化搜索：
+// Time: O(2^N)
+// Space: O(N)
+int DeleteAndEarn_B(int *nums, int numsSize)
+{
+    int maxVal = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        maxVal = max(maxVal, nums[i]);
+    }
+    int *vec = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(vec, 0, sizeof(int) * (maxVal + 1));
+    int *mem = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(mem, -1, sizeof(int) * (maxVal + 1));
+    for (int i = 0; i < numsSize; i++)
+    {
+        vec[nums[i]] += nums[i];
+    }
+    int ans = DFSDeleteAndEarn_B(vec, maxVal + 1, maxVal, mem);
+    free(mem);
+    free(vec);
+    return ans;
+}
+
+int DFSDeleteAndEarn_B(int *vec, int l, int i, int *mem)
+{
+    if (i == 1)
+    {
+        mem[i] = vec[1];
+        return vec[1];
+    }
+    else if (i == 2)
+    {
+        mem[i] = max(vec[1], vec[2]);
+        return mem[i];
+    }
+    if (mem[i] != -1)
+    {
+        return mem[i];
+    }
+    int a1 = DFSDeleteAndEarn_B(vec, l, i - 2, mem) + vec[i];
+    int a2 = DFSDeleteAndEarn_B(vec, l, i - 1, mem);
+    mem[i] = max(a1, a2);
+    return mem[i];
+}
+
+// 动态规划：
+// Time: O(N)
+// Space: O(N)
+int DeleteAndEarn_C(int *nums, int numsSize)
+{
+    int maxVal = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        maxVal = max(maxVal, nums[i]);
+    }
+    int *vec = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(vec, 0, sizeof(int) * (maxVal + 1));
+    int *dp = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(dp, 0, sizeof(int) * (maxVal + 1));
+    for (int i = 0; i < numsSize; i++)
+    {
+        vec[nums[i]] += nums[i];
+    }
+    if (maxVal == 1)
+    {
+        return vec[1];
+    }
+    else if (maxVal == 2)
+    {
+        max(vec[1], vec[2]);
+    }
+    dp[1] = vec[1];
+    dp[2] = max(vec[1], vec[2]);
+    for (int i = 2; i <= maxVal; i++)
+    {
+        dp[i] = max(dp[i - 2] + vec[i], dp[i - 1]);
+    }
+    int ans = dp[maxVal];
+    free(vec);
+    free(dp);
+    return ans;
 }
