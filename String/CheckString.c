@@ -46,6 +46,9 @@ int main()
     bool ans_C = CheckString_C(str);
     printf("是否所有 A 都在 B 之前: \n");
     PrintBool(ans_C);
+    bool ans_D = CheckString_D(str);
+    printf("是否所有 A 都在 B 之前: \n");
+    PrintBool(ans_D);
 }
 
 bool CheckString_A(char *s)
@@ -99,6 +102,19 @@ bool CheckString_C(char *s)
     for (int i = 1; i < l; i++)
     {
         if (s[i - 1] == 'b' && s[i] == 'a')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool CheckString_D(char *s)
+{
+    int l = strlen(s);
+    for (int i = 0; i < l - 1; i++)
+    {
+        if (s[i] > s[i + 1])
         {
             return false;
         }

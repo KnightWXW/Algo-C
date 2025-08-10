@@ -31,14 +31,10 @@ int MaxSatisfied(int *customers, int customersSize, int *grumpy, int grumpySize,
 
 int main()
 {
-    // int n = GenerateRandomNum(1, 20);
-    // int minutes = GenerateRandomNum(1, n);
-    // int *customers = GenerateRandomVec(0, 10, n);
-    // int *grumpy = GenerateRandomVec(0, 1, n);
-    int customers[] = {1,0,1,2,1,1,7,5};
-    int grumpy[] = {0,1,0,1,0,1,0,1};
-    int minutes = 3;
-    int n = 8;
+    int n = GenerateRandomNum(1, 20);
+    int minutes = GenerateRandomNum(1, n);
+    int *customers = GenerateRandomVec(0, 10, n);
+    int *grumpy = GenerateRandomVec(0, 1, n);
     printf("customers数组 元素为: ");
     PrintVecElement(customers, n);
     printf("grumpy数组 元素为: ");

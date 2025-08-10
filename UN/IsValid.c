@@ -41,5 +41,12 @@ int main()
 
 bool IsValid_A(char* s)
 {
-    
+    int l = strlen(s);
+    bool ans = true;
+    char* stk = (char*)malloc(sizeof(char) * l);
+    int index = 0;
+    for(int i = 0; i < l; i++)
+    {
+        if(s[i] == )
+    }
 }
