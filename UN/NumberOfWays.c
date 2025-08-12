@@ -45,12 +45,40 @@ int main()
     printf("选择建筑的方案数为 %lld \n", ans_A);
 }
 
-
 // 前缀和: 只有 101 和 010 两种情况
 // Time:O(N)
 // Space:O(1)
 long long NumberOfWays(char *s)
 {
     int l = strlen(s);
-    
+    long long ans = 0;
+    int cnt0 = 0;
+    int cnt1 = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (s[i] == '0')
+        {
+            cnt0++;
+        }
+        else
+        {
+            cnt1++;
+        }
+    }
+    long long tem0 = 0;
+    long long tem1 = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (s[i] == '0')
+        {
+            tem0++;
+            ans += (tem1) * (cnt1 - tem1);
+        }
+        else
+        {
+            tem1++;
+            ans += (tem0) * (cnt0 - tem0);
+        }
+    }
+    return ans;
 }
