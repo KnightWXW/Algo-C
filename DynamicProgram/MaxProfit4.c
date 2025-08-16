@@ -1,8 +1,4 @@
-
-
-#include <algorithm>
-
-using namespace std;
+#include ".../../Mybasic/mybasic.h"
 
 //      LeetCode 188. 买卖股票的最佳时机 IV
 

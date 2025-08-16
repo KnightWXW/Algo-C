@@ -20,24 +20,49 @@
 //          1 <= temperatures.length <= 105
 //          30 <= temperatures[i] <= 100
 
-
-int* DailyTemperatures(int* temperatures, int temperaturesSize, int* returnSize);
+int *DailyTemperatures(int *temperatures, int temperaturesSize, int *returnSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 10);
-    int* vec = GenerateRandomVec(1, 100, n);
+    int *vec = GenerateRandomVec(1, 100, n);
     PrintVecElement(vec, n);
     int rs = 0;
-    int* ans_A = DailyTemperatures(vec, n, &rs);
+    int *ans_A = DailyTemperatures(vec, n, &rs);
     printf("下一个更高温度出现在几天后的数组为: \n");
     PrintVecElement(ans_A, rs);
+    FreeVec(vec);
 }
 
 // 单调栈：
 // Space: O(N)
 // Time: O(1)
-int* DailyTemperatures(int* temperatures, int temperaturesSize, int* returnSize)
+int *DailyTemperatures(int *temperatures, int temperaturesSize, int *returnSize)
 {
-    
+    int *ans = (int *)malloc(sizeof(int) * temperaturesSize);
+    memset(ans, 0, sizeof(int) * temperaturesSize);
+    int *stk = (int *)malloc(sizeof(int) * temperaturesSize);
+    memset(stk, 0, sizeof(int) * temperaturesSize);
+    int index = 0;
+    for (int i = temperaturesSize - 1; i >= 0; i--)
+    {
+        while (index != 0 && temperatures[i] >= temperatures[stk[index - 1]])
+        {
+            stk[index - 1] = 0;
+            index--;
+        }
+        if (index == 0)
+        {
+            ans[i] = 0;
+        }
+        else
+        {
+            ans[i] = stk[index - 1] - i;
+        }
+        stk[index] = i;
+        index++;
+    }
+    free(stk);
+    *returnSize = temperaturesSize;
+    return ans;
 }
