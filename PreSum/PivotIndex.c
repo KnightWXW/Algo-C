@@ -32,7 +32,7 @@
 //          1 <= nums.length <= 104
 //          -1000 <= nums[i] <= 1000
 
-int PivotIndex(int* nums, int numsSize);
+int PivotIndex(int *nums, int numsSize);
 
 int main()
 {
@@ -44,7 +44,24 @@ int main()
     FreeVec(vec);
 }
 
-int PivotIndex(int* nums, int numsSize)
+// 前缀和：
+// Time: O(N)
+// Space: O(1)
+int PivotIndex(int *nums, int numsSize)
 {
-    
+    int all = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        all += nums[i];
+    }
+    int sum = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        if ((sum * 2 + nums[i]) == all)
+        {
+            return i;
+        }
+        sum += nums[i];
+    }
+    return -1;
 }
