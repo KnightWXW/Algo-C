@@ -43,6 +43,9 @@ int main()
     FreeVec(ans);
 }
 
+// 单调栈:
+// Space: O(N)
+// Time: O(1)
 int* AsteroidCollision(int* asteroids, int asteroidsSize, int* returnSize)
 {
 

@@ -27,24 +27,35 @@
 //          2 <= costs.length <= 100
 //          costs.length 为偶数
 
-int TwoCitySchedCost(vector<vector<int>> &costs);
+int TwoCitySchedCost(int **costs, int costsSize, int *costsColSize);
 
 int main()
 {
-    int n = generateRandomNum(0, 20);
-    vector<vector<int>> costs = generateRandom2DVec(0, 20, n, 2);
-    printf("原数组为：\n");
-    print2DVecElement(costs);
-    int ans = TwoCitySchedCost(costs);
+    int n1 = 4;
+    int c1 = 2;
+    int **cost1 = (int **)malloc(sizeof(int *) * n1);
+    for (int i = 0; i < n1; i++)
+    {
+        cost1[i] = (int *)malloc(sizeof(int) * c1);
+    }
+    cost1[0][0] = 10;
+    cost1[0][1] = 20;
+    cost1[1][0] = 30;
+    cost1[1][1] = 200;
+    cost1[2][0] = 400;
+    cost1[2][1] = 50;
+    cost1[3][0] = 30;
+    cost1[3][1] = 20;
+    printf("costs数组为：\n");
+    PrintVecElement2D(cost1, n1);
+    int ans = TwoCitySchedCost(cost1, n1, &c1);
     printf("每个人 都飞到 a, b 中 某座城市 的 最低费用为：%d。\n", ans);
+    FreeVec2D(cost1, n1);
 }
 
 // 贪心：
-//    按照 priceA - priceB 升序排序；
-//    将前 N 个人飞往 A 市，后 N 人飞往 B 市，计算出总费用
 // Time: O(NlogN)
 // Space: O(N)
-int TwoCitySchedCost(vector<vector<int>> &costs)
+int TwoCitySchedCost(int **costs, int costsSize, int *costsColSize)
 {
-    
 }
