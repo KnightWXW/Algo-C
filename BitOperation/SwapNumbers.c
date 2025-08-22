@@ -17,12 +17,12 @@ int* SwapNumbers(int* numbers, int numbersSize, int* returnSize);
 int main()
 {
     int n = 2;
-    int* vec = generateRandomVec(0, 100, n);
-    PrintVec(vec, 2);
+    int* vec = GenerateRandomVec(0, 100, n);
+    PrintVecElement(vec, n);
     int rs = 0;
-    int* ans = SwapNumbers(vec, 2, &rs);
+    int* ans = SwapNumbers(vec, n, &rs);
     printf("交换数字后数组为：\n");
-    printVec(ans, rs);
+    PrintVecElement(ans, rs);
 }
 
 // 位运算：
@@ -30,5 +30,9 @@ int main()
 // Space: O(1)
 int* SwapNumbers(int* numbers, int numbersSize, int* returnSize)
 {
-
+    * returnSize = numbersSize;
+    numbers[0] ^= numbers[1];
+    numbers[1] ^= numbers[0];
+    numbers[0] ^= numbers[1];
+    return numbers;
 }

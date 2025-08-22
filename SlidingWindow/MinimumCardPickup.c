@@ -21,7 +21,7 @@
 //          0 <= cards[i] <= 106
 
 int MinimumCardPickup_A(int* cards, int cardsSize);
-int MinimumCardPickup_A(int* cards, int cardsSize);
+int MinimumCardPickup_B(int* cards, int cardsSize);
 
 int main()
 {

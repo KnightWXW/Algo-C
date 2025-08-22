@@ -28,14 +28,14 @@
 //          1 <= nums.length <= 105
 //          1 <= nums[i] <= 106
 
-long long MaxArrayValue(int* nums, int l);
+long long MaxArrayValue(int *nums, int l);
 
 int main()
 {
     int n = GenerateRandomNum(0, 20);
-    int* vec = GenerateRandomVec(0, 100, n);
-    GrintVecElement(vec);
-    long long ans_A = MaxArrayValue(vec);
+    int *vec = GenerateRandomVec(0, 100, n);
+    PrintVecElement(vec, n);
+    long long ans_A = MaxArrayValue(vec, n);
     printf("从最终数组中获得的 最大 元素的值 为 %lld。\n", ans_A);
     FreeVec(vec);
 }
@@ -43,7 +43,25 @@ int main()
 // 贪心：逆向遍历
 // Time: O(N)
 // Space: O(N)
-long long MaxArrayValue(int* nums, int l)
+long long MaxArrayValue(int *nums, int l)
 {
-    
+    if (l == 1)
+    {
+        return nums[0];
+    }
+    long long ans = 0;
+    long long cur = nums[l - 1];
+    for (int i = l - 2; i >= 0; i--)
+    {
+        if (nums[i] <= cur)
+        {
+            cur += nums[i];
+        }
+        else
+        {
+            cur = nums[i];
+        }
+        ans = max(ans, cur);
+    }
+    return ans;
 }
