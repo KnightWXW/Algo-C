@@ -25,7 +25,7 @@
 //      1 <= s.length <= 104
 //      s 仅由括号 '()[]{}' 组成
 
-bool IsValid_A(char* s);
+bool IsValid_A(char *s);
 
 int main()
 {
@@ -39,14 +39,43 @@ int main()
     FreeString(str);
 }
 
-bool IsValid_A(char* s)
+bool IsValid_A(char *s)
 {
     int l = strlen(s);
-    bool ans = true;
-    char* stk = (char*)malloc(sizeof(char) * l);
-    int index = 0;
-    for(int i = 0; i < l; i++)
+    if ((l & 1) == 1)
     {
-        if(s[i] == )
+        return false;
     }
+    bool ans = true;
+    char *stk = (char *)malloc(sizeof(char) * l);
+    int index = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (index == 0 || s[i] != stk[index - 1])
+        {
+            if (s[i] == '(')
+            {
+                stk[index++] = ')';
+            }
+            else if (s[i] == '{')
+            {
+                stk[index++] = '}';
+            }
+            else if (s[i] == '[')
+            {
+                stk[index++] = ']';
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (s[i] == stk[index - 1])
+        {
+            stk[index - 1] = ' ';
+            index--;
+        }
+    }
+    free(stk);
+    return index == 0;
 }
