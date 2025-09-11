@@ -1,5 +1,4 @@
-
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 1394. 找出数组中的幸运数
 

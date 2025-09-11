@@ -35,6 +35,9 @@ int main()
     FreeStringVec(ans, returnSize);
 }
 
+// 模拟：
+// Time: O(N)
+// Space: O(1)
 char **FizzBuzz(int n, int *returnSize)
 {
     char **ans = (char **)malloc(sizeof(char *) * n);

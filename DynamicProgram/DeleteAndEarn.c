@@ -31,7 +31,7 @@ int main()
 {
     int n = GenerateRandomNum(0, 20);
     int *vec = GenerateRandomVec(1, 100, n);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int ansA = DeleteAndEarn_A(vec, n);
     int ansB = DeleteAndEarn_B(vec, n);
     int ansC = DeleteAndEarn_C(vec, n);

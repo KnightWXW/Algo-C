@@ -49,7 +49,7 @@ int main()
     int *vec = GenerateRandomVec(1, 100, n);
     int duration = GenerateRandomNum(1, 2 * n);
     qsort(vec, n, sizeof(int), CmopareInt);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int ans = TeemoAttacking(vec, n, duration);
     printf("当中毒持续时间为 %d 时, 艾希处于中毒状态的 总秒数为 %d ", duration, ans);
     FreeVec(vec);

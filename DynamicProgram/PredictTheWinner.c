@@ -38,7 +38,7 @@ int main()
 {
     int n = generateRandomNum(0, 10);
     int *vec = GenerateRandomVec(1, 100, n);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     printf("数组元素为:");
     PrintVecElement(vec, n);
     bool ansA = PredictTheWinner_A(vec, n);

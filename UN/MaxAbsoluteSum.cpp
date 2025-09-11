@@ -29,7 +29,7 @@ int main()
 {
     int n = GenerateRandomNum(1, 30);
     int *vec = GenerateRandomVec(-1000, 1000, n);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int ans_A = MaxAbsoluteSum(vec, n);
     printf("和的绝对值 最大的任意子数组, 该值为: %d\n", ans_A);
     FreeVec(vec);

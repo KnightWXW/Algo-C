@@ -36,7 +36,7 @@ int main()
 {
     int n = GenerateRandomNum(0, 20);
     int *vec = GenerateRandomVec(1, 100, n);
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int ansA = Robbery_A(vec, n);
     int ansB = Robbery_B(vec, n);
     int ansC = Robbery_C(vec, n);

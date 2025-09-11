@@ -42,7 +42,7 @@ int main()
     int n = GenerateRandomNum(1, 20);
     int *vec = GenerateRandomVec(0, 30, n);
     printf("数组元素为：\n");
-    PrintVecElement(vec);
+    PrintVecElement(vec, n);
     int returnA = 0;
     int *ans_A = FindLonely_A(vec, n, &returnA);
     printVecElement(ans_A, returnA);
