@@ -87,3 +87,53 @@ int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n)
 {
     int used[MAX_BOARD_LEN] = 0;
 }
+
+/*
+int arr[10000000]
+int check(int  mid, int* nums, int ** board, iny n)
+{
+	int cnt = 0;
+	memset(arr, 0, sizeof(int));
+	for(int i = 0; i < mid, i++){
+		arr[nums[i]] = 1;
+	}
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++)
+		{
+			CNT += arr[board[i][j]];
+		}
+	}
+	if(cnt < n){
+		return 0
+	}
+	for(int i = 0; i < n; i++){
+		int ta = 0;
+		int tb = 0;
+		for(int j = 0; j < n; j++)
+		{
+			ta += arr[board[i][j]];
+			tb += arr[board[j][i]];
+		}
+		if(ta >= n - 1 || tb >= n - 1){
+			return 1
+		}
+	}
+	return 0;
+}
+
+int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n)
+{
+	int n = n;
+	int c = 1;
+	int k = l;
+	while(c <= k){
+		int mid = (c + k) / 2;
+		if(check(mid, nums, board, n)){
+			k = mid - 1;
+		}else{
+			c = mid + 1;
+		}
+	}
+	return c;
+}
+*/
