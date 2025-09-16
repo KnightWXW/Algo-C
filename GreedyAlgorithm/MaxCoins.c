@@ -44,9 +44,23 @@ int main()
     FreeVec(vec);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return *temb - *tema;
+}
+
 // 贪心
-// Time: O(N * C)
-// Space: O(1)
+// Time: O(NlogN)
+// Space: O(logN)
 int MaxCoins(int *piles, int pilesSize)
 {
+    qsort(piles, pilesSize, sizeof(int), CompareInt);
+    int ans = 0;
+    for (int i = 1; i < pilesSize * 2 / 3; i += 2)
+    {
+        ans += piles[i];
+    }
+    return ans;
 }

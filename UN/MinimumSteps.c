@@ -1,5 +1,4 @@
-
-
+#include "../Mybasic/mybasic.h"
 
 //      LeetCode 2938. 区分黑球与白球
 

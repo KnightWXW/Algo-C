@@ -29,20 +29,20 @@ char *ConvertDateToBinary(char *date);
 int main()
 {
     char *s1 = "2080-02-29";
-    printf("公历日期为：\n");
+    printf("公历日期为:\n");
     PrintString(s1);
     char *ans1 = ConvertDateToBinary(s1);
-    printf("二进制表示日期为：\n");
+    printf("二进制表示日期为:\n");
     PrintString(ans1);
     FreeString(ans1);
 
     char *s2 = "1900-01-01";
-    printf("公历日期为：\n");
+    printf("公历日期为:\n");
     PrintString(s2);
     char *ans2 = ConvertDateToBinary(s2);
-    printf("二进制表示日期为：\n");
+    printf("二进制表示日期为:\n");
     PrintString(ans2);
-    FreeString(ans1);
+    FreeString(ans2);
 }
 
 int StringToInteger(char *str, int left, int right)

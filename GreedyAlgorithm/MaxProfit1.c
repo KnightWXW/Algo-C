@@ -54,7 +54,7 @@ int MaxProfit1(int *prices, int pricesSize)
 }
 
 // 贪心：单层遍历
-// Time: O(N^2)
+// Time: O(N)
 // Space: O(1)
 int MaxProfit1(int *prices, int pricesSize)
 {
