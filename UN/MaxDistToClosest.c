@@ -14,7 +14,7 @@
 //          解释：
 //              如果亚历克斯坐在第二个空位（seats[2]）上，他到离他最近的人的距离为 2 。
 //              如果亚历克斯坐在其它任何一个空位上，他到离他最近的人的距离为 1 。
-//              因此，他到离他最近的人的最大距离是 2 。 
+//              因此，他到离他最近的人的最大距离是 2 。
 //      示例 2：
 //          输入：seats = [1,0,0,0]
 //          输出：3
@@ -30,7 +30,7 @@
 //          至少有一个 空座位
 //          至少有一个 座位上有人
 
-int MaxDistToClosest(int* seats, int seatsSize);
+int MaxDistToClosest(int *seats, int seatsSize);
 
 int main()
 {
@@ -42,7 +42,25 @@ int main()
     FreeVec(vec);
 }
 
-int MaxDistToClosest(int* seats, int seatsSize)
+int MaxDistToClosest(int *seats, int seatsSize)
 {
-    
+    int ans = 0;
+    int pre = -1;
+    for (int i = 0; i < seatsSize; i++)
+    {
+        if (seats[i] == 1)
+        {
+            if (pre == -1)
+            {
+                ans = max(ans, i);
+            }
+            else
+            {
+                ans = max(ans, i - pre);
+            }
+            pre = i;
+        }
+    }
+    ans = max(ans, seatsSize - 1 - pre);
+    return ans;
 }

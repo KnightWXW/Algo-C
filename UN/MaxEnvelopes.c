@@ -24,3 +24,7 @@
 
 int MaxEnvelopes(int** envelopes, int envelopesSize, int* envelopesColSize);
 
+int main()
+{
+    
+}
