@@ -31,6 +31,9 @@ int main()
     FreeVec(ans_A);
 }
 
+// 举例:
+// Time: O(1)
+// Space: O(1)
 int *SumZero(int n, int *returnSize)
 {
     *returnSize = n;

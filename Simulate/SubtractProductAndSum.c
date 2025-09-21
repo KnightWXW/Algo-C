@@ -31,6 +31,9 @@ int main()
     printf("%d 的「各位数字之积」与「各位数字之和」的差为: %d\n", n, ans);
 }
 
+// 模拟：
+// Time：O(N)
+// Space: O(1)
 int SubtractProductAndSum(int n)
 {
     int mul = 1;

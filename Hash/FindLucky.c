@@ -30,7 +30,7 @@
 //          1 <= arr.length <= 500
 //          1 <= arr[i] <= 500
 
-int FindLucky(int* arr, int arrSize);
+int FindLucky(int *arr, int arrSize);
 
 int main()
 {
@@ -42,7 +42,30 @@ int main()
     FreeVec(arr);
 }
 
-int FindLucky(int* arr, int arrSize)
+// 数组哈希
+// Time: O(N)
+// Space: O(N)
+int FindLucky(int *arr, int arrSize)
 {
-    
+    int maxVal = 0;
+    for (int i = 0; i < arrSize; i++)
+    {
+        maxVal = max(maxVal, arr[i]);
+    }
+    int *hmap = (int *)malloc(sizeof(int) * (maxVal + 1));
+    memset(hmap, 0, sizeof(int) * (maxVal + 1));
+    for (int i = 0; i < arrSize; i++)
+    {
+        hmap[arr[i]]++;
+    }
+    int ans = 0;
+    for (int i = 0; i <= maxVal; i++)
+    {
+        if (i == hmap[i])
+        {
+            ans = i;
+        }
+    }
+    free(hmap);
+    return ans;
 }
