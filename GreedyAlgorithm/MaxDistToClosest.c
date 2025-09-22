@@ -42,6 +42,9 @@ int main()
     FreeVec(vec);
 }
 
+// 贪心
+// Time: O(N)
+// Space: O(1)
 int MaxDistToClosest(int *seats, int seatsSize)
 {
     int ans = 0;
