@@ -8,7 +8,7 @@
 //      其中 boxes[i] 的值为 '0' 表示第 i 个盒子是 空 的，
 //      而 boxes[i] 的值为 '1' 表示盒子里有 一个 小球。
 //      在一步操作中，你可以将 一个 小球从某个盒子移动到一个与之相邻的盒子中。
-//      第 i 个盒子和第 j 个盒子相邻需满足 abs(i - j) == 1 。
+//      第 i 个盒子和第 j 个盒子相邻需满足 abs(i - j) == 1。
 //      注意，操作执行后，某些盒子中可能会存在不止一个小球。
 //      返回一个长度为 n 的数组 answer，
 //      其中 answer[i] 是将所有小球移动到第 i 个盒子所需的 最小 操作数。
@@ -19,7 +19,8 @@
 //          解释：每个盒子对应的最小操作数如下：
 //              1) 第 1 个盒子：将一个小球从第 2 个盒子移动到第 1 个盒子，需要 1 步操作。
 //              2) 第 2 个盒子：将一个小球从第 1 个盒子移动到第 2 个盒子，需要 1 步操作。
-//              3) 第 3 个盒子：将一个小球从第 1 个盒子移动到第 3 个盒子，需要 2 步操作。将一个小球从第 2 个盒子移动到第 3 个盒子，需要 1 步操作。共计 3 步操作。
+//              3) 第 3 个盒子：将一个小球从第 1 个盒子移动到第 3 个盒子，需要 2 步操作。
+//              将一个小球从第 2 个盒子移动到第 3 个盒子，需要 1 步操作。共计 3 步操作。
 //      示例 2：
 //          输入：boxes = "001011"
 //          输出：[11,8,5,4,3,4]
@@ -28,23 +29,49 @@
 //          1 <= n <= 2000
 //          boxes[i] 为 '0' 或 '1'
 
-int* MinOperations(char* boxes, int* returnSize);
+int *MinOperations(char *boxes, int *returnSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
+    int n = GenerateRandomNum(1, 10);
     char arr[] = {'0', '1'};
-    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
+    char *str = GenerateRandomString(n, arr, strlen(arr));
     PrintString(str);
     int rs = 0;
-    int* ans_A = MinOperations(str, &rs);
+    int *ans_A = MinOperations(str, &rs);
     printf("移动所有球到每个盒子所需的最小操作数为:\n");
-    PrintVec(ans_A, rs);
+    PrintVecElement(ans_A, rs);
     FreeString(str);
     FreeVec(ans_A);
 }
 
-int* MinOperations(char* boxes, int* returnSize)
+int *MinOperations(char *boxes, int *returnSize)
 {
-    
+    int l = strlen(boxes);
+    *returnSize = l;
+    int *ans = (int *)malloc(sizeof(int) * l);
+    memset(ans, 0, sizeof(int) * l);
+    int leftSum = 0;
+    int rightSum = 0;
+    int ball = 0;
+    for (int i = 0; i < l; i++)
+    {
+        leftSum += ball;
+        ans[i] = leftSum;
+        if (boxes[i] - '0' == 1)
+        {
+            ball++;
+        }
+    }
+    ball = 0;
+    for (int i = l - 1; i >= 0; i--)
+    {
+        rightSum += ball;
+        ans[i] += rightSum;
+        if (boxes[i] - '0' == 1)
+        {
+            ball++;
+        }
+    }
+    return ans;
 }

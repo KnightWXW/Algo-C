@@ -19,7 +19,7 @@
 //      示例 3：
 //          输出：s = "anagram", t = "mangaar"
 //          输出：0
-//          提示："anagram" 和 "mangaar" 本身就是一组字母异位词。 
+//          提示："anagram" 和 "mangaar" 本身就是一组字母异位词。
 //      示例 4：
 //          输出：s = "xxyyzz", t = "xxyyzz"
 //          输出：0
@@ -31,7 +31,9 @@
 //          s.length == t.length
 //          s 和 t 只包含小写英文字母
 
-int MinSteps(char* s, char* t);
+#define MAX_LEN_ALPHABET 26
+
+int MinSteps(char *s, char *t);
 
 int main()
 {
@@ -50,7 +52,27 @@ int main()
     printf("制造字母异位词的最小步骤数为 %d \n", ans2);
 }
 
-int MinSteps(char* s, char* t)
+// 数组哈希：
+// Time: O(N)
+// Space: O(N)
+int MinSteps(char *s, char *t)
 {
-
+    int l = strlen(s);
+    int *hmap = (int *)malloc(sizeof(int) * MAX_LEN_ALPHABET);
+    memset(hmap, 0, sizeof(int) * MAX_LEN_ALPHABET);
+    for (int i = 0; i < l; i++)
+    {
+        hmap[s[i] - 'a']++;
+        hmap[t[i] - 'a']--;
+    }
+    int ans = 0;
+    for (int i = 0; i < MAX_LEN_ALPHABET; i++)
+    {
+        if (hmap[i] != 0)
+        {
+            ans += abs(hmap[i]);
+        }
+    }
+    free(hmap);
+    return ans >> 1;
 }
