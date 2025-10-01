@@ -44,5 +44,6 @@ int main()
 
 long long MinimumSteps(char* s)
 {
+    int l = strlen(s);
     
 }
