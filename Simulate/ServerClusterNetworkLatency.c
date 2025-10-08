@@ -35,6 +35,7 @@ int main()
     PrintVecElement(vec, n);
     int ans_A = ServerClusterNetworkLatency(vec, n);
     printf("集群网络延迟最小 为 %d \n", ans_A);
+    FreeVec(vec);
 }
 
 int DigitSumDiff(int k, int *arr, int l)
