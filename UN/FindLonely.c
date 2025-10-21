@@ -29,13 +29,9 @@
 //          1 <= nums.length <= 105
 //          0 <= nums[i] <= 106
 
-int generateRandomNum(int low, int high);
-void printVecElement(vector<int> &vec);
-vector<int> generateRandomVec(int low, int high, int len);
-
-vector<int> FindLonely_A(vector<int> &nums);
-vector<int> FindLonely_B(vector<int> &nums);
-vector<int> FindLonely_C(vector<int> &nums);
+int* FindLonely_A(int* nums, int numsSize, int* returnSize);
+int* FindLonely_B(int* nums, int numsSize, int* returnSize);
+int* FindLonely_C(int* nums, int numsSize, int* returnSize);
 
 int main()
 {

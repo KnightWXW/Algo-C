@@ -26,18 +26,34 @@
 //          输出样例2
 //              0
 
-int GetMaxReduceNum(int* records, int l);
+int GetMaxReduceNum(int *records, int l);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 100);
-    int* records = GenerateRandomVec(1, 100, n);
+    int n = GenerateRandomNum(1, 10);
+    int *records = GenerateRandomVec(1, 100, n);
     PrintVecElement(records, n);
     int ans = GetMaxReduceNum(records, n);
     printf("找出在哪段时间内代码总量减少最大，并返回这个最大值 为 %d\n", ans);
 }
 
-int GetMaxReduceNum(int* records, int l)
+// 贪心
+// Time: O(N)
+// Space: O(1)
+int GetMaxReduceNum(int *records, int l)
 {
-
+    int ans = 0;
+    int pre = records[0];
+    for (int i = 1; i < l; i++)
+    {
+        if (pre > records[i])
+        {
+            ans = max(ans, pre - records[i]);
+        }
+        else
+        {
+            pre = records[i];
+        }
+    }
+    return ans;
 }

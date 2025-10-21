@@ -55,5 +55,8 @@ int main()
 
 long long* GetDistances(int* arr, int arrSize, int* returnSize)
 {
-
+    *returnSize = arrSize;
+    long long* ans = (long long*)malloc(sizeof(long long) * arrSize);
+    memset(ans, 0, sizeof(long long) * arrSize);
+    
 }
