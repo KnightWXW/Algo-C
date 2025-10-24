@@ -23,15 +23,36 @@ int ArrangeWorkersToProcessParts(int *vec, int l, int num);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 50);
-    int *vec = GenerateRandomVec(1, 300, n);
-    int m = GenerateRandomNum(1, 1000);
+    int n = GenerateRandomNum(1, 10);
+    int *vec = GenerateRandomVec(1, 100, n);
+    int m = GenerateRandomNum(1, 999);
     PrintVecElement(vec, n);
     int ans = ArrangeWorkersToProcessParts(vec, n, m);
     printf("工厂在1天时间内加工 %d 个零件需要的师傅数量 %d\n", m, ans);
     FreeVec(vec);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*temb) - (*tema);
+}
+
+// 贪心:
+// Time: O(NlogN)
+// Space: O(logN)
 int ArrangeWorkersToProcessParts(int *vec, int l, int num)
 {
+    qsort(vec, l, sizeof(int), CompareInt);
+    int sum = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (sum > num)
+        {
+            return i;
+        }
+        sum += vec[i];
+    }
+    return -1;
 }

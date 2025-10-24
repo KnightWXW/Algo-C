@@ -31,13 +31,13 @@
 //          0 <= nums[i] <= 10^5
 //          0 <= cnt <= 10^5
 
-int MaxNumOfExhibitionHalls(int* nums, int l, int cnt);
+int MaxNumOfExhibitionHalls(int *nums, int l, int cnt);
 
 int main()
 {
     int n = GenerateRandomNum(1, 10);
-    int* nums = GenerateRandomVec(1, 100, n);
-    int cnt = GenerateRandomNum(0, 1000);
+    int *nums = GenerateRandomVec(1, 100, n);
+    int cnt = GenerateRandomNum(0, 300);
     printf("每个展厅的报名人数 为: \n");
     PrintVecElement(nums, n);
     int limit = MaxNumOfExhibitionHalls(nums, n, cnt);
@@ -45,3 +45,43 @@ int main()
     FreeVec(nums);
 }
 
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*tema) - (*temb);
+}
+
+bool JudgeExhibitionHalls(int *nums, int l, int cnt, int mid)
+{
+    int sum = 0;
+    for (int i = 0; i < l; i++)
+    {
+        sum += min(nums[i], mid);
+    }
+    return sum <= cnt;
+}
+
+// 二分查找：
+// Time：O(NlogN)
+// Space: O(logN)
+int MaxNumOfExhibitionHalls(int *nums, int l, int cnt)
+{
+    qsort(nums, l, sizeof(int), CompareInt);
+    int ans = 0;
+    int left = 0;
+    int right = nums[l - 1] + 1;
+    while (left <= right)
+    {
+        int mid = left + ((right - left) >> 1);
+        if (JudgeExhibitionHalls(nums, l, cnt, mid))
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid - 1;
+        }
+    }
+    return right - 1;
+}

@@ -72,7 +72,7 @@ int main()
     plans1[2][1] = 8;
     int ans1 = RentCars1(depts1, n1, plans1, row1, col1);
     printf("所选方案的下标为 %d\n", ans1);
-    FreeVec2D(depts1, row1);
+    FreeVec2D(plans1, row1);
 
     int n2 = 2;
     int depts2[] = {5, 9};
@@ -90,7 +90,32 @@ int main()
     plans2[2][1] = 11;
     int ans2 = RentCars1(depts2, n2, plans2, row2, col2);
     printf("所选方案的下标为 %d\n", ans2);
-    FreeVec2D(depts2, row2);
+    FreeVec2D(plans2, row2);
+
+    int n3 = 2;
+    int depts3[] = {10, 10};
+    int row3 = 2;
+    int col3[] = {4, 1};
+    int **plans3 = (int **)malloc(sizeof(int *) * row3);
+    for (int i = 0; i < row3; i++)
+    {
+        plans3[i] = (int *)malloc(sizeof(int) * col3[i]);
+    }
+    plans3[0][0] = 2;
+    plans3[0][1] = 9;
+    plans3[0][2] = 8;
+    plans3[0][3] = 3;
+    plans3[1][0] = 7;
+    int ans3 = RentCars1(depts3, n3, plans3, row3, col3);
+    printf("所选方案的下标为 %d\n", ans3);
+    FreeVec2D(plans3, row3);
+}
+
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*tema) - (*temb);
 }
 
 // 贪心：
@@ -98,5 +123,36 @@ int main()
 // Space: O(logN)
 int RentCars1(int *depts, int deptsSize, int **plans, int row, int *col)
 {
-
+    int ans = -1;
+    int dif = INT_MAX;
+    qsort(depts, deptsSize, sizeof(int), CompareInt);
+    for (int i = 0; i < row; i++)
+    {
+        int l = col[i];
+        int tem[1000] = {0};
+        memcpy(tem, plans[i], l * sizeof(int));
+        qsort(tem, l, sizeof(int), CompareInt);
+        bool flag = true;
+        int cur = 0;
+        int index = 0;
+        for (int j = 0; j < l; j++)
+        {
+            while (index < l && depts[j] > tem[index])
+            {
+                index++;
+            }
+            if (index == l)
+            {
+                flag = false;
+                break;
+            }
+            cur += tem[index] - depts[j];
+        }
+        if (flag == true && cur < dif)
+        {
+            dif = cur;
+            ans = i;
+        }
+    }
+    return ans;
 }

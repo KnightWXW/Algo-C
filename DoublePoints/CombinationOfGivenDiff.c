@@ -18,16 +18,20 @@
 //          输出:
 //              2
 
-int CombinationOfGivenDiff(int *vec, int n, int diff);
+int CombinationOfGivenDiff_A(int *vec, int n, int diff);
+int CombinationOfGivenDiff_B(int *vec, int n, int diff);
 
 int main()
 {
     int n = GenerateRandomNum(0, 10);
-    int *vec = GenerateRandomVec(0, 20 ,n);
-    int diff = GenerateRandomNum(1, 5);
-    int ans_A = CombinationOfGivenDiff(vec, n, diff);
+    int *vec = GenerateRandomVec(0, 30, n);
+    int diff = GenerateRandomNum(0, 10);
     PrintVecElement(vec, n);
+    int ans_A = CombinationOfGivenDiff_A(vec, n, diff);
+    int ans_B = CombinationOfGivenDiff_B(vec, n, diff);
+    FreeVec(vec);
     printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff, ans_A);
+    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff, ans_B);
 }
 
 typedef struct
@@ -39,7 +43,7 @@ typedef struct
 // 哈希表：
 // Time: O(N)
 // Space: O(N)
-int CombinationOfGivenDiff(int *vec, int n, int diff)
+int CombinationOfGivenDiff_A(int *vec, int n, int diff)
 {
     int ans = 0;
     HashSet *set = NULL;
@@ -63,5 +67,33 @@ int CombinationOfGivenDiff(int *vec, int n, int diff)
     }
     HASH_CLEAR(hh, set);
     free(set);
+    return ans;
+}
+
+int CompareInt(const void *a, const void *b)
+{
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*tema) - (*temb);
+}
+
+// 二分查找:
+// Time：O(NlogN)
+// Space: O(logN)
+int CombinationOfGivenDiff_B(int *vec, int n, int diff)
+{
+    qsort(vec, n, sizeof(int), CompareInt);
+    int ans = 0;
+    int left = 0;
+    int right = 1;
+    while (right < n)
+    {
+        if (abs(vec[left] - vec[right]) == abs(diff))
+        {
+            ans++;
+            left++;
+        }
+        right++;
+    }
     return ans;
 }

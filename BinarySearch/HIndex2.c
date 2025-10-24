@@ -36,6 +36,9 @@ int main()
     FreeVec(citations);
 }
 
+// 二分查找:
+// Time：O(NlogN)
+// Space: O(logN)
 int HIndex2(int *citations, int citationsSize)
 {
     int left = 0;
