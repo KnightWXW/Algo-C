@@ -68,14 +68,24 @@ bool JudgeExhibitionHalls(int *nums, int l, int cnt, int mid)
 int MaxNumOfExhibitionHalls(int *nums, int l, int cnt)
 {
     qsort(nums, l, sizeof(int), CompareInt);
-    int ans = 0;
+    int sum = 0;
+    for (int i = 0; i < l; i++)
+    {
+        sum += nums[i];
+    }
+    if (sum <= cnt)
+    {
+        return -1;
+    }
+    int ans = -1;
     int left = 0;
-    int right = nums[l - 1] + 1;
+    int right = nums[l - 1];
     while (left <= right)
     {
         int mid = left + ((right - left) >> 1);
         if (JudgeExhibitionHalls(nums, l, cnt, mid))
         {
+            ans = max(ans, mid);
             left = mid + 1;
         }
         else
@@ -83,5 +93,5 @@ int MaxNumOfExhibitionHalls(int *nums, int l, int cnt)
             right = mid - 1;
         }
     }
-    return right - 1;
+    return ans;
 }

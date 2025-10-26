@@ -23,15 +23,23 @@ int CombinationOfGivenDiff_B(int *vec, int n, int diff);
 
 int main()
 {
-    int n = GenerateRandomNum(0, 10);
-    int *vec = GenerateRandomVec(0, 30, n);
-    int diff = GenerateRandomNum(0, 10);
-    PrintVecElement(vec, n);
-    int ans_A = CombinationOfGivenDiff_A(vec, n, diff);
-    int ans_B = CombinationOfGivenDiff_B(vec, n, diff);
-    FreeVec(vec);
-    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff, ans_A);
-    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff, ans_B);
+    int n1 = 5;
+    int vec1[] = {1, 3, 2, 5, 4};
+    int diff1 = 2;
+    PrintVecElement(vec1, n1);
+    int ans_A1 = CombinationOfGivenDiff_A(vec1, n1, diff1);
+    int ans_B1 = CombinationOfGivenDiff_B(vec1, n1, diff1);
+    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff1, ans_A1);
+    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff1, ans_B1);
+
+    int n2 = 3;
+    int vec2[] = {1, 2, 3};
+    int diff2 = -1;
+    PrintVecElement(vec2, n2);
+    int ans_A2 = CombinationOfGivenDiff_A(vec2, n2, diff2);
+    int ans_B2 = CombinationOfGivenDiff_B(vec2, n2, diff2);
+    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff2, ans_A2);
+    printf("数组中两个元素相减等于给定差值 %d 的所有不同组合的个数为 %d\n", diff2, ans_B2);
 }
 
 typedef struct
@@ -61,8 +69,15 @@ int CombinationOfGivenDiff_A(int *vec, int n, int diff)
         HASH_FIND_INT(set, &target, cur);
         if (cur != NULL)
         {
-            HASH_DEL(set, cur);
-            ans++;
+            if (diff == 0)
+            {
+                continue;
+            }
+            else
+            {
+                ans++;
+                HASH_DEL(set, cur);
+            }
         }
     }
     HASH_CLEAR(hh, set);
