@@ -56,6 +56,15 @@ void PrintVecElement(int *vec, int size)
     printf("\n");
 }
 
+void PrintVecElementDouble(double *vec, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        printf("%f \t", vec[i]);
+    }
+    printf("\n");
+}
+
 // 随机二维数组:
 int **GenerateRandomVec2D(int low, int high, int row, int col)
 {
