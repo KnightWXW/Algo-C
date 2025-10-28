@@ -1,6 +1,6 @@
 #include "../Mybasic/mybasic.h"
 
-//      Huawei：订单预定
+//      Huawei: 订单预定
 
 //      公司内部每interval天将举办一次技术讲座，相关信息如下：
 //          (1) 第 k 次讲座在第 k * interval 天举办, k≥1；其开放购票时间为讲座前的interval天，

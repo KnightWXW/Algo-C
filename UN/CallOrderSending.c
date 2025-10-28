@@ -43,7 +43,45 @@ int main()
     FreeVec2D(vec1, r1);
 }
 
+typedef struct
+{
+    int length;
+    int priority;
+} Order;
+
+int CompareOrder(const void *a, const void *b)
+{
+    Order *tema = (Order *)a;
+    Order *temb = (Order *)b;
+    if (tema->priority == tema->priority)
+    {
+        return (tema->length) - (temb->length);
+    }
+    return (tema->priority) - (temb->priority);
+}
+
 int CallOrderSending(int **people, int row, int col, int k)
 {
-    
+    if (row == 0)
+    {
+        return 0;
+    }
+    Order *vec = (Order *)malloc(sizeof(Order) * row);
+    memset(vec, 0, sizeof(Order) * row);
+    for (int i = 0; i < row; i++)
+    {
+        vec[i].length = people[i][0];
+        vec[i].priority = people[i][1];
+    }
+    qsort(vec, row, sizeof(Order), CompareOrder);
+    int sum = 0;
+    for (int i = 0; i < row; i++)
+    {
+        if (sum > k)
+        {
+            return i + 1;
+        }
+        sum += vec[i].length;
+    }
+    return -1;
 }
