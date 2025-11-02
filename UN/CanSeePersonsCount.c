@@ -30,3 +30,21 @@
 //          heights 中所有数 互不相同 。
 
 int* CanSeePersonsCount(int* heights, int heightsSize, int* returnSize);
+
+int main()
+{
+    int n = GenerateRandomNum(0, 10);
+    int* vec = GenerateRandomVec(1, 20, n);
+    PrintVecElement(vec, n);
+    int rs = 0;
+    int* ans_A = CanSeePersonsCount(vec, n, &rs);
+    printf("队列中可以看到的人数为:\n");
+    PrintVecElement(ans_A, rs);
+    FreeVec(ans_A);
+    FreeVec(vec);
+}
+
+int* CanSeePersonsCount(int* heights, int heightsSize, int* returnSize)
+{
+    
+}

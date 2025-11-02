@@ -40,7 +40,8 @@ int main()
     int serveNum = GenerateRandomNum(0, 50);
     PrintVecElement(vec, n);
     int ans_A = BusinessLoadSharing(vec, n, serveNum);
-    printf("当服务器数量为 %d 时, 分配后 “最高负载” 的值最小为 %d\n", serveNum, ans_A);
+    printf("当服务器数量为 %d 时, 分配后“最高负载”的值最小为 %d\n", serveNum, ans_A);
+    FreeVec(vec);
 }
 
 // 二分查找：
