@@ -21,21 +21,53 @@
 //      进阶：你可以在 O(1) 的额外空间复杂度内完成这个题目吗?
 //         (出于对空间复杂度分析的目的，输出数组 不被视为 额外空间)
 
-int* ProductExceptSelf(int* nums, int numsSize, int* returnSize);
+int *ProductExceptSelf(int *nums, int numsSize, int *returnSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
     int *vec = GenerateRandomVec(-100, 100, n);
     PrintVecElement(vec, n);
-    int rs = 0; 
-    int* ans_A = ProductExceptSelf(vec, n, &rs);
+    int rs = 0;
+    int *ans_A = ProductExceptSelf(vec, n, &rs);
     printf("除自身以外数组的乘积 为:\n");
     PrintVecElement(ans_A, rs);
     FreeVec(vec);
 }
 
-int* ProductExceptSelf(int* nums, int numsSize, int* returnSize)
+// 分情况讨论:
+// Time: O(N)
+// Space: O(1)
+int *ProductExceptSelf(int *nums, int numsSize, int *returnSize)
 {
-    
+    *returnSize = numsSize;
+    int *ans = (int *)malloc(sizeof(int) * numsSize);
+    memset(ans, 0, sizeof(int) * numsSize);
+    int zero = 0;
+    int zeroIndex = -1;
+    int mul = 1;
+    for (int i = 0; i < numsSize; i++)
+    {
+        if (nums[i] == 0)
+        {
+            zeroIndex = i;
+            zero++;
+        }
+        else
+        {
+            mul *= nums[i];
+        }
+    }
+    if (zero == 1)
+    {
+        ans[zeroIndex] = mul;
+    }
+    else if (zero == 0)
+    {
+        for (int i = 0; i < numsSize; i++)
+        {
+            ans[i] = mul / nums[i];
+        }
+    }
+    return ans;
 }

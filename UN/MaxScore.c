@@ -24,19 +24,44 @@
 //          1 <= nums.length <= 105
 //          -106 <= nums[i] <= 106
 
-int MaxScore(int* nums, int numsSize);
+int MaxScore(int *nums, int numsSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
-    int *vec = GenerateRandomVec(-1000, 1000, n);
+    int n = GenerateRandomNum(1, 20);
+    int *vec = GenerateRandomVec(-100, 100, n);
     PrintVecElement(vec, n);
     int ans_A = MaxScore(vec, n);
     printf("重排数组以得到最大前缀分数 为: %d\n", ans_A);
     FreeVec(vec);
 }
 
-int MaxScore(int* nums, int numsSize)
+int CompareInt(const void *a, const void *b)
 {
-    
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return *temb - *tema;
+}
+
+// 排序+贪心
+// Time: O(NlogN)
+// Space: O(logN)
+int MaxScore(int *nums, int numsSize)
+{
+    qsort(nums, numsSize, sizeof(int), CompareInt);
+    long long sum = 0;
+    int ans = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        sum += nums[i];
+        if (sum > 0)
+        {
+            ans++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    return ans;
 }

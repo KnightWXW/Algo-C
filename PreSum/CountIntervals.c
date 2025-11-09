@@ -30,6 +30,33 @@ int main()
     printf("磁盘空间统计 为 %d \n", ans);
 }
 
+// 前缀和:
+// Time: O(N)
+// Space: O(N)
 int CountIntervals(int *records, int recordsSize, int *lengthRange, int lengthSize, int threshold)
 {
+    int ans = 0;
+    int *pre = (int *)malloc(sizeof(int) * (recordsSize + 1));
+    memset(pre, 0, sizeof(int) * (recordsSize + 1));
+    for (int i = 1; i <= recordsSize; i++)
+    {
+        pre[i] = pre[i - 1] + records[i - 1];
+    }
+    for (int i = 0; i <= recordsSize; i++)
+    {
+        int tem = pre[i];
+        for (int j = lengthRange[0]; j <= lengthRange[1]; j++)
+        {
+            if (i + j > recordsSize)
+            {
+                break;
+            }
+            if (pre[i + j] - pre[i] >= j * tem)
+            {
+                ans++;
+            }
+        }
+    }
+    free(pre);
+    return ans;
 }
