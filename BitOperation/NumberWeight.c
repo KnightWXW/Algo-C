@@ -37,12 +37,48 @@ int main()
     printf("%d\n", ans_C);
 }
 
-int DigitWeight(int num)
+long GetMinWeightNum(int weight)
 {
-    
+    return ((long)1 << weight) - 1;
+}
+
+int GetLessOrEqualNumMax2Exp(long num)
+{
+    long cur = num;
+    int ans = 0;
+    while (cur != 1l)
+    {
+        cur >>= 1;
+        ans++;
+    }
+    return ans;
+}
+
+int GetZeroToXCnt(long num, long weight)
+{
+    int ans = 0;
+    while (true)
+    {
+        if (num <= GetMinWeightNum(weight))
+        {
+            break;
+        }
+        if (weight == 0)
+        {
+            ans++;
+            break;
+        }
+        int tem = GetLessOrEqualNumMax2Exp(num);
+        ans += ;
+        weight--;
+    }
+    return ans;
+}
+
+int GetNumCount(long minNum, long maxNum, int weight)
+{
 }
 
 int NumberWeight(int minNum, int maxNum, int weight)
 {
-   
 }

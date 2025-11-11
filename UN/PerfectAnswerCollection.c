@@ -31,8 +31,8 @@
 //          输出:
 //              2
 
-int PerfectAnswerCollection_A(int questionCount, int **people, int row, int col);
-int PerfectAnswerCollection_B(int questionCount, int **people, int row, int col);
+int PerfectAnswerCollection_A(int questionCount, int **people, int row, int* col);
+int PerfectAnswerCollection_B(int questionCount, int **people, int row, int* col);
 
 int main()
 {
@@ -57,14 +57,34 @@ int main()
     vec1[5][0] = 10;
     vec1[5][1] = 10;
     PrintVecElement2D(vec1, r1, c1);
-    int ans_A = PerfectAnswerCollection_A(questionCount, vec1, r1, c1);
-    printf("综合到完美答案的最少人值 为 %d 。\n", ans_A);
-    int ans_B = PerfectAnswerCollection_A(questionCount, vec1, r1, c1);
-    printf("综合到完美答案的最少人值 为 %d 。\n", ans_B);
+    int ans_A = PerfectAnswerCollection_A(questionCount, vec1, r1, &c1);
+    printf("综合到完美答案的最少人值 为 %d \n", ans_A);
+    int ans_B = PerfectAnswerCollection_A(questionCount, vec1, r1, &c1);
+    printf("综合到完美答案的最少人值 为 %d \n", ans_B);
     FreeVec2D(vec1, r1);
 }
 
-int PerfectAnswerCollection_A(int questionCount, int **people, int row, int col)
+int Compare2DInt(const void *a, const void *b)
 {
-    
+    int *tema = *(int **)a;
+    int *temb = *(int **)b;
+    if (tema[0] == temb[0])
+    {
+        return tema[1] - temb[1];
+    }
+    return tema[0] - temb[0];
+}
+
+int PerfectAnswerCollection_A(int questionCount, int **people, int row, int* col)
+{
+    qsort(people, row, sizeof(int*), Compare2DInt);
+    int ans = 0;
+    int start = 0;
+    int end = 0;
+    while(end <= questionCount)
+    {
+        int 
+
+
+    }
 }

@@ -18,29 +18,92 @@
 //      输出样例1：
 //          6
 
+#define TRAGIC_TNTERVIEW_MOD 1000000007
+
 long long DightPermutations(int num);
-int TragicInterview(int* arr, int l);
+int TragicInterview(int *arr, int l);
 
 int main()
 {
-    int n = generateRandomNum(1, 15);
-    int* arr = generateRandomVec(1, 100, n);
+    int n = GenerateRandomNum(1, 15);
+    int *arr = GenerateRandomVec(1, 100, n);
     printf("分数数组 元素为: \n");
-    PrintVecElement(arr);
+    PrintVecElement(arr, n);
     int ans = TragicInterview(arr, n);
     printf("有 %d 种考官打分的情况。\n", ans);
     FreeVec(arr);
 }
 
-long long DightPermutations(int num)
+long long Fac(int num)
 {
-    
+    long long ans = 1;
+    for (int i = 1; i <= num; i++)
+    {
+        ans = (ans * i) % TRAGIC_TNTERVIEW_MOD;
+    }
+    return ans;
 }
+
+long long Inv(long num)
+{
+    if (num == 1)
+    {
+        return 1;
+    }
+    long ans = 1;
+    long index = TRAGIC_TNTERVIEW_MOD - 2;
+    while (index > 0)
+    {
+        if ((index & 1) == 1)
+        {
+            ans *= num;
+            ans %= TRAGIC_TNTERVIEW_MOD;
+        }
+        num *= num;
+        num %= TRAGIC_TNTERVIEW_MOD;
+        index >>= 1;
+    }
+    return ans;
+}
+
+typedef struct
+{
+    int v;
+    int c;
+    UT_hash_handle hh;
+} Set;
 
 // 排列数：
 // Time：O(N)
 // Space：O(1)
-int TragicInterview(int* arr, int l)
+int TragicInterview(int *arr, int l)
 {
-    
+    Set *set = NULL;
+    for (int i = 0; i < l; i++)
+    {
+        Set *cur = NULL;
+        HASH_FIND_INT(set, &arr[i], cur);
+        if (cur == NULL)
+        {
+            cur = (Set *)malloc(sizeof(Set));
+            cur->v = arr[i];
+            cur->c = 1;
+        }
+        else
+        {
+            cur->c++;
+        }
+    }
+    long long ans = Fac(l);
+    Set *a = NULL;
+    Set *b = NULL;
+    HASH_ITER(hh, set, a, b)
+    {
+        int num = a->c;
+        ans *= Inv(Fac(num));
+        ans %= TRAGIC_TNTERVIEW_MOD;
+    }
+    HASH_CLEAR(hh, set);
+    free(set);
+    return ans;
 }

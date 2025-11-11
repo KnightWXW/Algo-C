@@ -26,6 +26,8 @@ int main()
     int threshold = 1;
     int records[] = {2, 0, 2, 0, 2};
     int lengthRange[] = {2, 4};
+    PrintVecElement(records, n1);
+    PrintVecElement(lengthRange, n2);
     int ans = CountIntervals(records, n1, lengthRange, n2, threshold);
     printf("磁盘空间统计 为 %d \n", ans);
 }
@@ -51,7 +53,7 @@ int CountIntervals(int *records, int recordsSize, int *lengthRange, int lengthSi
             {
                 break;
             }
-            if (pre[i + j] - pre[i] >= j * tem)
+            if (pre[i + j] - pre[i] >= (j * threshold))
             {
                 ans++;
             }

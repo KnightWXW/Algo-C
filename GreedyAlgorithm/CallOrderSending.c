@@ -2,7 +2,7 @@
 
 //      Huawei: 话单发送
 
-//      某核心网设备向计费网关发送话单(一个话单指一条通话记录的信息), 发送规则如下：
+//      某核心网设备向计费网关发送话单(一个话单指一条通话记录的信息),发送规则如下：
 //      每个话单具有长度和优先级两个属性，
 //      优先级值越小表示优先级越高，高优先级的发送完，才能发送低优先级的。
 //      设备有一个承载规格，表示发送话单总容量的阈值。
@@ -39,7 +39,7 @@ int main()
     vec[4][1] = 1;
     PrintVecElement2D(vec, row, col);
     int ans_A = CallOrderSending(vec, row, col, k);
-    printf("阈值为 %d 时, 最多可以发送 %d 个话单 。\n", k, ans_A);
+    printf("阈值为 %d 时, 最多可以发送 %d 个话单 \n", k, ans_A);
     FreeVec2D(vec, row);
 }
 
@@ -54,6 +54,9 @@ int Compare2dInt(const void *a, const void *b)
     return tema[1] - temb[1];
 }
 
+// 贪心
+// Time：O(NlogN)
+// Space: O(logN)
 int CallOrderSending(int **arr, int row, int col, int k)
 {
     qsort(arr, row, sizeof(int *), Compare2dInt);
