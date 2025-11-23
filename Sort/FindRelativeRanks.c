@@ -56,8 +56,8 @@ int CompareScore(const void *a, const void *b)
 }
 
 // 排序:
-// Time: O()
-// Space: O()
+// Time: O(NlogN)
+// Space: O(logN)
 char **FindRelativeRanks(int *score, int scoreSize, int *returnSize)
 {
     ScoreUnit *arr = (ScoreUnit *)malloc(sizeof(ScoreUnit) * scoreSize);

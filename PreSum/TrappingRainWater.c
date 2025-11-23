@@ -53,5 +53,7 @@ int TrappingRainWater(int *height, int heightSize)
     {
         ans += min(left[i], right[i]) - height[i];
     }
+    free(left);
+    free(right);
     return ans;
 }

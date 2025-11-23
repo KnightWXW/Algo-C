@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include "../Mybasic/mybasic.h"
 
 //      Huawei: 合法MAC地址
@@ -25,7 +26,10 @@
 //      输出样例3
 //          1
 
-int LegitimateMACAddress(char* str);
+#define MAC_LEN 17
+#define MAX_LEN 1000
+
+int LegitimateMACAddress(char *str);
 
 int main()
 {
@@ -33,7 +37,7 @@ int main()
     PrintString(s1);
     int ans1 = LegitimateMACAddress(s1);
     printf("所有的合法mac地址的数量为 %d \n", ans1);
-    
+
     char s2[] = "01:02:03:002-03-04-05-06-07";
     PrintString(s2);
     int ans2 = LegitimateMACAddress(s2);
@@ -43,4 +47,92 @@ int main()
     PrintString(s3);
     int ans3 = LegitimateMACAddress(s3);
     printf("所有的合法mac地址的数量为 %d \n", ans3);
+}
+
+bool IsValidMAC(char *mac)
+{
+    char delimiter = mac[2];
+    if (delimiter != '-' && delimiter != ':')
+    {
+        return false;
+    }
+    for (int i = 0; i < MAC_LEN; i++)
+    {
+        if (i % 3 == 2)
+        {
+            if (mac[i] != delimiter)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (!isxdigit(mac[i]))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+char *TranMAC(char *mac)
+{
+    char *ans = (char *)malloc(sizeof(char) * (MAC_LEN + 1));
+    for (int i = 0; i < MAC_LEN; i++)
+    {
+        if (i % 3 == 2)
+        {
+            mac[i] = ':';
+        }
+        else
+        {
+            mac[i] = tolower(mac[i]);
+        }
+    }
+    strcpy(ans, mac);
+    return ans;
+}
+
+// 模拟
+// Time: O(N)
+// Space: O(1)
+int LegitimateMACAddress(char *str)
+{
+    int l = strlen(str);
+    int cnt = 0;
+    int ans = 1;
+    char maclist[MAX_LEN][MAC_LEN + 1];
+    char* tem = (char*)malloc(MAC_LEN + 1);
+    int len = strlen(str);
+    for(int i = 0;i <= len - MAC_LEN; i++)
+    {
+        strcpy(tem, &str[i]);
+        tem[17] = '\0';
+        if(IsValidMAC(tem)){
+            tem = TranMAC(tem);
+            strcpy(maclist[cnt], tem);
+            cnt++;
+        }
+    }
+    if(cnt == 0)
+    {
+        return 0;
+    }
+    for(int i = 1; i < cnt; i++)
+    {
+        bool flag = true;
+        for(int j = 0; j < i; j++)
+        {
+            if(strcmp(maclist[i], maclist[j]) == 0)
+            {
+                flag = false;
+            }
+        }
+        if(flag == true)
+        {
+            ans++;
+        }
+    }
+    return ans;
 }
