@@ -25,7 +25,7 @@
 //                   [3,1,7,2]]
 //      输出：6
 
-#define MAX_BOARD_LEN 10000
+#define MAX_BOARD_LEN 100000
 
 int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n);
 
@@ -50,8 +50,8 @@ int main()
     vec1[2][2] = 2;
     PrintVecElement(nums1, l1);
     PrintVecElement2D(vec1, n1, n1);
-    int ans_A = ExchangeTestingTimeAtMostOnce(nums1, l1, vec1, n1, n1);
-    printf(" 仪器最早在接受第 %d 个数字(从1开始计数) 时完成测试。\n", ans_A);
+    int ans_A = ExchangeTestingTimeAtMostOnce(nums1, l1, vec1, n1);
+    printf("仪器最早在接受第 %d 个数字(从1开始计数)时完成测试。\n", ans_A); // 2
 
     int l2 = 12;
     int nums2[12] = {8, 9, 2, 7, 10, 1, 1, 1, 4, 5, 5, 3};
@@ -79,61 +79,65 @@ int main()
     vec2[3][3] = 2;
     PrintVecElement(nums2, l2);
     PrintVecElement2D(vec2, n2, n2);
-    int ans_B = ExchangeTestingTimeAtMostOnce(nums2, l2, vec2, n2, n2);
-    printf(" 仪器最早在接受第 %d 个数字(从1开始计数) 时完成测试。\n", ans_B);
+    int ans_B = ExchangeTestingTimeAtMostOnce(nums2, l2, vec2, n2);
+    printf("仪器最早在接受第 %d 个数字(从1开始计数)时完成测试。\n", ans_B); // 6
 }
 
+int CheckExchangeTestingTimeAtMostOnce(int mid, int *nums, int **board, int n, int *used)
+{
+    int cnt = 0;
+    memset(used, 0, sizeof(int) * MAX_BOARD_LEN);
+    for (int i = 0; i < mid; i++)
+    {
+        used[nums[i]] = 1;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cnt += used[board[i][j]];
+        }
+    }
+    if (cnt < n)
+    {
+        return 0;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        int ta = 0;
+        int tb = 0;
+        for (int j = 0; j < n; j++)
+        {
+            ta += used[board[i][j]];
+            tb += used[board[j][i]];
+        }
+        if (ta >= n - 1 || tb >= n - 1)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 二分查找
+// Time：O(NlogN)
+// Space: O(logN)
 int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n)
 {
-    int used[MAX_BOARD_LEN] = 0;
+    int *used = (int *)malloc(sizeof(int) * MAX_BOARD_LEN);
+    int left = 1;
+    int right = l;
+    while (left <= right)
+    {
+        int mid = left + ((right - left) >> 1);
+        if (CheckExchangeTestingTimeAtMostOnce(mid, arr, board, n, used))
+        {
+            right = mid - 1;
+        }
+        else
+        {
+            left = mid + 1;
+        }
+    }
+    return left;
 }
-
-/*
-int arr[10000000]
-int check(int  mid, int* nums, int ** board, iny n)
-{
-	int cnt = 0;
-	memset(arr, 0, sizeof(int));
-	for(int i = 0; i < mid, i++){
-		arr[nums[i]] = 1;
-	}
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j < n; j++)
-		{
-			CNT += arr[board[i][j]];
-		}
-	}
-	if(cnt < n){
-		return 0
-	}
-	for(int i = 0; i < n; i++){
-		int ta = 0;
-		int tb = 0;
-		for(int j = 0; j < n; j++)
-		{
-			ta += arr[board[i][j]];
-			tb += arr[board[j][i]];
-		}
-		if(ta >= n - 1 || tb >= n - 1){
-			return 1
-		}
-	}
-	return 0;
-}
-
-int ExchangeTestingTimeAtMostOnce(int *arr, int l, int **board, int n)
-{
-	int n = n;
-	int c = 1;
-	int k = l;
-	while(c <= k){
-		int mid = (c + k) / 2;
-		if(check(mid, nums, board, n)){
-			k = mid - 1;
-		}else{
-			c = mid + 1;
-		}
-	}
-	return c;
-}
-*/
