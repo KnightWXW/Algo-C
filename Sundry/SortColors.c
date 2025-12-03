@@ -35,6 +35,9 @@ int main()
     FreeVec(arr);
 }
 
+// 单指针
+// Time:O(N)
+// Space:O(1)
 void SortColors(int *nums, int numsSize)
 {
     int index = 0;

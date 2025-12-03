@@ -26,4 +26,53 @@
 //          s 和 wordDict[i] 仅由小写英文字母组成
 //          wordDict 中的所有字符串 互不相同
 
-bool WordBreak(char* s, char** wordDict, int wordDictSize);
+bool WordBreak_A(char *s, char **wordDict, int wordDictSize);
+bool WordBreak_B(char *s, char **wordDict, int wordDictSize);
+bool WordBreak_C(char *s, char **wordDict, int wordDictSize);
+
+int main()
+{
+    char s1[] = "leetcode";
+    char* arr1[] = {"leet", "code"};
+    int n1 = 2;
+    bool bA1 = WordBreak_A(s1, arr1, n1);
+    bool bB1 = WordBreak_B(s1, arr1, n1);
+    bool bC1 = WordBreak_C(s1, arr1, n1);
+    printf("暴力递归: 单词拆分 结果 为 \n");
+    PrintBool(bA1);
+    printf("记忆化搜索: 单词拆分 结果 为 \n");
+    PrintBool(bB1);
+    printf("动态规划: 单词拆分 结果 为 \n");
+    PrintBool(bC1);
+
+    char s2[] = "applepenapple";
+    char* arr2[] = {"apple", "pen"};
+    int n2 = 2;
+    bool bA2 = WordBreak_A(s2, arr2, n2);
+    bool bB2 = WordBreak_B(s2, arr2, n2);
+    bool bC2 = WordBreak_C(s2, arr2, n2);
+    printf("暴力递归: 单词拆分 结果 为 \n");
+    PrintBool(bA2);
+    printf("记忆化搜索: 单词拆分 结果 为 \n");
+    PrintBool(bB2);
+    printf("动态规划: 单词拆分 结果 为 \n");
+    PrintBool(bC2);
+
+    char s3[] = "catsandog";
+    char* arr3[] = {"cats", "dog", "sand", "and", "cat"};
+    int n3 = 2;
+    bool bA3 = WordBreak_A(s3, arr3, n3);
+    bool bB3 = WordBreak_B(s3, arr3, n3);
+    bool bC3 = WordBreak_C(s3, arr3, n3);
+    printf("暴力递归: 单词拆分 结果 为 \n");
+    PrintBool(bA3);
+    printf("记忆化搜索: 单词拆分 结果 为 \n");
+    PrintBool(bB3);
+    printf("动态规划: 单词拆分 结果 为 \n");
+    PrintBool(bC3);
+}
+
+bool WordBreak_A(char *s, char **wordDict, int wordDictSize)
+{
+    
+}
