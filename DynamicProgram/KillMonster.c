@@ -14,5 +14,10 @@ int main()
     int m = GenerateRandomNum(0, 30);
     int k = GenerateRandomNum(0, 10);
     int ansA = KillMonster_A(n, m, k);
-    printf("暴力递归: 怪兽有 %d 滴血, %d 次打击, 每次打击让怪兽流失[0 - %d]的血量, 英雄把怪兽砍死概率为 %lf\n", n, k, m, ansA);
+    printf("暴力递归: 怪兽有 %d 滴血, %d 次打击, 每次打击让怪兽流失[0-%d]的血量, 英雄把怪兽砍死概率为 %lf\n", n, k, m, ansA);
+}
+
+double KillMonster_A(int n, int n, int k)
+{
+    
 }
