@@ -49,6 +49,7 @@ int main()
     bool ans_D = CheckString_D(str);
     printf("是否所有 A 都在 B 之前: \n");
     PrintBool(ans_D);
+    FreeString(str);
 }
 
 bool CheckString_A(char *s)
