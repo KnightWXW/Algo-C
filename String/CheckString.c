@@ -30,6 +30,7 @@
 bool CheckString_A(char *s);
 bool CheckString_B(char *s);
 bool CheckString_C(char *s);
+bool CheckString_D(char *s);
 
 int main()
 {
@@ -52,6 +53,9 @@ int main()
     FreeString(str);
 }
 
+// 前后两次遍历
+// Space: O(N)
+// Time: O(1)
 bool CheckString_A(char *s)
 {
     int l = strlen(s);
@@ -74,6 +78,9 @@ bool CheckString_A(char *s)
     return a < b;
 }
 
+// 一次遍历
+// Space: O(N)
+// Time: O(1)
 bool CheckString_B(char *s)
 {
     int l = strlen(s);
@@ -93,6 +100,9 @@ bool CheckString_B(char *s)
     return a < b;
 }
 
+// 特殊情况判断：不能出现 ba
+// Space: O(N)
+// Time: O(1)
 bool CheckString_C(char *s)
 {
     int l = strlen(s);
@@ -110,6 +120,9 @@ bool CheckString_C(char *s)
     return true;
 }
 
+// 特殊情况判断：不能出现 ba
+// Space: O(N)
+// Time: O(1)
 bool CheckString_D(char *s)
 {
     int l = strlen(s);

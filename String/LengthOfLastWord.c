@@ -24,7 +24,8 @@
 //          s 仅有英文字母和空格 ' ' 组成
 //          s 中至少存在一个单词
 
-int LengthOfLastWord(char *s);
+int LengthOfLastWord_A(char *s);
+int LengthOfLastWord_B(char *s);
 
 int main()
 {
@@ -32,15 +33,17 @@ int main()
     char arr1[] = {'A', 'B', 'C', ' '};
     char *str = GenerateRandomString(n, arr1, strlen(arr1));
     PrintString(str);
-    int ans_A = LengthOfLastWord(str);
+    int ans_A = LengthOfLastWord_A(str);
+    int ans_B = LengthOfLastWord_B(str);
     printf("字符串中 最后一个 单词的长度 为：%d\n", ans_A);
+    printf("字符串中 最后一个 单词的长度 为：%d\n", ans_B);
     FreeString(str);
 }
 
-// 遍历：
+// 逆向遍历：
 // Time: O(N)
 // Space: O(1)
-int LengthOfLastWord(char *s)
+int LengthOfLastWord_A(char *s)
 {
     int l = strlen(s);
     int i = l - 1;
@@ -55,6 +58,26 @@ int LengthOfLastWord(char *s)
         {
             cnt++;
         }
+    }
+    return cnt;
+}
+
+// 逆向遍历：
+// Time: O(N)
+// Space: O(1)
+int LengthOfLastWord_B(char *s)
+{
+    int l = strlen(s);
+    int i = l - 1;
+    int cnt = 0;
+    while (i >= 0 && s[i] == ' ')
+    {
+        i--;
+    }
+    while (i >= 0 && s[i] != ' ')
+    {
+        i--;
+        cnt++;
     }
     return cnt;
 }

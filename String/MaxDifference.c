@@ -40,6 +40,9 @@ int main()
     FreeString(str);
 }
 
+// 模拟
+// Time: O(N)
+// Space: O(1)
 int MaxDifference(char *s)
 {
     int l = strlen(s);
