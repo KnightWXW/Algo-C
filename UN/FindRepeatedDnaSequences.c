@@ -45,4 +45,10 @@ int main()
 
 char **FindRepeatedDnaSequences(char *s, int *returnSize)
 {
+    int l = strlen(s);
+    if(l < 10)
+    {
+        return NULL;
+    }
+    
 }
