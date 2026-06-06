@@ -43,6 +43,8 @@ int main()
     FreeVec(arr);
 }
 
+// 回溯
+
 void NextPermutation(int* nums, int numsSize)
 {
     
