@@ -124,10 +124,78 @@ int ClimbStairs_D(int n)
     return ans;
 }
 
+void Multiply(long a[2][2], long b[2][2], long res[2][2])
+{
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            res[i][j] = a[i][0] * b[0][j] + a[i][1] * b[1][j];
+        }
+    }
+}
+
+void MatrixPow(long base[2][2], int n, long result[2][2])
+{
+    // 初始化结果矩阵为单位矩阵 E
+    long tempResult[2][2] = {{1, 0}, {0, 1}};
+
+    while (n > 0)
+    {
+        if (n & 1)
+        {
+            // 如果 n 是奇数，将结果累乘到 tempResult
+            long temp[2][2];
+            Multiply(base, tempResult, temp);
+            // 将 temp 拷贝回 tempResult
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    tempResult[i][j] = temp[i][j];
+                }
+            }
+        }
+        // base = base * base
+        long tempBase[2][2];
+        Multiply(base, base, tempBase);
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                base[i][j] = tempBase[i][j];
+            }
+        }
+        n >>= 1; // n 除以 2
+    }
+
+    // 将最终结果拷贝到输出参数
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            result[i][j] = tempResult[i][j];
+        }
+    }
+}
+
 // 矩阵快速幂:
 // Time: O(logN)
 // Space: O(1)
 int ClimbStairs_E(int n)
 {
+    if (n == 1)
+    {
+        return 1;
+    }
+    if (n == 2)
+    {
+        return 2;
+    }
     
+    long tranVec[2][2] = {{1, 1}, {1, 0}};
+    long vec[2][2];
+    MatrixPow(tranVec, n, vec);
+    
+    return (int)vec[0][0];
 }
