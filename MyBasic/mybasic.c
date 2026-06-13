@@ -72,6 +72,8 @@ int **GenerateRandomVec2D(int low, int high, int row, int col)
     srand(time(0));
     for (int i = 0; i < row; i++)
     {
+        vec[i] = (int *)malloc(sizeof(int) * col);
+        memset(vec[i], 0, sizeof(int) * col);
         for (int j = 0; j < col; j++)
         {
             int v = (rand() % (high - low + 1)) + low;
@@ -106,13 +108,21 @@ void PrintVecElement2D(int **vec, int row, int col)
 // 随机字符串:
 char *GenerateRandomString(int n, char *arr, int arrLen)
 {
+    if (n <= 0 || arrLen <= 0 || arr == NULL)
+    {
+        return NULL;
+    }
     char *str = (char *)malloc((n + 1) * sizeof(char));
-    memset(str, '\0', n + 1);
+    if(str == NULL)
+    {
+        return NULL;
+    }
     for (int i = 0; i < n; i++)
     {
-        int index = rand() % (arrLen - 1);
+        int index = rand() % (arrLen);
         str[i] = arr[index];
     }
+    str[n] = '\0'; 
     return str;
 }
 

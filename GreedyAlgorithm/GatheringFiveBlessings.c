@@ -32,7 +32,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 10);
     char arr1[] = {'0', '1'};
-    char **strs = GenerateRandomStringVecFixed(n, 5, arr1, 2);
+    int len = sizeof(arr1) / sizeof(arr1[0]);
+    char **strs = GenerateRandomStringVecFixed(n, 5, arr1, len);
     PrintStringVec(strs, n);
     int ans_A = GatheringFiveBlessings(strs, n);
     printf("该团队最多可以集齐 %d 套五福 ", ans_A);

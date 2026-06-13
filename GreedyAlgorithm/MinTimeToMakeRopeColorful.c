@@ -38,7 +38,8 @@ int main()
 {
     int l = GenerateRandomNum(1, 10);
     char arr[] = {'a', 'b', 'c'};
-    char *str = GenerateRandomString(l, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(l, arr, len);
     int *vec = GenerateRandomVec(1, 5, l);
     int ans = MinTimeToMakeRopeColorful(str, vec, l);
     PrintVecElement(vec, l);

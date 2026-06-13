@@ -41,7 +41,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 9);
     char arr[] = {'0', '1'};
-    char *a = GenerateRandomString(n, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *a = GenerateRandomString(n, arr, len);
     PrintString(a);
     int ans = BestClosingTime(a);
     printf("在确保代价 最小 的前提下，商店的 最早 关门时间 为: %d\n", ans);

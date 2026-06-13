@@ -35,7 +35,32 @@ int main()
     FreeVec(arr);
 }
 
+// 滑动窗口：
+// Time: O(n)
+// Space: O(1)
 int LongestSubarray(int* nums, int numsSize)
 {
-    
+    int ans = 0;
+	int cnt = 0;
+	int left = 0;
+	int right = 0;
+	while(right < numsSize)
+	{
+		if(nums[right] == 0)
+		{
+			cnt++;
+		}
+		while(cnt > 1)
+		{
+			if(nums[left] == 0)
+			{
+				cnt--;
+				
+			}
+			left++;
+		}
+		ans = fmax(ans, right - left + 1);
+		right++;
+	}
+	return ans - 1;
 }

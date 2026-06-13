@@ -33,7 +33,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 10);
     char arr[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-    char *str = GenerateRandomString(n, arr, strlen(str));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     int ans_A = CountKeyChanges_A(str);
     int ans_B = CountKeyChanges_B(str);

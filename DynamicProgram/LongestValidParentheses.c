@@ -27,7 +27,8 @@ int main()
 {
     int n = GenerateRandomNum(0, 20);
     char arr[] = {'(', ')'};
-    char* s = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char* s = GenerateRandomString(n, arr, len);
     PrintString(s); 
     int ansA =  LongestValidParentheses(s);
     printf("最长有效括号长度为：%d", ansA);

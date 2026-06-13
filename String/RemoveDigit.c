@@ -36,7 +36,8 @@ int main()
     int n = GenerateRandomNum(1, 20);
     int k = GenerateRandomNum(1, n);
     char arr1[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    char *number = GenerateRandomString(n, arr1, strlen(arr1));
+    int len = (int)(sizeof(arr1) / sizeof(arr1[0]));
+    char *number = GenerateRandomString(n, arr1, len);
     char digit = number[k - 1];
     PrintString(number);
     char *ans_A = RemoveDigit_A(number, digit);

@@ -38,7 +38,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 10);
     char arr1[] = {'0', '1'};
-    char *str = GenerateRandomString(n, arr1, strlen(arr1));
+    int len = (int)(sizeof(arr1) / sizeof(arr1[0]));
+    char *str = GenerateRandomString(n, arr1, len);
     PrintString(str);
     long long ans_A = NumberOfWays(str);
     FreeString(str);

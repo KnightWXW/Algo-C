@@ -19,7 +19,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 20);
     char arr[] = {'0', '1'};
-    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     int ans_A = SubStringExcluding110(str);
     printf("不包含110的最长子串的长度: %d\n", ans_A);

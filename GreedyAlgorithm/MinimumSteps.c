@@ -29,22 +29,76 @@
 //          1 <= n == s.length <= 105
 //          s[i] 不是 '0'，就是 '1'。
 
-long long MinimumSteps(char* s);
+long long MinimumSteps_A(char *s);
+long long MinimumSteps_B(char *s);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 10);
+    int n = GenerateRandomNum(1, 20);
     char arr1[] = {'0', '1'};
-    char *str = GenerateRandomString(n, arr1, strlen(arr1));
+    int len = (int)(sizeof(arr1) / sizeof(arr1[0]));
+    char *str = GenerateRandomString(n, arr1, len);
     PrintString(str);
-    long long ans_A = MinimumSteps(str);
+    long long ans_A = MinimumSteps_A(str);
+    long long ans_B = MinimumSteps_B(str);
     FreeString(str);
     printf("将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数 为 %lld \n", ans_A);
+    printf("将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数 为 %lld \n", ans_B);
 }
 
-long long MinimumSteps(char* s)
+// 根据最终位置计算
+// Time: O(N)
+// Space: O(1)
+long long MinimumSteps_A(char *s)
 {
     int l = strlen(s);
     long long ans = 0;
+    long long a = 0;
+    for (int i = 0; i < l; i++)
+    {
+        a += s[i] - '0';
+    }
+    int i = l - 1;
+    int j = l - a - 1;
+    int index = j;
+    while (j >= 0 && i > index)
+    {
+        if (s[i] == '1')
+        {
+            i--;
+        }
+        if (s[j] == '0')
+        {
+            j--;
+        }
+        if (j >= 0 && s[i] == '0' && s[j] == '1')
+        {
+            ans += i - j;
+            i--;
+            j--;
+        }
+    }
+    return ans;
+}
 
+// 贪心 
+// Time: O(N)
+// Space: O(1)
+long long MinimumSteps_B(char *s)
+{
+    int l = strlen(s);
+    long long ans = 0;
+    long long one = 0;
+    for (int i = 0; i < l; i++)
+    {
+        if (s[i] == '1')
+        {
+            one++;
+        }
+        else
+        {
+            ans += one;
+        }
+    }
+    return ans;
 }

@@ -38,7 +38,8 @@ int main()
     int n = GenerateRandomNum(5, 20);
     int k = GenerateRandomNum(0, n - 5);
     char arr[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-    char *str = GenerateRandomString(n, arr, strlen(str) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     printf("word 为：\n");
     int ans_A = CountOfSubstrings1(str, k);

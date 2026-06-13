@@ -24,7 +24,8 @@ int main()
     int n = GenerateRandomNum(1, 20);
     int target = GenerateRandomNum(0, n / 2 + 1);
     char arr[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-    char *str = GenerateRandomString(n, arr, strlen(str));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     char *ans_A = DynamicPassword(str, target);
     printf("更新 %d 个字符后的密码字符串为：\n", target);

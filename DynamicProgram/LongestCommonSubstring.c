@@ -23,8 +23,9 @@ int main()
     int n1 = GenerateRandomNum(1, 10);
     int n2 = GenerateRandomNum(1, 8);
     char arr[] = {'a', 'b', 'c', 'd'};
-    char *s1 = GenerateRandomString(n1, arr, strlen(arr));
-    char *s2 = GenerateRandomString(n2, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *s1 = GenerateRandomString(n1, arr, len);
+    char *s2 = GenerateRandomString(n2, arr, len);
     PrintString(s1);
     PrintString(s2);
     int ansA = LongestCommonSubstring_A(s1, s2);

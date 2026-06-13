@@ -45,7 +45,8 @@ int main()
 {
     int n = GenerateRandomNum(0, 10);
     char arr[] = {'R', 'D'};
-    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     char* ans_A = PredictPartyVictory(str);
     printf("最终胜利一方为：");

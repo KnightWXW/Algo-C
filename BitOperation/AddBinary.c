@@ -24,8 +24,9 @@ int main()
     int n1 = GenerateRandomNum(1, 10);
     int n2 = GenerateRandomNum(1, 9);
     char arr[] = {'0', '1'};
-    char *a = GenerateRandomString(n1, arr, strlen(arr));
-    char *b = GenerateRandomString(n2, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *a = GenerateRandomString(n1, arr, len);
+    char *b = GenerateRandomString(n2, arr, len);
     PrintString(a);
     PrintString(b);
     char *ans = AddBinary(a, b);

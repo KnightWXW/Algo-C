@@ -29,7 +29,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 10);
     char arr[] = {'a', 'b', 'c'};
-    char *str = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     int ans_A = AddMinimum(str);
     printf("word 有效 需要插入的最少字母数为 %d\n", ans_A);

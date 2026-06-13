@@ -11,7 +11,8 @@ int main()
     int a = GenerateRandomNum(1, 5);
     int b = GenerateRandomNum(6, 10);
     char arr[] = {'a','b','c','d','e','f','g'};
-    char **vec = GenerateRandomStringVecUnfixed(l, a, b, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char **vec = GenerateRandomStringVecUnfixed(l, a, b, arr, len);
     PrintStringVec(vec, l);
     char* ans = lowestLexicography(vec, l);
     PrintString(ans);

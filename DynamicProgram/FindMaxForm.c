@@ -31,7 +31,8 @@ int main()
     int m = GenerateRandomNum(1, 20);
     int n = GenerateRandomNum(1, 10);
     char arr[] = {'0', '1'};
-    char **vec = GenerateRandomStringVecUnfixed(l, 1, 10, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char **vec = GenerateRandomStringVecUnfixed(l, 1, 10, arr, len);
     PrintStringVec(vec, m);
     printf("暴力递归: 最大子集的长度 为 %d\n", FindMaxForm_A(vec, l, m, n));
     printf("记忆化搜索: 最大子集的长度 为 %d\n", FindMaxForm_B(vec, l, m, n));

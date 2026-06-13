@@ -24,7 +24,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 20);
     char arr[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-    char *str = GenerateRandomString(n, arr, 26);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *str = GenerateRandomString(n, arr, len);
     PrintString(str);
     int ans = ConsecutiveCharacters(str);
     printf("字符串 s 的 能量 为 %d 。\n", ans);

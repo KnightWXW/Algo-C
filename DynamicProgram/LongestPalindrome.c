@@ -23,7 +23,8 @@ int main()
 {
     int n1 = GenerateRandomNum(1, 10);
     char arr[] = {'a', 'b', 'c', 'd'};
-    char *s = GenerateRandomString(n1, arr, strlen(arr));
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *s = GenerateRandomString(n1, arr, len);
     PrintString(s);
     char *ansA = LongestPalindrome_A(s);
     printf("暴力递归: 字符串 s 中最长的 回文 子串为:\n");

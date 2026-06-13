@@ -14,7 +14,8 @@ int main()
 {
     int n = GenerateRandomNum(0, 50);
     char arr[] = {'.', 'X'};
-    char *s = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *s = GenerateRandomString(n, arr, len);
     printf("str 字符串为：");
     PrintString(s);
     int ans = MinLightNum(s);

@@ -28,7 +28,8 @@ int main()
     int n = GenerateRandomNum(1, 20);
     int k = GenerateRandomNum(1, n);
     char arr1[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'};
-    char *s = GenerateRandomString(n, arr1, strlen(arr1));
+    int len = (int)(sizeof(arr1) / sizeof(arr1[0]));
+    char *s = GenerateRandomString(n, arr1, len);
     char letter = s[k - 1];
     PrintString(s);
     int ans_A = PercentageLetter(s, letter);

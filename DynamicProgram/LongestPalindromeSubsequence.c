@@ -29,7 +29,8 @@ int main()
 {
     int n = GenerateRandomNum(0, 20);
     char arr[] = {'a', 'b', 'c'};
-    char *s = GenerateRandomString(n, arr, strlen(arr) + 1);
+    int len = (int)(sizeof(arr) / sizeof(arr[0]));
+    char *s = GenerateRandomString(n, arr, len);
     PrintString(s);
     int ansA = LongestPalindromeSubsequence_A(s);
     int ansB = LongestPalindromeSubsequence_B(s);

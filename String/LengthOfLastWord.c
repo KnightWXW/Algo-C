@@ -31,7 +31,8 @@ int main()
 {
     int n = GenerateRandomNum(1, 10);
     char arr1[] = {'A', 'B', 'C', ' '};
-    char *str = GenerateRandomString(n, arr1, strlen(arr1));
+    int len = (int)(sizeof(arr1) / sizeof(arr1[0]));
+    char *str = GenerateRandomString(n, arr1, len);
     PrintString(str);
     int ans_A = LengthOfLastWord_A(str);
     int ans_B = LengthOfLastWord_B(str);
