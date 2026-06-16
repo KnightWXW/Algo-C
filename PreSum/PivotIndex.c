@@ -40,7 +40,7 @@ int main()
     int *vec = GenerateRandomVec(-100, 100, n);
     PrintVecElement(vec, n);
     int ans_A = PivotIndex(vec, n);
-    printf("最高点的海拔 为: %d \n", ans_A);
+    printf("数组的中心下标: %d \n", ans_A);
     FreeVec(vec);
 }
 
