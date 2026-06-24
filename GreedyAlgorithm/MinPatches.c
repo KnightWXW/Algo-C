@@ -4,7 +4,7 @@
 
 //      链接：https://leetcode.cn/problems/patching-array/
 
-//      给定一个已排序的正整数数组 nums ，和一个正整数 n 。
+//      给定一个已排序的正整数数组 nums，和一个正整数 n 。
 //      从 [1, n] 区间内选取任意个数字补充到 nums 中，
 //      使得 [1, n] 区间内的任何数字都可以用 nums 中某几个数字的和来表示。
 //      请返回 满足上述要求的最少需要补充的数字个数 。
@@ -30,23 +30,49 @@
 //          nums 按 升序排列
 //          1 <= n <= 231 - 1
 
-int MinPatches(int* nums, int numsSize, int n);
+int MinPatches(int *nums, int numsSize, int n);
+int CompareInt(const void *a, const void *b);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
-    int l = GenerateRandomNum(1, 100);
-    int* vec = GenerateRandomVec(1, 50, n);
+    int n = GenerateRandomNum(1, 10);
+    int num = GenerateRandomNum(50, 100);
+    int *vec = GenerateRandomVec(1, 50, n);
+    qsort(vec, n, sizeof(int), CompareInt);
     PrintVecElement(vec, n);
-    int ans_A = MinPatches(vec, n, l);
-    printf("最少需要补充的数字个数为: %d\n", ans_A);
+    int ans_A = MinPatches(vec, n, num);
+    printf("正整数为 %d 时, 最少需要补充的数字个数为: %d\n", num, ans_A);
     FreeVec(vec);
 }
 
-// 贪心：
-// Time: O(N)
-// Space: O(N)
-int MinPatches(int* nums, int numsSize, int n)
+int CompareInt(const void *a, const void *b)
 {
-    
+    int *tema = (int *)a;
+    int *temb = (int *)b;
+    return (*tema) - (*temb);
+}
+
+// 贪心:
+//   若选取数字为 1,2,4,8...2ⁿ(2 的幂次),子集和可以连续覆盖 1 ~ 2ⁿ⁺¹-1
+// Time: O(N)
+// Space: O(1)
+int MinPatches(int *nums, int numsSize, int n)
+{
+    long k = 1;
+    int ans = 0;
+    int i = 0;
+    while (k <= n)
+    {
+        if (i < numsSize && nums[i] <= k)
+        {
+            k += nums[i];
+            i++;
+        }
+        else
+        {
+            k <<= 1;
+            ans++;
+        }
+    }
+    return ans;
 }
