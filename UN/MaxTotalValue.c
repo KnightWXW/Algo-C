@@ -46,3 +46,8 @@ int main()
     printf("左右元素和的差值 为\n");
     FreeVec(vec);
 }
+
+long long MaxTotalValue(int* nums, int numsSize, int k)
+{
+    
+}
