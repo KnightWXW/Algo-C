@@ -28,12 +28,12 @@
 //          1 <= bucket.length == vat.length <= 100
 //          0 <= bucket[i], vat[i] <= 10^4
 
-int StoreWater(int* bucket, int bucketSize, int* vat, int vatSize);
+int StoreWater(int *bucket, int bucketSize, int *vat, int vatSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 100);
-    int* bucket = GenerateRandomVec(0, 100, n);
+    int n = GenerateRandomNum(1, 10);
+    int* bucket = GenerateRandomVec(0, 10, n);
     int* vat = GenerateRandomVec(0, 99, n);
     PrintVecElement(bucket, n);
     PrintVecElement(vat, n);
@@ -43,11 +43,31 @@ int main()
     FreeVec(vat);
 }
 
-// 贪心算法
+// 贪心:
 // Time: O(N * C)
 // Space: O(1)
-int StoreWater(int* bucket, int bucketSize, int* vat, int vatSize)
+int StoreWater(int *bucket, int bucketSize, int *vat, int vatSize)
 {
-    int ans = 0;
-
+    int ans = INT_MAX;
+    int maxk = 0;
+    for (int i = 0; i < bucketSize; i++)
+    {
+        maxk = max(maxk, vat[i]);
+    }
+    if (maxk == 0)
+    {
+        return 0;
+    }
+    int k = 1;
+    while (k < maxk)
+    {
+        int tem = k;
+        for (int i = 0; i < bucketSize; i++)
+        {
+            tem += max(0, ((vat[i] + k - 1) / k - bucket[i]));
+        }
+        ans = min(ans, tem);
+        k++;
+    }
+    return ans;
 }
