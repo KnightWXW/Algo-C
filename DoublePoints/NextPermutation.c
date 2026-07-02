@@ -30,7 +30,7 @@
 //          1 <= nums.length <= 100
 //          0 <= nums[i] <= 100
 
-void NextPermutation(int* nums, int numsSize);
+void NextPermutation(int *nums, int numsSize);
 
 int main()
 {
@@ -43,9 +43,47 @@ int main()
     FreeVec(arr);
 }
 
-// 回溯
-
-void NextPermutation(int* nums, int numsSize)
+// 两数交换
+void swap(int *a, int *b)
 {
-    
+    int tem = *a;
+    *a = *b;
+    *b = tem;
+}
+
+// 反转数组
+void reverse(int *vec, int i, int j)
+{
+    while (i <= j)
+    {
+        swap(&vec[i], &vec[j]);
+        i++;
+        j--;
+    }
+}
+
+// 双指针:
+// Time: O(N)
+// Space: O(1)
+void NextPermutation(int *nums, int numsSize)
+{
+    // 从右往左找第一个「左侧小于右侧」的下标 i
+    int i = numsSize - 2;
+    while (i >= 0 && nums[i] >= nums[i + 1])
+    {
+        i--;
+    }
+    if (i >= 0)
+    {
+        // 从最右侧往左找第一个比 nums [i] 大的数,下标 j
+        int j = numsSize - 1;
+        while (nums[j] <= nums[i])
+        {
+            j--;
+        }
+        // 交换 i, j 位置的两数
+        swap(&nums[i], &nums[j]);
+    }
+    // 反转 i 位置右侧的数组
+    reverse(nums, i + 1, numsSize - 1);
 }
