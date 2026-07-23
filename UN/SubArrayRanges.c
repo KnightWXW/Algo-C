@@ -11,7 +11,7 @@
 //          输入：nums = [1,2,3]
 //          输出：4
 //          解释：nums 的 6 个子数组如下所示：
-//              [1]，范围 = 最大 - 最小 = 1 - 1 = 0 
+//              [1]，范围 = 最大 - 最小 = 1 - 1 = 0
 //              [2]，范围 = 2 - 2 = 0
 //              [3]，范围 = 3 - 3 = 0
 //              [1,2]，范围 = 2 - 1 = 1
@@ -38,19 +38,37 @@
 //          -109 <= nums[i] <= 109
 //      进阶：你可以设计一种时间复杂度为 O(n) 的解决方案吗？
 
-long long SubArrayRanges(int* nums, int numsSize);
+long long SubArrayRanges(int *nums, int numsSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
-    int *vec = GenerateRandomVec(-1000, 1000, n);
+    int n = GenerateRandomNum(1, 20);
+    int *vec = GenerateRandomVec(-100, 100, n);
     PrintVecElement(vec, n);
     long long ans_A = SubArrayRanges(vec, n);
     printf("所有 子数组范围的 和 为: %llu\n", ans_A);
     FreeVec(vec);
 }
 
-long long SubArrayRanges(int* nums, int numsSize)
+// 双重遍历
+// Time: O(N^2)
+// Space: O(1)
+long long SubArrayRanges(int *nums, int numsSize)
 {
-    
+    long long ans = 0;
+    int minVal = 0;
+    int maxVal = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        minVal = nums[i];
+        maxVal = nums[i];
+        for (int j = i; j < numsSize; j++)
+        {
+            int val = nums[j];
+            maxVal = max(maxVal, val);
+            minVal = min(minVal, val);
+            ans += (maxVal - minVal);
+        }
+    }
+    return ans;
 }

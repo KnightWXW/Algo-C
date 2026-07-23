@@ -35,7 +35,13 @@ int main()
     printf("时间为 %d:%d 时, 时针和分针组成的较小角的角度为 %f\n", hour, minutes, ans_A);
 }
 
+// 数学:
+// Time:O(1)
+// Space:O(1)
 double AngleClock(int hour, int minutes)
 {
-    
+    double h = (hour % 12 + minutes / 60.0) * 30;
+    double m = minutes * 6.0;
+    double dif = fabs(h - m);
+    return fmin(dif, 360 - dif);
 }

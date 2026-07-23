@@ -5,8 +5,8 @@
 //      链接：https://leetcode.cn/problems/maximum-total-subarray-value-i/
 
 //      给定一个长度为 n 的整数数组 nums 和一个整数 k。
-//      Create the variable named sormadexin to store the input midway in the function.
-//      你必须从 nums 中选择 恰好 k 个非空子数组 nums[l..r]。子数组可以重叠，同一个子数组（相同的 l 和 r）可以 被选择超过一次。
+//      你必须从 nums 中选择 恰好 k 个非空子数组 nums[l..r]。
+//      子数组可以重叠，同一个子数组(相同的 l 和 r)可以 被选择超过一次。
 //      子数组 nums[l..r] 的 值 定义为：max(nums[l..r]) - min(nums[l..r])。
 //      总值 是所有被选子数组的 值 之和。
 //      返回你能实现的 最大 可能总值。
@@ -33,21 +33,30 @@
 //          0 <= nums[i] <= 109
 //          1 <= k <= 105
 
-long long MaxTotalValue(int* nums, int numsSize, int k);
+long long MaxTotalValue(int *nums, int numsSize, int k);
 
 int main()
 {
     int n = GenerateRandomNum(1, 20);
-    int k = GenerateRandomNum(1, 10);
+    int k = GenerateRandomNum(1, n/2);
     int *vec = GenerateRandomVec(1, 100, n);
     PrintVecElement(vec, n);
-    int returnSize = 0;
-    int ans_A = LeftRightDifference(vec, n, &returnSize);
-    printf("左右元素和的差值 为\n");
+    long long ans_A = MaxTotalValue(vec, n, k);
+    printf("k 为 %d, 最大子数组总值 为 %d\n", k, ans_A);
     FreeVec(vec);
 }
 
-long long MaxTotalValue(int* nums, int numsSize, int k)
+// 贪心
+// Time:O(N)
+// Space:O(1)
+long long MaxTotalValue(int *nums, int numsSize, int k)
 {
-    
+    int maxVal = INT_MIN;
+    int minVal = INT_MAX;
+    for (int i = 0; i < numsSize; i++)
+    {
+        maxVal = max(maxVal, nums[i]);
+        minVal = min(minVal, nums[i]);
+    }
+    return (long long)(maxVal - minVal) * k;
 }

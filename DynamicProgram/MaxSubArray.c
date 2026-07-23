@@ -41,3 +41,14 @@ int main()
     printf("贪心算法: 连续子数组的最大和为 %d \n", ansE);
     FreeVec(vec);
 }
+
+int DFSMaxSubArray_A(int* nums, int numsSize)
+{
+    
+}
+
+int MaxSubArray_A(int* nums, int numsSize)
+{
+
+}
+
