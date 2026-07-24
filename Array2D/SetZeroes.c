@@ -54,6 +54,7 @@ int main()
     // SetZeroes_C(vec2, row2, &col2);
     printf("数组置零后为：\n");
     PrintVecElement2D(vec0, row0, col0);
+    FreeVec2D(vec0, row0);
 }
 
 // 标记数组：
