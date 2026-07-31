@@ -26,9 +26,9 @@
 //          1 <= nums.length <= 100
 //          1 <= nums[i] <= 104
 
-int MinElement(int *nums, int numsSize)
+int MinElement(int *nums, int numsSize);
 
-    int main()
+int main()
 {
     int n = GenerateRandomNum(1, 20);
     int *vec = GenerateRandomVec(1, 100, n);
