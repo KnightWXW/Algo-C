@@ -1,4 +1,4 @@
-#include "../Mybasic/mybasic.h"
+#include "../../Mybasic/mybasic.h"
 
 //      LeetCode 88. 合并两个有序数组
 
