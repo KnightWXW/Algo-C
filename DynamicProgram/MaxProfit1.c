@@ -21,19 +21,56 @@
 //          输出：0
 //          解释：在这种情况下, 没有交易完成, 所以最大利润为 0。
 
-int MaxProfit1_A(int* prices, int pricesSize);
+int MaxProfit1_A(int *prices, int pricesSize);
+int MaxProfit1_B(int *prices, int pricesSize);
 
 int main()
 {
     int n = GenerateRandomNum(1, 30);
-    int* vec = GenerateRandomVec(1, 100, n);
+    int *vec = GenerateRandomVec(1, 100, n);
     PrintVecElement(vec, n);
     int ans_A = MaxProfit1_A(vec, n);
+    int ans_B = MaxProfit1_B(vec, n);
     printf("从这笔交易中获取的最大利润为: %d\n", ans_A);
+    printf("从这笔交易中获取的最大利润为: %d\n", ans_B);
     FreeVec(vec);
 }
 
-int MaxProfit1_A(int* prices, int pricesSize)
+// 双层遍历
+// Space: O(n^2)
+// Time: O(1)
+int MaxProfit1_A(int *prices, int pricesSize)
 {
-    
+    int ans = 0;
+    int t = 0;
+    for (int i = 0; i < pricesSize; i++)
+    {
+        for (int j = i; j < pricesSize; j++)
+        {
+            t = fmax(t, prices[j] - prices[i]);
+        }
+        ans = fmax(ans, t);
+    }
+    return ans;
+}
+
+// 贪心
+// Space: O(n)
+// Time: O(1)
+int MaxProfit1_B(int *prices, int pricesSize)
+{
+    int ans = 0;
+    int minVal = prices[0];
+    for (int i = 1; i < pricesSize; i++)
+    {
+        if (minVal > prices[i])
+        {
+            minVal = prices[i];
+        }
+        else if (prices[i] - minVal > ans)
+        {
+            ans = prices[i] - minVal;
+        }
+    }
+    return ans;
 }
