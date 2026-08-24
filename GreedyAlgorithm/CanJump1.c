@@ -4,9 +4,9 @@
 
 //      链接：https://leetcode.cn/problems/jump-game/
 
-//      给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
+//      给你一个非负整数数组 nums ，你最初位于数组的 第一个下标。
 //      数组中的每个元素代表你在该位置可以跳跃的最大长度。
-//      判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
+//      判断你是否能够到达最后一个下标，如果可以，返回 true；否则，返回 false。
 //      示例 1：
 //          输入：nums = [2,3,1,1,4]
 //          输出：true
@@ -20,15 +20,15 @@
 //          1 <= nums.length <= 104
 //          0 <= nums[i] <= 105
 
-bool CanJump(int* nums, int numsSize);
+bool CanJump(int *nums, int numsSize);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 50);
-    int *vec_A = GenerateRandomVec(0, 100, n);
+    int n = GenerateRandomNum(1, 20);
+    int *vec_A = GenerateRandomVec(0, 10, n);
     PrintVecElement(vec_A, n);
     int ans_A = CanJump(vec_A, n);
-    printf("能够到达最后一个下标 为:");
+    printf("能够到达最后一个下标吗？");
     PrintBool(ans_A);
     FreeVec(vec_A);
 }
@@ -36,7 +36,18 @@ int main()
 // 贪心:
 // Time: O(N)
 // Space: O(1)
-bool CanJump(int* nums, int numsSize)
+bool CanJump(int *nums, int numsSize)
 {
-    
+    int maxRange = 0;
+    int cur = 0;
+    while (cur < numsSize)
+    {
+        if (cur > maxRange)
+        {
+            return false;
+        }
+        maxRange = max(maxRange, cur + nums[cur]);
+        cur++;
+    }
+    return true;
 }
