@@ -210,7 +210,7 @@ int LongestCommonSubstring_D(char *s1, char *s2)
             {
                 if (s1[i] == s2[j])
                 {
-                    dp1[j] = dp2[j - 1]  + 1;
+                    dp1[j] = dp2[j - 1] + 1;
                 }
                 else
                 {
@@ -230,5 +230,4 @@ int LongestCommonSubstring_D(char *s1, char *s2)
 // Space: O(1)
 int LongestCommonSubstring_E(char *s1, char *s2)
 {
-    
 }
