@@ -39,6 +39,9 @@ int main()
     FreeString(str);
 }
 
+// 栈
+// Time: O(n)
+// Space: O(n)
 bool IsValid_A(char *s)
 {
     int l = strlen(s);

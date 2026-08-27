@@ -47,5 +47,6 @@ int main()
 
 long long RepairCars(int* ranks, int ranksSize, int cars)
 {
+    long long ans = 0;
     
 }

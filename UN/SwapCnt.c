@@ -7,4 +7,19 @@
 
 int SwapCnt(char* s);
 
+int main()
+{
+    int n = GenerateRandomNum(0, 20);
+    char arr[2] = "GB";
+    char *str = GenerateRandomString(n, arr, 2);
+    PrintString(str);
+    int ans_A = LengthOfLongestSubstring(str);
+    printf("至少需要交换 %d 次", ans_A);
+    FreeString(str);
+}
 
+int SwapCnt(char* s)
+{
+    int l = strlen(s);
+    
+}
