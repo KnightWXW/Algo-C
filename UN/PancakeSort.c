@@ -2,6 +2,8 @@
 
 //      LeetCode 969. 煎饼排序
 
+//      链接: https://leetcode.cn/problems/pancake-sorting/
+
 //      给你一个整数数组 arr ，请使用 煎饼翻转 完成对数组的排序。
 //      一次煎饼翻转的执行过程如下：
 //      选择一个整数 k ，1 <= k <= arr.length
@@ -31,3 +33,20 @@
 
 int* PancakeSort(int* arr, int arrSize, int* returnSize);
 
+int main()
+{
+    int n = GenerateRandomNum(1, 20);
+    int *vec = GenerateRandomVec(1, 100, n);
+    PrintVecElement(vec, n);
+    int rs = 0;
+    int* ans = PancakeSort(vec, n, &rs);
+    printf("煎饼翻转 完成对数组的排序后的顺序为:\n");
+    PrintVecElement(ans, rs);
+    FreeVec(vec);
+}
+
+
+int* PancakeSort(int* arr, int arrSize, int* returnSize)
+{
+
+}
