@@ -24,16 +24,16 @@
 //          intervals[i].length == 2
 //          -5 * 104 <= starti < endi <= 5 * 104
 
-int EraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize);
+int EraseOverlapIntervals(int **intervals, int intervalsSize, int *intervalsColSize);
 
 int main()
 {
     int r1 = 4;
     int c1 = 2;
-    int** vec1 = (int**)malloc(sizeof(int*) * r1);
-    for(int i = 0; i < r1; i++)
+    int **vec1 = (int **)malloc(sizeof(int *) * r1);
+    for (int i = 0; i < r1; i++)
     {
-        vec1[i] = (int*)malloc(sizeof(int) * c1);
+        vec1[i] = (int *)malloc(sizeof(int) * c1);
     }
     vec1[0][0] = 1;
     vec1[0][1] = 2;
@@ -49,7 +49,28 @@ int main()
     FreeVec2D(vec1, r1);
 }
 
-int EraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize)
+int Compare2DInt(const void *a, const void *b)
 {
-    
+    int *tema = *(int **)a;
+    int *temb = *(int **)b;
+    return tema[1] - temb[1];
+}
+
+// 贪心:按照右端点升序排序
+// Time: O(NlogN)
+// Space: O(logN)
+int EraseOverlapIntervals(int **intervals, int intervalsSize, int *intervalsColSize)
+{
+    int ans = 1;
+    qsort(intervals, intervalsSize, sizeof(int *), Compare2DInt);
+    int right = intervals[0][1];
+    for (int i = 1; i < intervalsSize; i++)
+    {
+        if (right <= intervals[i][0])
+        {
+            ans++;
+            right = intervals[i][1];
+        }
+    }
+    return intervalsSize - ans;
 }
