@@ -6,7 +6,7 @@
 
 //      公司计划面试 2n 人。给你一个数组 costs ，其中 costs[i] = [aCosti, bCosti] 。
 //      第 i 人飞往 a 市的费用为 aCosti ，飞往 b 市的费用为 bCosti 。
-//      返回将每个人都飞到 a 、b 中某座城市的最低费用，要求每个城市都有 n 人抵达。
+//      返回将每个人都飞到 a、b 中某座城市的最低费用，要求每个城市都有 n 人抵达。
 //      示例 1：
 //          输入：costs = [[10,20],[30,200],[400,50],[30,20]]
 //          输出：110
@@ -46,16 +46,31 @@ int main()
     cost1[2][1] = 50;
     cost1[3][0] = 30;
     cost1[3][1] = 20;
-    printf("costs数组为：\n");
-    PrintVecElement2D(cost1, n1);
+    printf("costs数组为:\n");
+    PrintVecElement2D(cost1, n1, c1);
     int ans = TwoCitySchedCost(cost1, n1, &c1);
     printf("每个人 都飞到 a, b 中 某座城市 的 最低费用为：%d。\n", ans);
     FreeVec2D(cost1, n1);
 }
 
-// 贪心：
+int Compare2DInt(const void* a, const void* b)
+{
+    int* tema = *(int**)a;
+    int* temb = *(int**)b;
+    return (tema[0] - tema[1]) - (temb[0]- temb[1]);
+}
+
+// 贪心: 按照二维数组的差值进行排序
 // Time: O(NlogN)
 // Space: O(N)
 int TwoCitySchedCost(int **costs, int costsSize, int *costsColSize)
 {
+    qsort(costs, costsSize, sizeof(int*), Compare2DInt);
+    int ans = 0;
+    for(int i = 0;i < costsSize / 2; i++)
+    {
+        ans += costs[i][0];
+        ans += costs[costsSize - i - 1][1];
+    }
+    return ans;
 }
