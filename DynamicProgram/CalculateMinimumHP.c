@@ -33,16 +33,21 @@
 //          1 <= m, n <= 200
 //          -1000 <= dungeon[i][j] <= 1000
 
-int CalculateMinimumHP(int** dungeon, int dungeonSize, int* dungeonColSize);
+int CalculateMinimumHP_A(int **dungeon, int dungeonSize, int *dungeonColSize);
+int DFSCalculateMinimumHP_A(int **vec, int row, int col, int i, int j);
+int CalculateMinimumHP_B(int **dungeon, int dungeonSize, int *dungeonColSize);
+int DFSCalculateMinimumHP_B(int **vec, int row, int col, int i, int j, int **mem);
+int CalculateMinimumHP_C(int **dungeon, int dungeonSize, int *dungeonColSize);
+int CalculateMinimumHP_D(int **dungeon, int dungeonSize, int *dungeonColSize);
 
 int main()
 {
     int r1 = 3;
     int c1 = 3;
-    int** vec1 = (int**)malloc(sizeof(int*) * r1);
-    for(int i = 0; i < r1; i++)
+    int **vec1 = (int **)malloc(sizeof(int *) * r1);
+    for (int i = 0; i < r1; i++)
     {
-        vec1[i] = (int*)malloc(sizeof(int) * c1);
+        vec1[i] = (int *)malloc(sizeof(int) * c1);
     }
     vec1[0][0] = -2;
     vec1[0][1] = -3;
@@ -54,20 +59,151 @@ int main()
     vec1[2][1] = 30;
     vec1[2][2] = -5;
     PrintVecElement2D(vec1, r1, c1);
-    int ans1 = CalculateMinimumHP((int **)vec1, r1, &c1);
-    printf("确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans1);
+    int ans1 = CalculateMinimumHP_A((int **)vec1, r1, &c1);
+    printf("(暴力递归)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans1);
+    int ans2 = CalculateMinimumHP_B((int **)vec1, r1, &c1);
+    printf("(记忆化搜索)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans2);
+    int ans3 = CalculateMinimumHP_C((int **)vec1, r1, &c1);
+    printf("(动态规划)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans3);
+    int ans4 = CalculateMinimumHP_D((int **)vec1, r1, &c1);
+    printf("(动态规划[空间优化])确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans4);
     FreeVec2D(vec1, r1);
+}
 
-    int r2 = 1;
-    int c2= 1;
-    int** vec2 = (int**)malloc(sizeof(int*) * r2);
-    for(int i = 0; i < r2; i++)
+int DFSCalculateMinimumHP_A(int **vec, int row, int col, int i, int j)
+{
+    if (i >= row || j >= col)
     {
-        vec2[i] = (int*)malloc(sizeof(int) * c2);
+        return INT_MAX;
     }
-    vec2[0][0] = 0;
-    PrintVecElement2D(vec2, r2, c2);
-    int ans1 =  CalculateMinimumHP((int **)vec2, r2, &c2);
-    printf("确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans2);
-    FreeVec2D(vec1, r1);
+    if (i == row - 1 && j == col - 1)
+    {
+        return max(1, 1 - vec[i][j]);
+    }
+    int rightPart = DFSCalculateMinimumHP_A(vec, row, col, i, j + 1);
+    int downPart = DFSCalculateMinimumHP_A(vec, row, col, i + 1, j);
+    int ans = max(1, min(rightPart, downPart) - vec[i][j]);
+    return ans;
+}
+
+// 暴力递归
+// Time: O(N^2)
+// Space: O(N)
+int CalculateMinimumHP_A(int **dungeon, int dungeonSize, int *dungeonColSize)
+{
+    int row = dungeonSize;
+    int col = *dungeonColSize;
+    return DFSCalculateMinimumHP_A(dungeon, row, col, 0, 0);
+}
+
+int DFSCalculateMinimumHP_B(int **vec, int row, int col, int i, int j, int **mem)
+{
+    if (i >= row || j >= col)
+    {
+        return INT_MAX;
+    }
+    if (i == row - 1 && j == col - 1)
+    {
+        return fmax(1, 1 - vec[i][j]);
+    }
+    if (mem[i][j] != 0)
+    {
+        return mem[i][j];
+    }
+    int rightPart = DFSCalculateMinimumHP_B(vec, row, col, i, j + 1, mem);
+    int downPart = DFSCalculateMinimumHP_B(vec, row, col, i + 1, j, mem);
+    int ans = fmax(1, fmin(rightPart, downPart) - vec[i][j]);
+    mem[i][j] = ans;
+    return ans;
+}
+
+// 记忆化搜索
+// Time:O(N^2)
+// Space:O(N)
+int CalculateMinimumHP_B(int **dungeon, int dungeonSize, int *dungeonColSize)
+{
+    int row = dungeonSize;
+    int col = *dungeonColSize;
+    int **mem = (int **)malloc(sizeof(int *) * row);
+    for (int i = 0; i < row; i++)
+    {
+        mem[i] = (int *)malloc(sizeof(int *) * col);
+        memset(mem[i], 0, sizeof(int) * col);
+    }
+    int ans = DFSCalculateMinimumHP_B(dungeon, row, col, 0, 0, mem);
+    for (int i = 0; i < row; i++)
+    {
+        free(mem[i]);
+    }
+    return ans;
+}
+
+// 动态规划
+// Time:O(N*M)
+// Space:O(N*M)
+int CalculateMinimumHP_C(int **dungeon, int dungeonSize, int *dungeonColSize)
+{
+    int row = dungeonSize;
+    int col = *dungeonColSize;
+    int **dp = (int **)malloc(sizeof(int *) * row);
+    for (int i = 0; i < row; i++)
+    {
+        dp[i] = (int *)malloc(sizeof(int *) * col);
+        memset(dp[i], 0, sizeof(int) * col);
+    }
+    dp[row - 1][col - 1] = fmax(1, 1 - dungeon[row - 1][col - 1]);
+    for (int i = row - 2; i >= 0; i--)
+    {
+        dp[i][col - 1] = fmax(1, dp[i + 1][col - 1] - dungeon[i][col - 1]);
+    }
+    for (int j = col - 2; j >= 0; j--)
+    {
+        dp[row - 1][j] = fmax(1, dp[row - 1][j + 1] - dungeon[row - 1][j]);
+    }
+    for (int i = row - 2; i >= 0; i--)
+    {
+        for (int j = col - 2; j >= 0; j--)
+        {
+            dp[i][j] = fmax(1, fmin(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j]);
+        }
+    }
+    int ans = dp[0][0];
+    for (int i = 0; i < row; i++)
+    {
+        free(dp[i]);
+    }
+    return ans;
+}
+
+// 动态规划(空间优化)
+// Time:O(N*M)
+// Space:O(N*M)
+int CalculateMinimumHP_D(int **dungeon, int dungeonSize, int *dungeonColSize)
+{
+    int row = dungeonSize;
+    int col = *dungeonColSize;
+    int *dp = (int *)malloc(sizeof(int) * col);
+    memset(dp, 0, sizeof(int) * col);
+    dp[col - 1] = fmax(1, 1 - dungeon[row - 1][col - 1]);
+    for (int j = col - 2; j >= 0; j--)
+    {
+        dp[j] = fmax(1, dp[j + 1] - dungeon[row - 1][j]);
+    }
+    for (int i = row - 2; i >= 0; i--)
+    {
+        for (int j = col - 1; j >= 0; j--)
+        {
+            if (j == col - 1)
+            {
+                dp[j] = fmax(1, dp[j] - dungeon[i][j]);
+            }
+            else
+            {
+                dp[j] = fmax(1, fmin(dp[j], dp[j + 1]) - dungeon[i][j]);
+            }
+        }
+    }
+    int ans = dp[0];
+    free(dp);
+    return ans;
 }

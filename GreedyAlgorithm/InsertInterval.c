@@ -29,3 +29,27 @@
 //          0 <= start <= end <= 105
 
 int** InsertInterval(int** intervals, int intervalsSize, int* intervalsColSize, int* newInterval, int newIntervalSize, int* returnSize, int** returnColumnSizes);
+
+int main()
+{
+    int n1 = 5;
+    int c1 = 2;
+    int **vec1 = (int **)malloc(sizeof(int *) * n1);
+    for (int i = 0; i < n1; i++)
+    {
+        vec1[i] = (int *)malloc(sizeof(int) * c1);
+    }
+    vec1[0][0] = 10;
+    vec1[0][1] = 20;
+    vec1[1][0] = 30;
+    vec1[1][1] = 200;
+    vec1[2][0] = 400;
+    vec1[2][1] = 50;
+    vec1[3][0] = 30;
+    vec1[3][1] = 20;
+    printf("intervals数组为:\n");
+    PrintVecElement2D(vec1, n1, c1);
+    int ans = TwoCitySchedCost(vec1, n1, &c1);
+    printf("每个人 都飞到 a, b 中 某座城市 的 最低费用为：%d。\n", ans);
+    FreeVec2D(vec1, n1);
+}
