@@ -27,12 +27,20 @@ int main()
     char *s = GenerateRandomString(n1, arr, len);
     PrintString(s);
     char *ansA = LongestPalindrome_A(s);
-    printf("暴力递归: 字符串 s 中最长的 回文 子串为:\n");
+    printf("(暴力递归)字符串 s 中最长的 回文 子串为:\n");
     PrintString(ansA);
     char *ansB = LongestPalindrome_B(s);
-    printf("记忆化搜索: 字符串 s 中最长的 回文 子串为:\n");
+    printf("(记忆化搜索)字符串 s 中最长的 回文 子串为:\n");
     PrintString(ansB);
     FreeString(s);
     FreeString(ansA);
     FreeString(ansB);
+}
+
+
+
+char *LongestPalindrome_A(char *s)
+{
+    int l = strlen(s);
+
 }
