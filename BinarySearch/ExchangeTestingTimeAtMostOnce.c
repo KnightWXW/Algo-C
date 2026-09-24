@@ -52,6 +52,7 @@ int main()
     PrintVecElement2D(vec1, n1, n1);
     int ans_A = ExchangeTestingTimeAtMostOnce(nums1, l1, vec1, n1);
     printf("仪器最早在接受第 %d 个数字(从1开始计数)时完成测试。\n", ans_A); // 2
+    FreeVec2D(vec1, n1);
 
     int l2 = 12;
     int nums2[12] = {8, 9, 2, 7, 10, 1, 1, 1, 4, 5, 5, 3};
@@ -81,6 +82,7 @@ int main()
     PrintVecElement2D(vec2, n2, n2);
     int ans_B = ExchangeTestingTimeAtMostOnce(nums2, l2, vec2, n2);
     printf("仪器最早在接受第 %d 个数字(从1开始计数)时完成测试。\n", ans_B); // 6
+    FreeVec2D(vec2, n2);
 }
 
 int CheckExchangeTestingTimeAtMostOnce(int mid, int *nums, int **board, int n, int *used)
