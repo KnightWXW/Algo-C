@@ -24,6 +24,7 @@
 int *ProductExceptSelf_A(int *nums, int numsSize, int *returnSize);
 int *ProductExceptSelf_B(int *nums, int numsSize, int *returnSize);
 int *ProductExceptSelf_C(int *nums, int numsSize, int *returnSize);
+int *ProductExceptSelf_D(int *nums, int numsSize, int *returnSize);
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
     int returnLenC = 0;
     int *ans_C = ProductExceptSelf_C(vec, n, &returnLenC);
     int returnLenD = 0;
-    int *ans_D = ProductExceptSelf_C(vec, n, &returnLenD);
+    int *ans_D = ProductExceptSelf_D(vec, n, &returnLenD);
     printf("除自身以外数组的乘积 为：\n");
     PrintVecElement(ans_A, returnLenA);
     PrintVecElement(ans_B, returnLenB);

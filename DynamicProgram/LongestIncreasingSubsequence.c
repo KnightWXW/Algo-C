@@ -24,6 +24,9 @@
 //          你能将算法的时间复杂度降低到 O(n log(n)) 吗?
 
 int LengthOfLIS_A(int *nums, int numsSize);
+int LengthOfLIS_B(int *nums, int numsSize);
+int LengthOfLIS_C(int *nums, int numsSize);
+int LengthOfLIS_D(int *nums, int numsSize);
 
 int main()
 {
@@ -33,27 +36,104 @@ int main()
     int ansA = LengthOfLIS_A(nums, n);
     int ansB = LengthOfLIS_B(nums, n);
     int ansC = LengthOfLIS_C(nums, n);
-    printf("暴力递归: 最长递增子序列 长度 为 %d \n", ansA);
-    printf("记忆化搜索: 最长递增子序列 长度 为 %d \n", ansB);
+    printf("(暴力递归)最长递增子序列 长度 为 %d \n", ansA);
+    printf("(记忆化搜索)最长递增子序列 长度 为 %d \n", ansB);
+    printf("(动态规划)最长递增子序列 长度 为 %d \n", ansC);
     FreeVec(nums);
 }
 
-// 动态规划:
-// Time: O(N)
-// Space: O(N)
-int LengthOfLIS_A(int *nums, int numsSize)
-{
-    if (numsSize == 1)
-    {
-        return 1;
-    }
-    return DFSLengthOfLIS_A(nums, numsSize, numsSize - 1);
-}
-
-int DFSLengthOfLIS_A(int *nums, int numsSize, int i)
+int DFS_LengthOfLIS_A(int *nums, int i)
 {
     if (i == 0)
     {
         return 1;
     }
+    int tem = 1;
+    for (int j = 0; j < i; j++)
+    {
+        if (nums[i] > nums[j])
+        {
+            tem = max(DFS_LengthOfLIS_A(nums, j) + 1, tem);
+        }
+    }
+    return tem;
+}
+
+// 暴力递归
+// Time: O(2^N)
+// Space: O(N)
+int LengthOfLIS_A(int *nums, int numsSize)
+{
+    int ans = 1;
+    for (int i = 0; i < numsSize; i++)
+    {
+        int tem = DFS_LengthOfLIS_A(nums, i);
+        ans = max(ans, tem);
+    }
+    return ans;
+}
+
+int DFS_LengthOfLIS_B(int *nums, int i, int *mem)
+{
+    if (i == 0)
+    {
+        mem[i] = 1;
+        return 1;
+    }
+    if (mem[i] != 0)
+    {
+        return mem[i];
+    }
+    int tem = 1;
+    for (int j = 0; j < i; j++)
+    {
+        if (nums[i] > nums[j])
+        {
+            tem = max(DFS_LengthOfLIS_B(nums, j, mem) + 1, tem);
+        }
+    }
+    mem[i] = tem;
+    return tem;
+}
+
+// 记忆化搜索
+// Time: O(N^2)
+// Space: O(N)
+int LengthOfLIS_B(int *nums, int numsSize)
+{
+    int ans = 1;
+    int *mem = (int *)malloc(sizeof(int) * numsSize);
+    memset(mem, 0, sizeof(int) * numsSize);
+    for (int i = 0; i < numsSize; i++)
+    {
+        int tem = DFS_LengthOfLIS_B(nums, i, mem);
+        ans = max(ans, tem);
+    }
+    free(mem);
+    return ans;
+}
+
+// 动态规划
+// Time: O(N^2)
+// Space: O(N)
+int LengthOfLIS_C(int *nums, int numsSize)
+{
+    int ans = 1;
+    int *dp = (int *)malloc(sizeof(int) * numsSize);
+    memset(dp, 0, sizeof(int) * numsSize);
+    dp[0] = 1;
+    for (int i = 1; i < numsSize; i++)
+    {
+        dp[i] = 1;
+        for (int j = 0; j < i; j++)
+        {
+            if (nums[i] > nums[j])
+            {
+                dp[i] = max(dp[j] + 1, dp[i]);
+            }
+        }
+        ans = max(ans, dp[i]);
+    }
+    free(dp);
+    return ans;
 }

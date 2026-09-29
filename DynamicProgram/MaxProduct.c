@@ -44,9 +44,9 @@ int MaxProduct(int *nums, int numsSize)
     {
         int temMin = minMul;
         int temMax = maxMul;
-        maxMul = max(temMax * nums[i], max(temMax, temMin * nums[i]));
-        minMul = min(temMin * nums[i], max(temMin, temMax * nums[i]));
-        ans = max(ans, maxMul);
+        maxMul = max(nums[i], max(temMax * nums[i], temMin * nums[i]));
+        minMul = min(nums[i], min(temMin * nums[i], temMax * nums[i]));
+        ans = max(max(minMul, maxMul), ans);
     }
     return ans;
 }
