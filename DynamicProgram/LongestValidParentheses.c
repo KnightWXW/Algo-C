@@ -30,7 +30,7 @@ int main()
     int len = (int)(sizeof(arr) / sizeof(arr[0]));
     char* s = GenerateRandomString(n, arr, len);
     PrintString(s); 
-    int ansA =  LongestValidParentheses(s);
+    int ansA = LongestValidParentheses(s);
     printf("最长有效括号长度为：%d", ansA);
     FreeString(s);
 }
