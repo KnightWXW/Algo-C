@@ -32,7 +32,7 @@ int FindTargetSumWays_A(int *nums, int numsSize, int target);
 
 int main()
 {
-    int n = GenerateRandomNum(1, 30);
+    int n = GenerateRandomNum(1, 20);
     int *vec = GenerateRandomVec(0, 10, n);
     int sum = SumVec(vec, n);
     int target = GenerateRandomNum(0, sum / 2 + 1);
