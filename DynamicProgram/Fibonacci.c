@@ -38,11 +38,11 @@ int Fibonacci_E(int n);
 int main()
 {
     int num = GenerateRandomNum(0, 46);
-    printf("暴力递归: 第 %d 个斐波那契数 为 %d\n", num, Fibonacci_A(num));
-    printf("记忆化搜索: 第 %d 个斐波那契数 为 %d\n", num,Fibonacci_B(num));
-    printf("动态规划: 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_C(num));
-    printf("动态规划(空间优化): 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_D(num));
-    printf("矩阵快速幂: 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_E(num));
+    printf("(暴力递归) 第 %d 个斐波那契数 为 %d\n", num, Fibonacci_A(num));
+    printf("(记忆化搜索) 第 %d 个斐波那契数 为 %d\n", num,Fibonacci_B(num));
+    printf("(动态规划) 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_C(num));
+    printf("(动态规划[空间优化]): 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_D(num));
+    printf("(矩阵快速幂) 第 %d 个斐波那契数 为 %d\n",num, Fibonacci_E(num));
 }
 
 // 暴力递归：

@@ -39,9 +39,9 @@ int main()
     int ansA = LongestArithSeqLength_A(nums, n);
     int ansB = LongestArithSeqLength_B(nums, n);
     int ansC = LongestArithSeqLength_C(nums, n);
-    printf("暴力递归: 最长等差子序列的长度 为 %d \n", ansA);
-    printf("记忆化搜索: 最长等差子序列的长度 为 %d \n", ansB);
-    printf("动态规划: 最长等差子序列的长度 为 %d \n", ansC);
+    printf("(暴力递归) 最长等差子序列的长度 为 %d \n", ansA);
+    printf("(记忆化搜索) 最长等差子序列的长度 为 %d \n", ansB);
+    printf("(动态规划) 最长等差子序列的长度 为 %d \n", ansC);
     FreeVec(nums);
 }
 

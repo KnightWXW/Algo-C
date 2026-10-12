@@ -25,11 +25,11 @@ int NumSquares_A(int n);
 int main()
 {
     int num = GenerateRandomNum(1, 10000);
-    printf("暴力递归: 和为 %d 的完全平方数的最少数量 为 %d\n", num, NumSquares_A(num));
-    printf("记忆化搜索: 和为 %d 的完全平方数的最少数量 为 %d\n", num,NumSquares_B(num));
-    printf("动态规划: 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_C(num));
-    printf("动态规划(空间优化): 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_D(num));
-    printf("矩阵快速幂: 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_E(num));
+    printf("(暴力递归) 和为 %d 的完全平方数的最少数量 为 %d\n", num, NumSquares_A(num));
+    printf("(记忆化搜索) 和为 %d 的完全平方数的最少数量 为 %d\n", num,NumSquares_B(num));
+    printf("(动态规划) 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_C(num));
+    printf("(动态规划[空间优化]): 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_D(num));
+    printf("(矩阵快速幂) 和为 %d 的完全平方数的最少数量 为 %d\n",num, NumSquares_E(num));
 }
 
 int NumSquares_A(int n)

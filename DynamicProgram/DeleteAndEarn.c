@@ -36,10 +36,10 @@ int main()
     int ansB = DeleteAndEarn_B(vec, n);
     int ansC = DeleteAndEarn_C(vec, n);
     int ansD = DeleteAndEarn_D(vec, n);
-    printf("暴力递归: 通过操作获得的最大点数 为 %d\n", ansB);
-    printf("记忆化搜索: 通过操作获得的最大点数 为 %d\n", ansB);
-    printf("动态规划: 通过操作获得的最大点数 为 %d\n", ansC);
-    printf("动态规划(空间优化): 通过操作获得的最大点数 为 %d\n", ansD);
+    printf("(暴力递归) 通过操作获得的最大点数 为 %d\n", ansB);
+    printf("(记忆化搜索) 通过操作获得的最大点数 为 %d\n", ansB);
+    printf("(动态规划) 通过操作获得的最大点数 为 %d\n)", ansC);
+    printf("(动态规划[空间优化]) 通过操作获得的最大点数 为 %d\n", ansD);
     FreeVec(vec);
 }
 

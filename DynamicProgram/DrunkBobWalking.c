@@ -22,12 +22,13 @@ int main()
     int row = 2;
     int col = 8;
     int k = 7;
-    int ansA = DrunkBobWalking_A(n, m, row, col, k);
-    int ansB = DrunkBobWalking_B(n, m, row, col, k);
-    int ansC = DrunkBobWalking_C(n, m, row, col, k);
-    printf("暴力递归：%lf\n", ansA);
-    printf("记忆化搜索：%lf\n", ansB);
-    printf("动态规划：%lf\n", ansC); // 可计算k达到500
+    double ansA = DrunkBobWalking_A(n, m, row, col, k);
+    double ansB = DrunkBobWalking_B(n, m, row, col, k);
+    double ansC = DrunkBobWalking_C(n, m, row, col, k);
+    printf("在 n × m 的区域上，醉汉Bob 初始在 (row,col) 位置。Bob一共要迈出k步\n", n, m, row, col, k);
+    printf("(暴力递归) Bob 还在 n × m 的区域的概率 为 %lf\n", ansA);
+    printf("(记忆化搜索) Bob 还在 n × m 的区域的概率 为 %lf\n", ansB);
+    printf("(动态规划) Bob 还在 n × m 的区域的概率 为 %lf\n", ansC); // 可计算k达到500
 }
 
 // 暴力递归：

@@ -40,11 +40,11 @@ int main()
     int ansD = MaxSubArray_D(vec, n);
     int ansE = MaxSubArray_D(vec, n);
     PrintVecElement(vec, n);
-    printf("暴力递归: 连续子数组的最大和为 %d \n", ansA);
-    printf("记忆化搜索: 连续子数组的最大和为 %d \n", ansB);
-    printf("动态规划: 连续子数组的最大和为 %d \n", ansC);
-    printf("动态规划(空间压缩): 连续子数组的最大和为 %d \n", ansD);
-    printf("贪心算法: 连续子数组的最大和为 %d \n", ansE);
+    printf("(暴力递归) 连续子数组的最大和为 %d \n", ansA);
+    printf("(记忆化搜索) 连续子数组的最大和为 %d \n", ansB);
+    printf("(动态规划) 连续子数组的最大和为 %d \n", ansC);
+    printf("(动态规划[空间压缩]) 连续子数组的最大和为 %d \n", ansD);
+    printf("(贪心算法) 连续子数组的最大和为 %d \n", ansE);
     FreeVec(vec);
 }
 

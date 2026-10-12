@@ -34,7 +34,6 @@ int UniquePathsWithObstacles_B(int **obstacleGrid, int obstacleGridSize, int *ob
 int DFSUniquePathsWithObstacles_B(int **mat, int i, int j, int**mem);
 int UniquePathsWithObstacles_C(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
 int UniquePathsWithObstacles_D(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
-
 int UniquePathsWithObstacles_E(int **obstacleGrid, int obstacleGridSize, int *obstacleGridColSize);
 
 int main()
@@ -61,11 +60,11 @@ int main()
     int ansC = UniquePathsWithObstacles_C(vec1, r1, &c1);
     int ansD = UniquePathsWithObstacles_D(vec1, r1, &c1);
     int ansE = UniquePathsWithObstacles_E(vec1, r1, &c1);
-    printf("暴力递归: 机器人能够到达右下角的不同路径数量 为 %d\n", ansA);
-    printf("记忆化搜索: 机器人能够到达右下角的不同路径数量 为 %d\n", ansB);
-    printf("动态规划: 机器人能够到达右下角的不同路径数量 为 %d\n", ansC);
-    printf("动态规划(空间优化1): 机器人能够到达右下角的不同路径数量 为 %d\n", ansD);
-    printf("动态规划(空间优化2): 机器人能够到达右下角的不同路径数量 为 %d\n", ansE);
+    printf("(暴力递归) 机器人能够到达右下角的不同路径数量 为 %d\n", ansA);
+    printf("(记忆化搜索) 机器人能够到达右下角的不同路径数量 为 %d\n", ansB);
+    printf("(动态规划) 机器人能够到达右下角的不同路径数量 为 %d\n", ansC);
+    printf("(动态规划[空间优化1]) 机器人能够到达右下角的不同路径数量 为 %d\n", ansD);
+    printf("(动态规划[空间优化2]) 机器人能够到达右下角的不同路径数量 为 %d\n", ansE);
     FreeVec2D(vec1, r1);
 }
 

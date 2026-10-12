@@ -34,10 +34,10 @@ int main()
     int len = (int)(sizeof(arr) / sizeof(arr[0]));
     char **vec = GenerateRandomStringVecUnfixed(l, 1, 10, arr, len);
     PrintStringVec(vec, m);
-    printf("暴力递归: 最大子集的长度 为 %d\n", FindMaxForm_A(vec, l, m, n));
-    printf("记忆化搜索: 最大子集的长度 为 %d\n", FindMaxForm_B(vec, l, m, n));
-    printf("动态规划: 最大子集的长度 为 %d\n", FindMaxForm_C(vec, l, m, n));
-    printf("动态规划(空间优化): 最大子集的长度 为 %d\n", FindMaxForm_D(vec, l, m, n));
+    printf("(暴力递归) 最大子集的长度 为 %d\n", FindMaxForm_A(vec, l, m, n));
+    printf("(记忆化搜索) 最大子集的长度 为 %d\n", FindMaxForm_B(vec, l, m, n));
+    printf("(动态规划) 最大子集的长度 为 %d\n", FindMaxForm_C(vec, l, m, n));
+    printf("(动态规划[空间优化]) 最大子集的长度 为 %d\n", FindMaxForm_D(vec, l, m, n));
 }
 
 int FindMaxForm_A(char **strs, int strsSize, int m, int n)

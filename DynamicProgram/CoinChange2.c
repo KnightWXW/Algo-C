@@ -43,9 +43,9 @@ int main()
     int ans1A = CoinChange1_A(coins, n, amount);
     int ans1B = CoinChange1_B(coins, n, amount);
     int ans1C = CoinChange1_C(coins, n, amount);
-    printf("暴力递归: 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1A);
-    printf("记忆化搜索: 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1B);
-    printf("动态规划: 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1C);
+    printf("(暴力递归) 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1A);
+    printf("(记忆化搜索) 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1B);
+    printf("(动态规划) 可以凑成总金额为 %d 的硬币组合数为 %d。\n", amount, ans1C);
 }
 
 int CoinChange2_A(int *coins, int coinsSize, int amount)

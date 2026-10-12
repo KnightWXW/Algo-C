@@ -60,13 +60,13 @@ int main()
     vec1[2][2] = -5;
     PrintVecElement2D(vec1, r1, c1);
     int ans1 = CalculateMinimumHP_A((int **)vec1, r1, &c1);
-    printf("(暴力递归)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans1);
+    printf("(暴力递归) 确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans1);
     int ans2 = CalculateMinimumHP_B((int **)vec1, r1, &c1);
-    printf("(记忆化搜索)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans2);
+    printf("(记忆化搜索) 确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans2);
     int ans3 = CalculateMinimumHP_C((int **)vec1, r1, &c1);
-    printf("(动态规划)确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans3);
+    printf("(动态规划) 确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans3);
     int ans4 = CalculateMinimumHP_D((int **)vec1, r1, &c1);
-    printf("(动态规划[空间优化])确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans4);
+    printf("(动态规划[空间优化]) 确保骑士能够拯救到公主所需的最低初始健康点数为：%d。\n", ans4);
     FreeVec2D(vec1, r1);
 }
 

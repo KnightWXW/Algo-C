@@ -41,11 +41,11 @@ int main()
     int ansC = MinimumDeleteSum_C(s1, s2);
     int ansD = MinimumDeleteSum_D(s1, s2);
     int ansE = MinimumDeleteSum_E(s1, s2);
-    printf("暴力递归: 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansA);
-    printf("记忆化搜索: 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansB);
-    printf("动态规划: 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansC);
-    printf("动态规划(空间优化1): 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansD);
-    printf("动态规划(空间优化2): 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansE);
+    printf("(暴力递归) 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansA);
+    printf("(记忆化搜索) 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansB);
+    printf("(动态规划) 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansC);
+    printf("(动态规划[空间优化1]) 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansD);
+    printf("(动态规划[空间优化2]) 使两个字符串相等所需删除字符的 ASCII 值的最小和 为 %d\n", ansE);
     FreeString(s1);
     FreeString(s2);
 }

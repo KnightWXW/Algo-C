@@ -27,8 +27,8 @@ int main()
     int ansA = FindNumberOfLIS_A(vec, n);
     int ansB = FindNumberOfLIS_B(vec, n);
     int ansC = FindNumberOfLIS_C(vec, n);
-    printf("暴力递归: 最长递增子序列的个数 为 %d\n", ansA);
-    printf("记忆化搜索: 最长递增子序列的个数 为 %d\n", ansB);
-    printf("动态规划: 最长递增子序列的个数 为 %d\n", ansC);
+    printf("(暴力递归) 最长递增子序列的个数 为 %d\n", ansA);
+    printf("(记忆化搜索) 最长递增子序列的个数 为 %d\n", ansB);
+    printf("(动态规划) 最长递增子序列的个数 为 %d\n", ansC);
     FreeVec(vec);
 }

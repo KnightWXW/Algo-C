@@ -30,11 +30,11 @@ int main()
     bool ans1A = CanPartition_A(nums, n);
     bool ans1B = CanPartition_B(nums, n);
     bool ans1C = CanPartition_C(nums, n);
-    printf("暴力递归: 是否可以分割等和子集?\n");
+    printf("(暴力递归) 是否可以分割等和子集?\n");
     PrintBool(ans1A);
-    printf("记忆化搜索: 是否可以分割等和子集?\n");
+    printf("(记忆化搜索) 是否可以分割等和子集?\n");
     PrintBool(ans1B);
-    printf("动态规划: 是否可以分割等和子集?\n");
+    printf("(动态规划) 是否可以分割等和子集?\n");
     PrintBool(ans1C);
     FreeVec(nums);
 }

@@ -22,9 +22,9 @@ int main()
     PrintVecElement(value, n);
     printf("物品的重量数组为:");
     PrintVecElement(weight, n);
-    printf("暴力递归: 0-1 背包的最大价值为 %d \n", ansA);
-    printf("记忆化搜索: 0-1 背包的最大价值为 %d \n", ansB);
-    printf("动态规划: 0-1 背包的最大价值为 %d \n", ansC);
+    printf("(暴力递归) 0-1 背包的最大价值为 %d \n", ansA);
+    printf("(记忆化搜索) 0-1 背包的最大价值为 %d \n", ansB);
+    printf("(动态规划) 0-1 背包的最大价值为 %d \n", ansC);
     FreeVec(value);
     FreeVec(weight);
 }

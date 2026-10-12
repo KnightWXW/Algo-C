@@ -39,11 +39,11 @@ int main()
     int ansC = CanJump2_C(nums, n);
     int ansD = CanJump2_D(nums, n);
     int ansE = CanJump2_E(nums, n);
-    printf("暴力递归: 跳到最后一个位置的最小跳跃数 为 %d \n", ansA);
-    printf("记忆化搜索: 跳到最后一个位置的最小跳跃数 为 %d \n", ansB);
-    printf("动态规划: 跳到最后一个位置的最小跳跃数 为 %d \n", ansC);
-    printf("贪心(正向): 跳到最后一个位置的最小跳跃数 为 %d \n", ansD);
-    printf("贪心(反向): 跳到最后一个位置的最小跳跃数 为 %d \n", ansE);
+    printf("(暴力递归) 跳到最后一个位置的最小跳跃数 为 %d \n", ansA);
+    printf("(记忆化搜索) 跳到最后一个位置的最小跳跃数 为 %d \n", ansB);
+    printf("(动态规划) 跳到最后一个位置的最小跳跃数 为 %d \n", ansC);
+    printf("(贪心[正向]) 跳到最后一个位置的最小跳跃数 为 %d \n", ansD);
+    printf("(贪心[反向]) 跳到最后一个位置的最小跳跃数 为 %d \n", ansE);
     FreeVec(nums);
 }
 

@@ -60,11 +60,11 @@ int main()
     int ansC = MaximalSquare_C(vec1, r1, &c1);
     int ansD = MaximalSquare_D(vec1, r1, &c1);
     int ansE = MaximalSquare_E(vec1, r1, &c1);
-    printf("暴力递归: 只包含 '1' 的最大正方形 的面积 为 %d\n", ansA);
-    printf("记忆化搜索: 只包含 '1' 的最大正方形 的面积  为 %d\n", ansB);
-    printf("动态规划: 只包含 '1' 的最大正方形 的面积  为 %d\n", ansC);
-    printf("动态规划(空间优化1): 只包含 '1' 的最大正方形 的面积  为 %d\n", ansD);
-    printf("动态规划(空间优化2): 只包含 '1' 的最大正方形 的面积  为 %d\n", ansE);
+    printf("(暴力递归) 只包含 '1' 的最大正方形 的面积 为 %d\n", ansA);
+    printf("(记忆化搜索) 只包含 '1' 的最大正方形 的面积  为 %d\n", ansB);
+    printf("(动态规划) 只包含 '1' 的最大正方形 的面积  为 %d\n", ansC);
+    printf("(动态规划[空间优化1]) 只包含 '1' 的最大正方形 的面积  为 %d\n", ansD);
+    printf("(动态规划[空间优化2]) 只包含 '1' 的最大正方形 的面积  为 %d\n", ansE);
     FreeVec2D(vec1, r1);
 }
 

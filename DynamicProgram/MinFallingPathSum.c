@@ -55,11 +55,11 @@ int main()
     int ansC = MinFallingPathSum_C(vec1, r1, &c1);
     int ansD = MinFallingPathSum_D(vec1, r1, &c1);
     int ansE = MinFallingPathSum_E(vec1, r1, &c1);
-    printf("暴力递归: 矩阵的下降路径最小和 为 %d\n", ansA);
-    printf("记忆化搜索: 矩阵的下降路径最小和 为 %d\n", ansB);
-    printf("动态规划: 矩阵的下降路径最小和 为 %d\n", ansC);
-    printf("动态规划(空间优化1): 矩阵的下降路径最小和 为 %d\n", ansD);
-    printf("动态规划(空间优化2): 矩阵的下降路径最小和 为 %d\n", ansE);
+    printf("(暴力递归) 矩阵的下降路径最小和 为 %d\n", ansA);
+    printf("(记忆化搜索) 矩阵的下降路径最小和 为 %d\n", ansB);
+    printf("(动态规划) 矩阵的下降路径最小和 为 %d\n", ansC);
+    printf("(动态规划[空间优化1]) 矩阵的下降路径最小和 为 %d\n", ansD);
+    printf("(动态规划[空间优化2]) 矩阵的下降路径最小和 为 %d\n", ansE);
     FreeVec2D(vec1, r1);
 }
 

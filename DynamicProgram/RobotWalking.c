@@ -27,10 +27,11 @@ int main()
     int ansB = RobotWalking_B(n, cur, cnt, end);
     int ansC = RobotWalking_C(n, cur, cnt, end);
     int ansD = RobotWalking_D(n, cur, cnt, end);
-    printf("暴力递归: %d\n", ansA);           // 13
-    printf("记忆化搜索: %d\n", ansB);         // 13
-    printf("动态规划: %d\n", ansC);           // 13
-    printf("动态规划(空间优化): %d\n", ansD); // 13
+    printf("共 %d 个位置, 机器人 从 %d 开始走 %d 步, 到达 %d 的位置:\n", n, cur, cnt, end);
+    printf("(暴力递归) 机器人行走的方法数 为 %d\n", ansA);           // 13
+    printf("(记忆化搜索) 机器人行走的方法数 为 %d\n", ansB);         // 13
+    printf("(动态规划) 机器人行走的方法数 为 %d\n", ansC);           // 13
+    printf("(动态规划[空间优化]): 机器人行走的方法数 为 %d\n", ansD);  // 13
 }
 
 // 暴力递归：

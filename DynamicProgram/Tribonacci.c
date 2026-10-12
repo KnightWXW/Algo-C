@@ -29,10 +29,10 @@ int Tribonacci_D(int n);
 int main()
 {
     int num = GenerateRandomNum(0, 37);
-    printf("暴力递归: 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_A(num));
-    printf("记忆化搜索: 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_B(num));
-    printf("动态规划: 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_C(num));
-    printf("动态规划(空间优化): 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_D(num));
+    printf("(暴力递归) 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_A(num));
+    printf("(记忆化搜索) 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_B(num));
+    printf("(动态规划) 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_C(num));
+    printf("(动态规划[空间优化]): 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_D(num));
     //printf("矩阵快速幂: 第 %d 个 泰波那契数 为 %d\n", num, Tribonacci_E(num));
 }
 

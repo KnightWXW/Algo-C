@@ -47,10 +47,10 @@ int main()
     int ansB = LongestCommonSubsequence_B(s1, s2);
     int ansC = LongestCommonSubsequence_C(s1, s2);
     int ansD = LongestCommonSubsequence_D(s1, s2);
-    printf("暴力递归: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansA);
-    printf("记忆化搜索: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansB);
-    printf("动态规划: 字符串 中 最长公共子序列 的 长度 为 %d\n", ansC);
-    printf("动态规划(空间优化): 字符串 中 最长公共子序列 的 长度 为 %d\n", ansD);
+    printf("(暴力递归) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansA);
+    printf("(记忆化搜索) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansB);
+    printf("(动态规划) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansC);
+    printf("(动态规划[空间优化]) 字符串 中 最长公共子序列 的 长度 为 %d\n", ansD);
     FreeVec(s1);
     FreeVec(s2);
 }

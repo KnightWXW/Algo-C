@@ -38,11 +38,11 @@ int main()
     bool bA1 = WordBreak_A(s1, arr1, n1);
     bool bB1 = WordBreak_B(s1, arr1, n1);
     bool bC1 = WordBreak_C(s1, arr1, n1);
-    printf("暴力递归: 单词拆分 结果 为 \n");
+    printf("(暴力递归) 单词拆分 结果 为 \n");
     PrintBool(bA1);
-    printf("记忆化搜索: 单词拆分 结果 为 \n");
+    printf("(记忆化搜索) 单词拆分 结果 为 \n");
     PrintBool(bB1);
-    printf("动态规划: 单词拆分 结果 为 \n");
+    printf("(动态规划) 单词拆分 结果 为 \n");
     PrintBool(bC1);
 
     char s2[] = "applepenapple";
@@ -51,11 +51,11 @@ int main()
     bool bA2 = WordBreak_A(s2, arr2, n2);
     bool bB2 = WordBreak_B(s2, arr2, n2);
     bool bC2 = WordBreak_C(s2, arr2, n2);
-    printf("暴力递归: 单词拆分 结果 为 \n");
+    printf("(暴力递归) 单词拆分 结果 为 \n");
     PrintBool(bA2);
-    printf("记忆化搜索: 单词拆分 结果 为 \n");
+    printf("(记忆化搜索) 单词拆分 结果 为 \n");
     PrintBool(bB2);
-    printf("动态规划: 单词拆分 结果 为 \n");
+    printf("(动态规划) 单词拆分 结果 为 \n");
     PrintBool(bC2);
 
     char s3[] = "catsandog";

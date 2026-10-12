@@ -11,12 +11,12 @@ int SplitNumber_A(int n);
 
 int main()
 {
-    int num = generateRandomNum(1, 100);
-    printf("暴力递归: %d 的裂开方法数 为 %d\n", num, SplitNumber_A(num));
-    printf("记忆化搜索: %d 的裂开方法数 为 %d\n", num, SplitNumber_B(num));
-    printf("动态规划: %d 的裂开方法数 为 %d\n", num, SplitNumber_C(num));
-    printf("动态规划(空间优化): %d 的裂开方法数 为 %d\n", num, SplitNumber_D(num));
-    printf("矩阵快速幂: %d 的裂开方法数 为 %d\n", num, SplitNumber_E(num));
+    int num = GenerateRandomNum(1, 100);
+    printf("(暴力递归) %d 的裂开方法数 为 %d\n", num, SplitNumber_A(num));
+    printf("(记忆化搜索) %d 的裂开方法数 为 %d\n", num, SplitNumber_B(num));
+    printf("(动态规划) %d 的裂开方法数 为 %d\n", num, SplitNumber_C(num));
+    printf("(动态规划[空间优化]): %d 的裂开方法数 为 %d\n", num, SplitNumber_D(num));
+    printf("(矩阵快速幂) %d 的裂开方法数 为 %d\n", num, SplitNumber_E(num));
 }
 
 int SplitNumber_A(int n)

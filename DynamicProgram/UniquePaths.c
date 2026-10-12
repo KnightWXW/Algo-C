@@ -42,11 +42,11 @@ int main()
 {
     int m = GenerateRandomNum(0, 10);
     int n = GenerateRandomNum(0, 9);
-    printf("暴力递归: %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_A(m, n));
-    printf("记忆化搜索: %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_B(m, n));
-    printf("动态规划: %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_C(m, n));
-    printf("动态规划(空间优化): %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_D(m, n));
-    printf("数学公式: %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_E(m, n));
+    printf("(暴力递归) %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_A(m, n));
+    printf("(记忆化搜索) %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_B(m, n));
+    printf("(动态规划) %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_C(m, n));
+    printf("(动态规划[空间优化]) %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_D(m, n));
+    printf("(数学公式) %d x %d 网格 共有 %d 条不同路径\n", m, n, UniquePaths_E(m, n));
 }
 
 // 暴力递归：

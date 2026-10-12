@@ -36,9 +36,9 @@ int main()
     int ansA = LengthOfLIS_A(nums, n);
     int ansB = LengthOfLIS_B(nums, n);
     int ansC = LengthOfLIS_C(nums, n);
-    printf("(暴力递归)最长递增子序列 长度 为 %d \n", ansA);
-    printf("(记忆化搜索)最长递增子序列 长度 为 %d \n", ansB);
-    printf("(动态规划)最长递增子序列 长度 为 %d \n", ansC);
+    printf("(暴力递归) 最长递增子序列 长度 为 %d \n", ansA);
+    printf("(记忆化搜索) 最长递增子序列 长度 为 %d \n", ansB);
+    printf("(动态规划) 最长递增子序列 长度 为 %d \n", ansC);
     FreeVec(nums);
 }
 
