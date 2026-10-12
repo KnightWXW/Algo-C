@@ -33,11 +33,11 @@ int main()
     int ansC = LongestCommonSubstring_C(s1, s2);
     int ansD = LongestCommonSubstring_D(s1, s2);
     int ansE = LongestCommonSubstring_E(s1, s2);
-    printf("暴力递归: 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
-    printf("记忆化搜索: 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
-    printf("动态规划: 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
-    printf("动态规划(空间优化1): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
-    printf("动态规划(空间优化2): 字符串 中 最长公共子串 的 长度 为 %d\n", ansE);
+    printf("(暴力递归) 字符串 中 最长公共子串 的 长度 为 %d\n", ansA);
+    printf("(记忆化搜索) 字符串 中 最长公共子串 的 长度 为 %d\n", ansB);
+    printf("(动态规划) 字符串 中 最长公共子串 的 长度 为 %d\n", ansC);
+    printf("(动态规划[空间优化1]): 字符串 中 最长公共子串 的 长度 为 %d\n", ansD);
+    printf("(动态规划[空间优化2]): 字符串 中 最长公共子串 的 长度 为 %d\n", ansE);
     FreeString(s1);
     FreeString(s2);
 }

@@ -73,6 +73,9 @@ int Compare2DInt(const void *a, const void *b)
     return tema[0] - temb[0];
 }
 
+// 贪心
+// Time: O(NlogN)
+// Space: O(1)
 int PerfectAnswerCollection_A(int questionCount, int **people, int row, int *col)
 {
     qsort(people, row, sizeof(int *), Compare2DInt);
