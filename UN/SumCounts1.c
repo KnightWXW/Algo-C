@@ -33,3 +33,18 @@
 //          1 <= nums[i] <= 100
 
 int SumCounts1(int* nums, int numsSize);
+
+int main()
+{
+    int n = GenerateRandomNum(1, 10);
+    int *nums = GenerateRandomVec(1, 10, n);
+    PrintVecElement(nums, n);
+    int ans_A = SumCounts1(nums, n);
+    printf("所有子数组的 不同计数 的 平方 和 为 %d\n", ans_A);
+    FreeVec(nums);
+}
+
+int SumCounts1(int* nums, int numsSize)
+{
+    
+}

@@ -45,7 +45,6 @@ int main()
     FreeVec(vec);
 }
 
-
 int* PancakeSort(int* arr, int arrSize, int* returnSize)
 {
 
